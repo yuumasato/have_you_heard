@@ -1,0 +1,29 @@
+import 'package:flutter/material.dart';
+import 'package:have_you_heard/router/parser.dart';
+import 'package:provider/provider.dart';
+
+import 'game_state.dart';
+
+void main() {
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => HyhState()),
+          ChangeNotifierProvider(create: (context) => GameState()),
+        ],
+        child: const Hyh(),
+      )
+  );
+  }
+
+class Hyh extends StatelessWidget {
+  const Hyh({Key? key}): super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+        onGenerateRoute: HyHRouter.generateRoute,
+        initialRoute: '/splash'
+
+    );
+  }
+}
