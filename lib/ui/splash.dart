@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../game_state.dart';
-var isVisible = false;
 
 
 class SplashScreen extends StatefulWidget {
@@ -18,6 +17,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  var isVisible = false;
+
   @override
   initState() {
     super.initState();
@@ -27,11 +28,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   startTime() async {
     var duration = const Duration(seconds: 4);
-    return Timer(duration, showLang());
+    return Timer(duration, showLang);
   }
 
   showLang() {
-     isVisible = !isVisible;
+    setState(() {
+      isVisible = !isVisible;
+    });
   }
 
 
