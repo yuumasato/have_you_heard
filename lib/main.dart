@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:have_you_heard/router/parser.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
+import 'constants/locale_string.dart';
 import 'game_state.dart';
 
 void main() {
@@ -20,7 +22,9 @@ class Hyh extends StatelessWidget {
   const Hyh({Key? key}): super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return GetMaterialApp(
+        translations: LocalString(),
+        locale: Locale('pt','BR'),
         onGenerateRoute: HyHRouter.generateRoute,
         initialRoute: '/splash'
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 import 'package:have_you_heard/game_state.dart';
 import 'package:have_you_heard/ui/room.dart';
@@ -85,7 +86,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         Provider.of<HyhState>(context, listen: false).roomID = int.parse(roomID);
                         Navigator.pushNamed(context, RoomScreen.routeName, arguments: roomID);
                       },
-                      child: const Text('Entrar')),
+                      child: Text('entrar'.tr)),
                 ],
               ),
               ElevatedButton(
@@ -95,7 +96,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                     String roomID = Provider.of<HyhState>(context, listen: false).roomID.toString();
                     Navigator.pushNamed(context, RoomScreen.routeName, arguments: roomID);
                   },
-                  child: const Text('Criar sala privada')),
+                  child: Text('criarSala'.tr)),
             ],
           ),
         ),
