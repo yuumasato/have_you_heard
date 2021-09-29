@@ -20,6 +20,8 @@ class _RoomScreenState extends State<RoomScreen> {
   @override
   Widget build(BuildContext context) {
     final roomID = ModalRoute.of(context)!.settings.arguments as String;
+    var screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(body: SafeArea(
       child: Consumer<GameState>(
         builder: (context, gameState, child) {
@@ -50,55 +52,31 @@ class _RoomScreenState extends State<RoomScreen> {
                   ),
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(),
-                    flex: 1,
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const Text(
-                            "Aguardando jogadores...",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          for (var player in gameState.allPlayers)
-                            buildPlayerButton(player),
-                        ]),
-                  ),
-                  Expanded(
-                    child: Container(),
-                    flex: 1,
-                  ),
-                ],
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      "Aguardando jogadores...",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    for (var player in gameState.allPlayers)
+                      buildPlayerButton(player),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(),
-                    flex: 1,
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: kPinkButton,
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/vote-persona');
-                        },
-                        child: const Text('Iniciar jogo')),
-                  ),
-                  Expanded(
-                    child: Container(),
-                    flex: 1,
-                  ),
-                ],
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: kPinkButton,
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/vote-persona');
+                    },
+                    child: const Text('Iniciar jogo')),
               ),
             ],
           );
