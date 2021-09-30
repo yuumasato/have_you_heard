@@ -28,7 +28,8 @@ class Hyh extends StatelessWidget {
         ),
         translations: LocalString(),
         locale: Locale('pt', 'BR'),
-        onGenerateRoute: HyHRouter.generateRoute,
-        initialRoute: '/splash');
+        initialRoute: '/splash',
+        getPages: getHyhRoutes() ,
+    );
   }
 }

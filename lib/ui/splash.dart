@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import 'lobby.dart';
 import '../game_state.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   static const routeName = '/splash';
+  static const route = '/splash';
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -39,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
   route() {
-    Navigator.pushReplacementNamed(context, '/lobby');
+    Get.offNamed(LobbyScreen.routeName);
   }
 
   @override

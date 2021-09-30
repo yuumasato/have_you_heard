@@ -1,11 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'show_news.dart';
+
 
 class DescPersonaScreen extends StatefulWidget {
   const DescPersonaScreen({Key? key}) : super(key: key);
 
   static const routeName = '/desc-persona';
+  static const route = '/desc-persona';
 
   @override
   _DescPersonaScreenState createState() => _DescPersonaScreenState();
@@ -25,7 +30,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
   }
 
   route() {
-    Navigator.pushReplacementNamed(context, '/question');
+    Get.offNamed(ShowNewsScreen.route);
   }
 
   @override

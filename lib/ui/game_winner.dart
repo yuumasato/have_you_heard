@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../game_state.dart';
@@ -11,6 +12,7 @@ class GameWinnerScreen extends StatefulWidget {
   const GameWinnerScreen({Key? key}) : super(key: key);
 
   static const routeName = '/game-winner';
+  static const route = '/game-winner';
 
   @override
   _GameWinnerScreenState createState() => _GameWinnerScreenState();
@@ -41,11 +43,11 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                       // Reinstate a new Game State
                       Provider.of<GameState>(context, listen:false).reset();
                       int roomID = Provider.of<HyhState>(context, listen:false).roomID;
-                      Navigator.pushReplacementNamed(context, RoomScreen.routeName, arguments: roomID.toString());
+                      Get.offAllNamed("${RoomScreen.route}/$roomID");
                     },
                     child: const Text('Jogar Novamente')),
                 TextButton(
-                    onPressed: () => Navigator.pushReplacementNamed(context, LobbyScreen.routeName),
+                    onPressed: () => Get.offAllNamed(LobbyScreen.route),
                     child: const Text('Finalizar partida'))
               ],
             ));

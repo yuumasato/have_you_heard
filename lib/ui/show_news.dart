@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../game_state.dart';
@@ -7,7 +8,8 @@ import 'vote_answer.dart';
 class ShowNewsScreen extends StatefulWidget {
   const ShowNewsScreen({Key? key}) : super(key: key);
 
-  static const routeName = '/question';
+  static const routeName = '/show-news';
+  static const route = '/show-news';
 
   @override
   _ShowNewsScreenState createState() => _ShowNewsScreenState();
@@ -37,7 +39,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, VoteAnswerScreen.routeName);
+                        Get.offNamed(VoteAnswerScreen.route);
                       },
                       child: const Text('Enviar')),
                 ],

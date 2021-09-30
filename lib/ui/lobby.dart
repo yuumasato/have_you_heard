@@ -10,6 +10,7 @@ class LobbyScreen extends StatefulWidget {
   const LobbyScreen({Key? key}) : super(key: key);
 
   static const routeName = '/lobby';
+  static const route = '/lobby';
 
   @override
   _LobbyScreenState createState() => _LobbyScreenState();
@@ -84,7 +85,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                       onPressed: () {
                         String roomID = myController.text;
                         Provider.of<HyhState>(context, listen: false).roomID = int.parse(roomID);
-                        Navigator.pushNamed(context, RoomScreen.routeName, arguments: roomID);
+                        Get.toNamed("${RoomScreen.route}/$roomID");
                       },
                       child: Text('entrar'.tr)),
                 ],
@@ -94,7 +95,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                     // Requisitar ao servidor criação de nova sala
                     // TODO: criar GameState e passar pra RoomScreen
                     String roomID = Provider.of<HyhState>(context, listen: false).roomID.toString();
-                    Navigator.pushNamed(context, RoomScreen.routeName, arguments: roomID);
+                    Get.toNamed("${RoomScreen.route}/$roomID");
                   },
                   child: Text('criarSala'.tr)),
             ],

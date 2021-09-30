@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../ui/correct_news.dart';
 import '../ui/desc_persona.dart';
@@ -11,37 +11,17 @@ import '../ui/splash.dart';
 import '../ui/vote_answer.dart';
 import '../ui/vote_persona.dart';
 
-class HyHRouter {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case SplashScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const SplashScreen());
-      case LobbyScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const LobbyScreen());
-      case RoomScreen.routeName:
-        return MaterialPageRoute(settings: settings, builder: (_) => const RoomScreen());
-      case VotePersonaScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const VotePersonaScreen());
-      case DescPersonaScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const DescPersonaScreen());
-      case ShowNewsScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const ShowNewsScreen());
-      case VoteAnswerScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const VoteAnswerScreen());
-      case RoundWinnerScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const RoundWinnerScreen());
-      case CorrectNewsScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const CorrectNewsScreen());
-      case GameWinnerScreen.routeName:
-        return MaterialPageRoute(builder: (_) => const GameWinnerScreen());
-      default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(
-              child: Text('No route defined for ${settings.name}'),
-            )
-          )
-        );
-    }
-  }
+List<GetPage> getHyhRoutes() {
+  return [
+    GetPage(name: SplashScreen.routeName,      page: () => const SplashScreen(),      ),
+    GetPage(name: LobbyScreen.routeName,       page: () => const LobbyScreen(),       ),
+    GetPage(name: RoomScreen.routeName,        page: () => const RoomScreen(),        ),
+    GetPage(name: VotePersonaScreen.routeName, page: () => const VotePersonaScreen(), ),
+    GetPage(name: DescPersonaScreen.routeName, page: () => const DescPersonaScreen(), ),
+    GetPage(name: ShowNewsScreen.routeName,    page: () => const ShowNewsScreen(),    ),
+    GetPage(name: VoteAnswerScreen.routeName,  page: () => const VoteAnswerScreen(),  ),
+    GetPage(name: RoundWinnerScreen.routeName, page: () => const RoundWinnerScreen(), ),
+    GetPage(name: CorrectNewsScreen.routeName, page: () => const CorrectNewsScreen(), ),
+    GetPage(name: GameWinnerScreen.routeName,  page: () => const GameWinnerScreen(),  ),
+  ];
 }
