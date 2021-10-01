@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+import 'package:have_you_heard/controller/game_controller.dart';
 
-import '../game_state.dart';
 import 'lobby.dart';
 import 'room.dart';
 
@@ -31,6 +30,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
   }
 
   route() async {
+    final GameController gc = Get.find();
     await showDialog(
         context: context,
         builder: (_) =>
@@ -41,13 +41,16 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                 ElevatedButton(
                     onPressed: () {
                       // Reinstate a new Game State
-                      Provider.of<GameState>(context, listen:false).reset();
-                      int roomID = Provider.of<HyhState>(context, listen:false).roomID;
+                      gc.reset();
+                      int roomID = gc.roomID;
                       Get.offAllNamed("${RoomScreen.route}/$roomID");
                     },
                     child: const Text('Jogar Novamente')),
                 TextButton(
-                    onPressed: () => Get.offAllNamed(LobbyScreen.route),
+                    onPressed: () {
+                      gc.reset();
+                      Get.offAllNamed(LobbyScreen.route);
+                    },
                     child: const Text('Finalizar partida'))
               ],
             ));
@@ -55,20 +58,17 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final GameController gc = Get.find();
     return Scaffold(
         body: SafeArea(
-          child: Consumer<GameState>(
-            builder:(context, gameState, child) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text('Ranking'),
-                  const Text('Nickname 4\nVencedor!'),
-                  for (var player in gameState.allPlayers) buildPlayerButton(player),
-                ],
-              );
-            },
-          ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Ranking'),
+                const Text('Nickname 4\nVencedor!'),
+                for (var player in gc.game.allPlayers) buildPlayerButton(player),
+              ],
+            )
         )
     );
   }

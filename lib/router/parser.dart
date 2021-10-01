@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:have_you_heard/controller/game_controller.dart';
 
 import '../ui/correct_news.dart';
 import '../ui/desc_persona.dart';
@@ -24,4 +25,8 @@ List<GetPage> getHyhRoutes() {
     GetPage(name: CorrectNewsScreen.routeName, page: () => const CorrectNewsScreen(), ),
     GetPage(name: GameWinnerScreen.routeName,  page: () => const GameWinnerScreen(),  ),
   ];
+}
+
+void getHyhBindings () {
+      Get.put<GameController>(GameController(), permanent: true);
 }
