@@ -66,13 +66,14 @@ class _LobbyScreenState extends State<LobbyScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
+                margin: EdgeInsets.only(bottom:20),
                 height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
                 color: kBackgroundDarkGray,
                 alignment: Alignment.center,
                 child: const Text(
                   'Escolha seu modo de jogo',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
               Consumer<HyhState> (
@@ -100,10 +101,20 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             child: TextField(
                                 controller: myController,
                                 decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
                                   labelText: 'Insira o código da sala',
-                                  labelStyle: TextStyle(fontSize: 16, color: Colors.white),
-                                ))),
+                                  labelStyle: TextStyle(fontSize: 16, color: Colors.white,fontWeight: FontWeight.w300),
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  focusColor: Colors.red,
+                                  focusedBorder:OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.white, width: 2.0),
+                                  ),
+                                ),
+                              style: const TextStyle(color: Colors.white, decoration: TextDecoration.none),
+                            ),
+                        ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(primary:kYellowButton),
                             onPressed: () {
