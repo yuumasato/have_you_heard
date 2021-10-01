@@ -106,7 +106,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(primary:kYellowButton),
-                            nPressed: () {
+                            onPressed: () {
                               String roomID = myController.text;
                               Provider.of<HyhState>(context, listen: false).roomID = int.parse(roomID);
                               Get.toNamed("${RoomScreen.route}/$roomID");
