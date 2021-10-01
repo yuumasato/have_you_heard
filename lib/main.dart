@@ -23,13 +23,16 @@ class Hyh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        theme: ThemeData.dark().copyWith(
+      theme: ThemeData.dark().copyWith(
           scaffoldBackgroundColor: kBackgroundDarkestGray,
-        ),
-        translations: LocalString(),
-        locale: Locale('pt', 'BR'),
-        initialRoute: '/splash',
-        getPages: getHyhRoutes() ,
+          colorScheme: const ColorScheme.dark(
+            primary: kYellowButton,
+            surface: kBackgroundDarkestGray,
+          )),
+      translations: LocalString(),
+      locale: Locale('pt', 'BR'),
+      initialRoute: '/splash',
+      getPages: getHyhRoutes(),
     );
   }
 }
