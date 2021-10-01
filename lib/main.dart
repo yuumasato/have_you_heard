@@ -27,7 +27,6 @@ class Hyh extends StatelessWidget {
         locale: Locale('pt','BR'),
         onGenerateRoute: HyHRouter.generateRoute,
         initialRoute: '/splash'
-
     );
   }
 }
