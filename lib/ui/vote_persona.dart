@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'desc_persona.dart';
 
 class VotePersonaScreen extends StatefulWidget {
   const VotePersonaScreen({Key? key}) : super(key: key);
 
   static const routeName = '/vote-persona';
+  static const route = '/vote-persona';
 
   @override
   _VotePersonaScreenState createState() => _VotePersonaScreenState();
@@ -45,7 +49,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
             )),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/desc-persona');
+                  Get.offNamed(DescPersonaScreen.route);
                 },
                 child: const Text('Votar')),
           ],

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'correct_news.dart';
 
@@ -8,6 +9,7 @@ class RoundWinnerScreen extends StatefulWidget {
   const RoundWinnerScreen({Key? key}) : super(key: key);
 
   static const routeName = '/round-winner';
+  static const route = '/round-winner';
 
   @override
   _RoundWinnerScreenState createState() => _RoundWinnerScreenState();
@@ -26,7 +28,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
   }
 
   route() {
-    Navigator.pushReplacementNamed(context, CorrectNewsScreen.routeName);
+    Get.offNamed(CorrectNewsScreen.routeName);
   }
   @override
   Widget build(BuildContext context) {

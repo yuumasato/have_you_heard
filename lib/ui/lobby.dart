@@ -11,6 +11,7 @@ class LobbyScreen extends StatefulWidget {
   const LobbyScreen({Key? key}) : super(key: key);
 
   static const routeName = '/lobby';
+  static const route = '/lobby';
 
   @override
   _LobbyScreenState createState() => _LobbyScreenState();
@@ -59,8 +60,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
         return false;
       },
       child: Scaffold(
-        backgroundColor: kBackgroundDarkestGray,
-        appBar: appBar,
+      appBar: appBar,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -106,12 +106,10 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         ),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(primary:kYellowButton),
-                            onPressed: () {
+                            nPressed: () {
                               String roomID = myController.text;
-                              Provider.of<HyhState>(context, listen: false).roomID =
-                                  int.parse(roomID);
-                              Navigator.pushNamed(context, RoomScreen.routeName,
-                                  arguments: roomID);
+                              Provider.of<HyhState>(context, listen: false).roomID = int.parse(roomID);
+                              Get.toNamed("${RoomScreen.route}/$roomID");
                             },
                             child:
                             Text(
@@ -151,12 +149,8 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         onPressed: () {
                           // Requisitar ao servidor criação de nova sala
                           // TODO: criar GameState e passar pra RoomScreen
-                          String roomID =
-                          Provider.of<HyhState>(context, listen: false)
-                              .roomID
-                              .toString();
-                          Navigator.pushNamed(context, RoomScreen.routeName,
-                              arguments: roomID);
+                          String roomID = Provider.of<HyhState>(context, listen: false).roomID.toString();
+                          Get.toNamed("${RoomScreen.route}/$roomID");
                         },
                         child:
                         Text(

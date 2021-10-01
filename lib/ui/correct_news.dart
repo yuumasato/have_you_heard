@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../game_state.dart';
@@ -11,6 +12,7 @@ class CorrectNewsScreen extends StatefulWidget {
   const CorrectNewsScreen({Key? key}) : super(key: key);
 
   static const routeName = '/correct-news';
+  static const route = '/correct-news';
 
   @override
   _CorrectNewsScreenState createState() => _CorrectNewsScreenState();
@@ -32,9 +34,9 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
     GameState gameState = Provider.of<GameState>(context, listen:false);
     gameState.bumpRound();
     if (gameState.roundIndex < 3) {
-      Navigator.pushReplacementNamed(context, ShowNewsScreen.routeName);
+      Get.offNamed(ShowNewsScreen.routeName);
     } else {
-      Navigator.pushReplacementNamed(context, GameWinnerScreen.routeName);
+      Get.offNamed(GameWinnerScreen.routeName);
     }
   }
 

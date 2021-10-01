@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'round_winner.dart';
 
 class VoteAnswerScreen extends StatefulWidget {
   const VoteAnswerScreen({Key? key}) : super(key: key);
 
   static const routeName = '/input-answer';
+  static const route = '/input-answer';
 
   @override
   _VoteAnswerScreenState createState() => _VoteAnswerScreenState();
@@ -48,6 +51,6 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
   }
   void sendVote() {
     // Socket send vote
-    Navigator.pushReplacementNamed(context, RoundWinnerScreen.routeName);
+    Get.offNamed(RoundWinnerScreen.routeName);
   }
 }

@@ -2,15 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../game_state.dart';
+import 'vote_persona.dart';
 
 class RoomScreen extends StatefulWidget {
   const RoomScreen({Key? key}) : super(key: key);
 
-  static const routeName = '/room';
+  static const routeName = '/room/:roomID';
+  static const route = '/room';
 
   @override
   _RoomScreenState createState() => _RoomScreenState();
@@ -19,7 +22,7 @@ class RoomScreen extends StatefulWidget {
 class _RoomScreenState extends State<RoomScreen> {
   @override
   Widget build(BuildContext context) {
-    final roomID = ModalRoute.of(context)!.settings.arguments as String;
+    final roomID = Get.parameters['roomID'];
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(body: SafeArea(
@@ -74,7 +77,7 @@ class _RoomScreenState extends State<RoomScreen> {
                       primary: kPinkButton,
                     ),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/vote-persona');
+                      Get.offNamed(VotePersonaScreen.route);
                     },
                     child: const Text('Iniciar jogo')),
               ),
