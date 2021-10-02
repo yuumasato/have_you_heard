@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:have_you_heard/constants/colors.dart';
 import 'package:get/get.dart';
 
 import 'desc_persona.dart';
@@ -14,44 +16,109 @@ class VotePersonaScreen extends StatefulWidget {
 }
 
 class _VotePersonaScreenState extends State<VotePersonaScreen> {
-  final List<String> allPersona = [
-    'Antivax',
-    'Bonosaro',
-    'Eron Must',
-    'Lulo',
-    'Salvio',
-    'Tia do zap',
-    'Tump',
-    'Vegan',
-    'Aleatório'
-  ];
+  Map<String, String> get allPersona => {
+        'Antivax': 'assets/images/Antivax.svg',
+        'Bonosaro': 'assets/images/Bonosaro.svg',
+        'Eron Must': 'assets/images/EronMust.svg',
+        'Lulo': 'assets/images/Lulo.svg',
+        'Salvio': 'assets/images/Salvio.svg',
+        'Tia do zap': 'assets/images/TiaDoZap.svg',
+        'Tump': 'assets/images/Tump.svg',
+        'Vegan': 'assets/images/Antivax.svg',
+        'Aleatório': 'assets/images/Random.svg'
+      };
 
-  Widget buildPersonaTile (String persona) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Center(child: Text(persona)),
+  Widget buildPersonaTile(String persona) {
+    return Card(
+      color: Colors.transparent,
+      elevation: 0,
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: const [
+            Icon(Icons.info_outline, size: 20),
+          ],
+        ),
+        Image(
+          image: Svg((allPersona[persona])!, size: Size(63, 79)),
+        ),
+        Container(
+          padding: EdgeInsets.all(4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                persona,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(6),
+            color: kBackgroundDarkGray,
+          ),
+        ),
+      ]),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var appBarHeight = AppBar().preferredSize.height;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kBackgroundDarkestGray,
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text('Votação de personagens'),
-            Expanded(child:
-            GridView.count(
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 3,
-              children: [ for (var persona in allPersona) buildPersonaTile(persona) ],
-            )),
-            ElevatedButton(
+            Container(
+              margin: const EdgeInsets.only(bottom: 20),
+              height: 45,
+              color: kBackgroundDarkGray,
+              alignment: Alignment.center,
+              child: const Text(
+                'Votação de personagens',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            ),
+            Flexible(
+              child: Container(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 1.4),
+                  children: [
+                    for (var persona in allPersona.keys)
+                      buildPersonaTile(persona),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                  left: screenWidth * 0.1,
+                  right: screenWidth * 0.1,
+                  bottom: appBarHeight * 0.5),
+              child: ElevatedButton(
                 onPressed: () {
                   Get.offNamed(DescPersonaScreen.route);
                 },
-                child: const Text('Votar')),
+                style: ElevatedButton.styleFrom(
+                  primary: kPinkButton,
+                ),
+                child: const Text(
+                  'Votar',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ),
+            ),
           ],
         ),
       ),
