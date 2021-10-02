@@ -4,9 +4,8 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
-import 'package:provider/provider.dart';
+import 'package:have_you_heard/controller/game_controller.dart';
 
-import '../game_state.dart';
 import 'vote_persona.dart';
 
 class RoomScreen extends StatefulWidget {
@@ -22,13 +21,12 @@ class RoomScreen extends StatefulWidget {
 class _RoomScreenState extends State<RoomScreen> {
   @override
   Widget build(BuildContext context) {
+    final GameController gc = Get.find();
     final roomID = Get.parameters['roomID'];
     var screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(body: SafeArea(
-      child: Consumer<GameState>(
-        builder: (context, gameState, child) {
-          return Column(
+      child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -65,7 +63,7 @@ class _RoomScreenState extends State<RoomScreen> {
                       "Aguardando jogadores...",
                       style: TextStyle(color: Colors.white),
                     ),
-                    for (var player in gameState.allPlayers)
+                    for (var player in gc.game.allPlayers)
                       buildPlayerButton(player),
                   ],
                 ),
@@ -82,9 +80,7 @@ class _RoomScreenState extends State<RoomScreen> {
                     child: const Text('Iniciar jogo')),
               ),
             ],
-          );
-        },
-      ),
+          )
     ));
   }
 

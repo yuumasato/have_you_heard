@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
+import 'package:have_you_heard/controller/game_controller.dart';
 
-import '../game_state.dart';
 import 'game_winner.dart';
 import 'show_news.dart';
 
@@ -31,12 +30,12 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
   }
 
   route() {
-    GameState gameState = Provider.of<GameState>(context, listen:false);
-    gameState.bumpRound();
-    if (gameState.roundIndex < 3) {
-      Get.offNamed(ShowNewsScreen.routeName);
-    } else {
+    final GameController gc = Get.find();
+    gc.nextRound();
+    if (gc.isGameFinished()) {
       Get.offNamed(GameWinnerScreen.routeName);
+    } else {
+      Get.offNamed(ShowNewsScreen.routeName);
     }
   }
 

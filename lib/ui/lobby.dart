@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
+import 'package:have_you_heard/controller/game_controller.dart';
 
-import 'package:have_you_heard/game_state.dart';
 import 'package:have_you_heard/ui/room.dart';
-import 'package:provider/provider.dart';
 
 class LobbyScreen extends StatefulWidget {
   const LobbyScreen({Key? key}) : super(key: key);
@@ -37,6 +36,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final GameController gc = Get.find();
     final screenHeight = MediaQuery.of(context).size.height;
     final appBarHeight = appBar.preferredSize.height;
     final statusBarHeight = MediaQuery.of(context).padding.top;
@@ -108,7 +108,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             style: ElevatedButton.styleFrom(primary:kYellowButton),
                             onPressed: () {
                               String roomID = myController.text;
-                              Provider.of<HyhState>(context, listen: false).roomID = int.parse(roomID);
+                              gc.roomID = int.parse(roomID);
                               Get.toNamed("${RoomScreen.route}/$roomID");
                             },
                             child:
@@ -149,7 +149,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         onPressed: () {
                           // Requisitar ao servidor criação de nova sala
                           // TODO: criar GameState e passar pra RoomScreen
-                          String roomID = Provider.of<HyhState>(context, listen: false).roomID.toString();
+                          String roomID = gc.roomID.toString();
                           Get.toNamed("${RoomScreen.route}/$roomID");
                         },
                         child:

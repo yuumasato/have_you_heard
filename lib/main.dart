@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/router/parser.dart';
-import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 
 import 'constants/locale_string.dart';
-import 'game_state.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => HyhState()),
-      ChangeNotifierProvider(create: (context) => GameState()),
-    ],
-    child: const Hyh(),
-  ));
+  runApp(const Hyh());
 }
 
 class Hyh extends StatelessWidget {
@@ -32,6 +24,7 @@ class Hyh extends StatelessWidget {
       translations: LocalString(),
       locale: Locale('pt', 'BR'),
       initialRoute: '/splash',
+      initialBinding: BindingsBuilder(getHyhBindings),
       getPages: getHyhRoutes(),
     );
   }
