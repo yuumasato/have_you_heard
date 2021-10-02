@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -47,8 +48,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final query = MediaQuery.of(context);
     final size = query.size;
-    final itemWidth = size.width;
-    final itemHeight = itemWidth * (size.width / size.height);
+    final logoWidth = size.width;
+    final logoHeight = logoWidth * (size.width / size.height);
     return Scaffold(
         body: SafeArea(
             child: Column(
@@ -56,10 +57,16 @@ class _SplashScreenState extends State<SplashScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Have you heard?'),
-                  Image.asset('assets/images/logo.png',
-                  width: itemWidth, height: itemHeight),
+                  Container(
+                      height: logoHeight,
+                      width: size.width,
+                      child: SvgPicture.asset('assets/images/logo.svg')
+                  ),
                   Visibility(
                     visible: isVisible,
+                    maintainAnimation: true,
+                    maintainSize: true,
+                    maintainState: true,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
