@@ -6,6 +6,7 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
 import 'package:have_you_heard/ui/room.dart';
+import 'package:have_you_heard/ui/settings.dart';
 
 class LobbyScreen extends StatefulWidget {
   const LobbyScreen({Key? key}) : super(key: key);
@@ -19,9 +20,17 @@ class LobbyScreen extends StatefulWidget {
 
 class _LobbyScreenState extends State<LobbyScreen> {
   final myController = TextEditingController();
+
   final appBar = AppBar(
     backgroundColor: kBackgroundDarkestGray,
     automaticallyImplyLeading: false,
+    actions: [
+      IconButton(
+        icon: Icon(Icons.settings_outlined),
+      onPressed: () {
+          Get.toNamed(SettingsScreen.route);
+      }),
+    ]
   );
 
   @override
@@ -71,8 +80,8 @@ class _LobbyScreenState extends State<LobbyScreen> {
                 height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
                 color: kBackgroundDarkGray,
                 alignment: Alignment.center,
-                child: const Text(
-                  'Escolha seu modo de jogo',
+                child: Text(
+                  'Escolha seu modo de jogo, ${gc.username}!',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
