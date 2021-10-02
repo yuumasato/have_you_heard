@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
@@ -165,9 +166,10 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   child: Container(
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/images/full_landscape.png"),
-                        fit: BoxFit.cover,
-                        alignment: Alignment.topCenter,
+                        image: Svg("assets/images/full_landscape.svg",
+                            size: Size(375, 182)),
+                        fit: BoxFit.contain,
+                        alignment: Alignment.bottomCenter,
                       ),
                     ),
                   ),
