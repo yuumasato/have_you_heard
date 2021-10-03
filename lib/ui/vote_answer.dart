@@ -58,18 +58,20 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
               child: Container(
                 alignment: Alignment.bottomCenter,
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
-                child: const ChatBalloon(
-                  balloonHeader: Text(
-                    'Você ouviu que ...',
-                    style: TextStyle(
-                      height: 1.5,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  balloonText: Text(
-                    'Lorem ipsum dolor sit amet, consectetur _____ elit ut aliquam, purus sit amet luctus venenatis, lectus',
-                    style: TextStyle(height: 1.5, fontSize: 16),
+                child: ChatBalloon(
+                  balloonHeader: const Text(
+                      'Você ouviu que ...',
+                      style: TextStyle(height: 1.5, fontSize: 16, fontWeight: FontWeight.bold)),
+                  balloonText: RichText(
+                      text: const TextSpan(
+                          text: 'Lorem ipsum dolor sit amet, consectetur _____ '
+                              'elit ut aliquam, purus sit amet luctus '
+                              'venenatis, lectus',
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              height: 1.5
+                          )
+                      )
                   ),
                 ),
               ),

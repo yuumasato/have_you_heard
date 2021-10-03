@@ -11,7 +11,7 @@ class ChatBalloon extends StatelessWidget {
   }) : super(key: key);
 
   final Text balloonHeader;
-  final Text balloonText;
+  final RichText balloonText;
   final Color color;
 
   @override

@@ -42,15 +42,22 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                 minHeight: AppBar().preferredSize.height * 0.66,
                 color: kPlayer_3,
               ),
-              Text("Escreva sua resposta")
+              const Text("Escreva sua resposta")
             ],
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
             child: ChatBalloon(
               balloonHeader: const Text('Você ouviu que...'),
-              balloonText: Text(
-                  'Lorem ipsum dolor sit amet, consectetur _____ elit ut aliquam, purus sit amet luctus venenatis, lectus'),
+              balloonText: RichText(
+                  text: const TextSpan(
+                      text: 'Lorem ipsum dolor sit amet, consectetur _____ elit ut aliquam, purus sit amet luctus venenatis, lectus',
+                      style: TextStyle(
+                          fontSize: 16.0,
+                          height: 1.5
+                      )
+                  )
+              ),
             ),
           ),
           Container(
