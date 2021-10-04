@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'round_winner.dart';
 
 class VoteAnswerScreen extends StatefulWidget {
@@ -50,25 +51,26 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
                 const Text('Escolha a melhor resposta'),
               ],
             ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: screenWidth * 0.1,
-              ),
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  //TODO: Adicionar imagem de balão
-                  image: Svg("assets/images/full_landscape.svg",
-                      size: Size(300, 150)),
-                  fit: BoxFit.contain,
-                  alignment: Alignment.center,
-                ),
-              ),
-              child: SizedBox(
-                width: screenWidth * 0.8,
-                height: screenWidth * 0.4,
-                child: const Center(
-                  child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur _____ elit ut aliquam, purus sit amet luctus venenatis, lectus'),
+            //TODO: Verificar para diferentes telas
+            SizedBox(
+              height: screenWidth * 0.45,
+              width: screenWidth * 0.8,
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                child: ChatBalloon(
+                  const Text(
+                    'Você ouviu que ...',
+                    style: TextStyle(
+                      height: 1.5,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text(
+                    'Lorem ipsum dolor sit amet, consectetur _____ elit ut aliquam, purus sit amet luctus venenatis, lectus',
+                    style: TextStyle(height: 1.5, fontSize: 16),
+                  ),
                 ),
               ),
             ),
