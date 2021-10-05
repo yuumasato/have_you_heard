@@ -5,6 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/constants/styles.dart';
+import 'package:have_you_heard/widgets/app_button.dart';
+import 'package:have_you_heard/widgets/gray_stripe.dart';
 
 import 'vote_persona.dart';
 
@@ -42,6 +45,7 @@ class _RoomScreenState extends State<RoomScreen> {
     final GameController gc = Get.find();
     final roomID = Get.parameters['roomID'];
     var screenWidth = MediaQuery.of(context).size.width;
+    final appBarHeight = AppBar().preferredSize.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -52,62 +56,42 @@ class _RoomScreenState extends State<RoomScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: AppBar().preferredSize.height * 0.73,
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              alignment: Alignment.center,
-              color: kBackgroundDarkGray,
-              child: const Text(
-                'Sala Privada',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
+            GrayStripe(text: "privateRoom".tr),
+            Center(
               child: Text(
                 '# $roomID',
-                style: const TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    "Aguardando jogadores...",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  for (var index = 0; index < 6; index++)
-                    buildPlayerButton(index),
-                ],
+                style: kRoomNumberStyle,
               ),
             ),
             Container(
               padding: EdgeInsets.only(
-                  bottom: AppBar().preferredSize.height * 0.5,
+                  bottom: appBarHeight * 0.5,
                   left: screenWidth * 0.1,
                   right: screenWidth * 0.1),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    primary: kPinkButton,
-                    fixedSize: Size(screenWidth * 0.8,
-                        AppBar().preferredSize.height * 0.08),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "waitingPlayers".tr,
+                    style: const TextStyle(color: Colors.white),
                   ),
-                  onPressed: () {
-                    Get.offNamed(VotePersonaScreen.route);
-                  },
-                  child: const Text('Iniciar jogo')),
+                  for (var index = 0; index < 6; index++)
+                    buildPlayerButton(index),
+                  SizedBox(height: appBarHeight * 0.67),
+                  AppButton(
+                    color: kPinkButton,
+                    width: screenWidth * 0.8,
+                    onPressed: () {
+                      Get.offNamed(VotePersonaScreen.route);
+                    },
+                    child: Text(
+                      'startGame'.tr,
+                      style: kElevatedButtonTextStyle,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -116,22 +100,22 @@ class _RoomScreenState extends State<RoomScreen> {
   }
 
   Widget buildPlayerButton(int i) {
+    final appBarHeight = AppBar().preferredSize.height;
     return Container(
-      padding:
-          EdgeInsets.symmetric(vertical: AppBar().preferredSize.height * 0.08),
+      padding: EdgeInsets.symmetric(vertical: appBarHeight * 0.08),
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         child: Stack(alignment: AlignmentDirectional.center, children: [
           LinearProgressIndicator(
             value: loadingValues[i],
             color: playerColors[i],
-            minHeight: AppBar().preferredSize.height * 0.66,
+            minHeight: appBarHeight * 0.66,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
                 child: Text(allPlayers[i]),
               ),
               Visibility(
