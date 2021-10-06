@@ -10,6 +10,7 @@ class LocalString extends Translations {
           'privateRoom': 'Sala Privada',
           'waitingPlayers': 'Aguardando jogadores...',
           'startGame': 'Iniciar jogo',
+          'roundWinner': 'Vencedor da Rodada',
         },
         'es_AR': {
           'entrar': 'Entrar',
@@ -17,6 +18,7 @@ class LocalString extends Translations {
           'privateRoom': 'Sala Privada',
           'waitingPlayers': 'Esperando jugadores...',
           'startGame': 'Empezar juego',
+          'roundWinner': 'ganador de la ronda',
         },
       };
 }
