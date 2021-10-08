@@ -58,12 +58,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       controller: controller,
       children: [
         pageBuilder(
-          Text('Você ouviu que...',
+          const Text('Você ouviu que...',
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
-          Text(
-              '"Have you Heard?" É um jogo multiplayer para conscientizar sobre fake news.',
-              style: TextStyle(fontSize: 16.0, height: 1.5)),
+          RichText(
+              text: const TextSpan(
+                  text: '"Have you Heard?" É um jogo multiplayer para conscientizar sobre fake news.',
+                  style: TextStyle(fontSize: 16.0, height: 1.5))),
           Hero(
               tag: 'logo',
               child: Container(
@@ -75,23 +76,34 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       width: mediaWidth / 3))),
         ),
         pageBuilder(
-            Text('Personagem',
+            const Text('Personagem',
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
-            Text(
-                'Coloque-se no papel de um personagem e faça sua melhor imitação.',
-                style: TextStyle(fontSize: 16.0, height: 1.5)),
+            RichText(
+                text: const TextSpan(
+                    text: 'Coloque-se no papel de um personagem e faça sua melhor imitação.',
+                    style: TextStyle(fontSize: 16.0, height: 1.5))),
             SizedBox(
                 height: 300,
                 width: mediaWidth,
                 child: personaStack(personaWidth))),
         pageBuilder(
-            Text('Rodadas',
+            const Text('Rodadas',
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
-            Text(
-                'Seja rápido e convincente para aumentar suas changs de ganhar uma viagem espacial vencer!',
-                style: TextStyle(fontSize: 16.0, height: 1.5)),
+            RichText(
+                text: const TextSpan(
+                    style: TextStyle(fontSize: 16.0, height: 1.5),
+                    children: <TextSpan>[
+                        TextSpan(
+                            text: 'Seja rápido e convincente para aumentar suas chances de '),
+                        TextSpan(
+                            text: 'ganhar uma viagem espacial',
+                            style: TextStyle(
+                                decoration: TextDecoration.lineThrough)),
+                        TextSpan(
+                            text: ' vencer!')
+                    ])),
             Stack(clipBehavior: Clip.none, children: [
               SizedBox(
                   width: mediaWidth,
@@ -107,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           onPressed: () {
                             Get.toNamed(UserNameScreen.route);
                           },
-                          child: Text(
+                          child: const Text(
                             'Continuar',
                           ))))
             ])),
@@ -155,8 +167,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ]);
   }
 
-  Widget pageBuilder(
-      Text balloonHeader, Text balloonText, Widget illustration) {
+  Widget pageBuilder(Text balloonHeader, RichText balloonText, Widget illustration) {
     final query = MediaQuery.of(context);
     final size = query.size;
     final mediaHeight = size.height;
