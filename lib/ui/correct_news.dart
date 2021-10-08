@@ -107,21 +107,23 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: kYellowButton))),
-                      const ChatBalloon(
+                      ChatBalloon(
                           color: Colors.white,
-                          balloonHeader: Text('Você ouviu que ...',
+                          balloonHeader: const Text('Você ouviu que ...',
                               style: TextStyle(
                                   height: 1.5,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: kBackgroundDarkestGray)),
-                          balloonText: Text(
-                              'Lorem ipsum dolor sit amet, consectetur {RESPOSTA X} '
-                              'elit ut aliquam, purus sit amet luctus venenatis, lectus',
-                              style: TextStyle(
-                                  height: 1.5,
-                                  fontSize: 16,
-                                  color: kBackgroundDarkestGray))),
+                          balloonText: RichText(
+                              text: const TextSpan(
+                                  text:
+                                      'Lorem ipsum dolor sit amet, consectetur {RESPOSTA X} '
+                                      'elit ut aliquam, purus sit amet luctus venenatis, lectus',
+                                  style: TextStyle(
+                                      height: 1.5,
+                                      fontSize: 16,
+                                      color: kBackgroundDarkestGray)))),
                       Image(
                         alignment: Alignment.centerRight,
                         fit: BoxFit.contain,
