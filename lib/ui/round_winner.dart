@@ -96,7 +96,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                     ),
                   ),
                   ChatBalloon(
-                    const Text(
+                    balloonHeader: Text(
                       'Você ouviu que ...',
                       style: TextStyle(
                         height: 1.5,
@@ -104,7 +104,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text(
+                    balloonText: Text(
                       'Lorem ipsum dolor sit amet, consectetur {RESPOSTA X} '
                       'elit ut aliquam, purus sit amet luctus venenatis, lectus',
                       style: TextStyle(height: 1.5, fontSize: 16),
