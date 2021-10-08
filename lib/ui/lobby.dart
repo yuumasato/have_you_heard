@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
-import 'package:have_you_heard/ui/room.dart';
 import 'package:have_you_heard/ui/settings.dart';
 
 class LobbyScreen extends StatefulWidget {
@@ -36,6 +35,9 @@ class _LobbyScreenState extends State<LobbyScreen> {
   @override
   void initState() {
     super.initState();
+
+    final GameController gc = Get.find();
+    gc.initUser();
   }
 
   @override
@@ -117,9 +119,8 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(primary:kYellowButton),
                             onPressed: () {
-                              String roomID = myController.text;
-                              gc.roomID = int.parse(roomID);
-                              Get.toNamed("${RoomScreen.route}/$roomID");
+                              gc.roomID = int.parse(myController.text);
+                              gc.joinRoom(gc.roomID);
                             },
                             child:
                             Text(
@@ -158,9 +159,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                       style: ElevatedButton.styleFrom(primary:kYellowButton),
                         onPressed: () {
                           // Requisitar ao servidor criação de nova sala
-                          // TODO: criar GameState e passar pra RoomScreen
-                          String roomID = gc.roomID.toString();
-                          Get.toNamed("${RoomScreen.route}/$roomID");
+                          gc.createRoom();
                         },
                         child:
                         Text(

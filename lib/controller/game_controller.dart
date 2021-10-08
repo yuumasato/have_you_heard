@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class GameController extends GetxController {
   int roomID = 42069;
+  String userID = 'not_set';
+
   Game game = Game();
   Socket socket = Socket();
 
@@ -52,4 +54,15 @@ class GameController extends GetxController {
     }
   }
 
+  void initUser() {
+    socket.initUser(this.username);
+  }
+
+  void createRoom() {
+    socket.createRoom();
+  }
+
+  void joinRoom(int roomID) {
+    socket.joinRoom(roomID);
+  }
 }
