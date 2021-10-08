@@ -51,7 +51,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final logoHeight = mediaWidth * (mediaWidth / mediaHeight);
     final mediaTopPadding = query.padding.top;
     final mediaViewHeight = mediaHeight - mediaTopPadding;
-    final personaWidth = mediaWidth/8;
+    final personaWidth = mediaWidth / 8;
     final PageController controller = PageController(initialPage: 0);
     return PageView(
       scrollDirection: Axis.horizontal,
@@ -60,17 +60,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         pageBuilder(
           Text('Você ouviu que...',
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                  height: 1.5)),
-          Text('"Have you Heard?" É um jogo multiplayer para conscientizar sobre fake news.',
-              style: TextStyle(
-                  fontSize: 16.0, height: 1.5)),
+                  fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
+          Text(
+              '"Have you Heard?" É um jogo multiplayer para conscientizar sobre fake news.',
+              style: TextStyle(fontSize: 16.0, height: 1.5)),
           Hero(
               tag: 'logo',
               child: Container(
-                  margin: EdgeInsets.symmetric(
-                      vertical: 0, horizontal: 47),
+                  margin: EdgeInsets.symmetric(vertical: 0, horizontal: 47),
                   alignment: Alignment.topRight,
                   height: logoHeight,
                   width: size.width,
@@ -80,51 +77,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         pageBuilder(
             Text('Personagem',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    height: 1.5)),
-            Text('Coloque-se no papel de um personagem e faça sua melhor imitação.',
-                style: TextStyle(
-                    fontSize: 16.0, height: 1.5)),
+                    fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
+            Text(
+                'Coloque-se no papel de um personagem e faça sua melhor imitação.',
+                style: TextStyle(fontSize: 16.0, height: 1.5)),
             SizedBox(
                 height: 300,
                 width: mediaWidth,
-                child: personaStack(personaWidth)
-            )),
+                child: personaStack(personaWidth))),
         pageBuilder(
             Text('Rodadas',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                    height: 1.5)
-            ),
-            Text('Seja rápido e convincente para aumentar suas changs de ganhar uma viagem espacial vencer!',
-                style: TextStyle(
-                    fontSize: 16.0, height: 1.5)
-            ),
-            Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  SizedBox(
-                      width: mediaWidth,
-                      child: SvgPicture.asset('assets/images/carWithLulo.svg', width: size.width)
-                  ),
-                  Positioned(
-                      bottom: -15.0,
-                      left: mediaWidth/2 - mediaWidth/6,
-                      child: SizedBox(
-                          width: mediaWidth/3,
-                          height: 48,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                Get.toNamed(UserNameScreen.route);
-                              },
-                              child: Text('Continuar',)
-                          ))
-                  )
-                ]
-            )
-        ),
+                    fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
+            Text(
+                'Seja rápido e convincente para aumentar suas changs de ganhar uma viagem espacial vencer!',
+                style: TextStyle(fontSize: 16.0, height: 1.5)),
+            Stack(clipBehavior: Clip.none, children: [
+              SizedBox(
+                  width: mediaWidth,
+                  child: SvgPicture.asset('assets/images/carWithLulo.svg',
+                      width: size.width)),
+              Positioned(
+                  bottom: -15.0,
+                  left: mediaWidth / 2 - mediaWidth / 6,
+                  child: SizedBox(
+                      width: mediaWidth / 3,
+                      height: 48,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Get.toNamed(UserNameScreen.route);
+                          },
+                          child: Text(
+                            'Continuar',
+                          ))))
+            ])),
       ],
     );
   }
@@ -133,52 +119,44 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final spacingFactor = 1.25;
     final personaRenderWidth = bodySpacing * spacingFactor;
     final leftOffset = 5.0;
-    return Stack(
-        children: [
-          Positioned(
-              left: -leftOffset,
-              child: SvgPicture.asset(
-                  'assets/images/bodySalvio.svg',
-                  width: personaRenderWidth)),
-          Positioned(
-              left: bodySpacing - leftOffset,
-              child: SvgPicture.asset(
-                  'assets/images/bodyLulo.svg',
-                  width: personaRenderWidth)),
-          Positioned(
-              left: bodySpacing*2 - leftOffset,
-              child: SvgPicture.asset(
-                  'assets/images/bodyAntivax.svg',
-                  width: personaRenderWidth)),
-          Positioned(
-              left: bodySpacing*3 - leftOffset,
-              child: SvgPicture.asset(
-                  'assets/images/bodyVegan.svg',
-                  width: personaRenderWidth)),
-          Positioned(
-              left: bodySpacing*4 - leftOffset,
-              child: SvgPicture.asset(
-                  'assets/images/bodyTump.svg',
-                  width: personaRenderWidth)),
-          Positioned(
-              left: bodySpacing*5 - leftOffset,
-              child: SvgPicture.asset(
-                  'assets/images/bodyBonosaro.svg',
-                  width: personaRenderWidth)),
-          Positioned(
-              left: bodySpacing*6 - leftOffset,
-              child: SvgPicture.asset(
-                  'assets/images/bodyEronMust.svg',
-                  width: personaRenderWidth)),
-          Positioned(
-              left: bodySpacing*7 - leftOffset,
-              child: SvgPicture.asset('assets/images/bodyTiaDoZap.svg',
-                  width: personaRenderWidth)),
-        ]
-    );
+    return Stack(children: [
+      Positioned(
+          left: -leftOffset,
+          child: SvgPicture.asset('assets/images/bodySalvio.svg',
+              width: personaRenderWidth)),
+      Positioned(
+          left: bodySpacing - leftOffset,
+          child: SvgPicture.asset('assets/images/bodyLulo.svg',
+              width: personaRenderWidth)),
+      Positioned(
+          left: bodySpacing * 2 - leftOffset,
+          child: SvgPicture.asset('assets/images/bodyAntivax.svg',
+              width: personaRenderWidth)),
+      Positioned(
+          left: bodySpacing * 3 - leftOffset,
+          child: SvgPicture.asset('assets/images/bodyVegan.svg',
+              width: personaRenderWidth)),
+      Positioned(
+          left: bodySpacing * 4 - leftOffset,
+          child: SvgPicture.asset('assets/images/bodyTump.svg',
+              width: personaRenderWidth)),
+      Positioned(
+          left: bodySpacing * 5 - leftOffset,
+          child: SvgPicture.asset('assets/images/bodyBonosaro.svg',
+              width: personaRenderWidth)),
+      Positioned(
+          left: bodySpacing * 6 - leftOffset,
+          child: SvgPicture.asset('assets/images/bodyEronMust.svg',
+              width: personaRenderWidth)),
+      Positioned(
+          left: bodySpacing * 7 - leftOffset,
+          child: SvgPicture.asset('assets/images/bodyTiaDoZap.svg',
+              width: personaRenderWidth)),
+    ]);
   }
 
-  Widget pageBuilder(Text balloonHeader, Text balloonText, Widget illustration) {
+  Widget pageBuilder(
+      Text balloonHeader, Text balloonText, Widget illustration) {
     final query = MediaQuery.of(context);
     final size = query.size;
     final mediaHeight = size.height;
@@ -188,21 +166,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
         body: SafeArea(
             child: Column(
-              children: [
-                Container(
-                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 47),
-                    height: (mediaViewHeight) / 2,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ChatBalloon(
-                        balloonHeader,
-                        balloonText,
-                      ),
-                    )
-                ),
-                illustration
-              ],
-            )));
+      children: [
+        Container(
+            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 47),
+            height: (mediaViewHeight) / 2,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: ChatBalloon(
+                balloonHeader: balloonHeader,
+                balloonText: balloonText,
+              ),
+            )),
+        illustration
+      ],
+    )));
   }
 }
-

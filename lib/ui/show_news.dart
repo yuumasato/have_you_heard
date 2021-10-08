@@ -48,8 +48,8 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
           Container(
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
             child: ChatBalloon(
-              const Text('Você ouviu que...'),
-              const Text(
+              balloonHeader: const Text('Você ouviu que...'),
+              balloonText: Text(
                   'Lorem ipsum dolor sit amet, consectetur _____ elit ut aliquam, purus sit amet luctus venenatis, lectus'),
             ),
           ),
