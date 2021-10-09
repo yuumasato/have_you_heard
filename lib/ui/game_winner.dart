@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
-import 'lobby.dart';
 import 'room.dart';
 
 class GameWinnerScreen extends StatefulWidget {
@@ -48,8 +47,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                     child: const Text('Jogar Novamente')),
                 TextButton(
                     onPressed: () {
-                      gc.reset();
-                      Get.offAllNamed(LobbyScreen.route);
+                      gc.exitGame();
                     },
                     child: const Text('Finalizar partida'))
               ],

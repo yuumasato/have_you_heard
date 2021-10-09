@@ -31,6 +31,11 @@ class GameController extends GetxController {
     game.roundIndex = 0;
   }
 
+  void exitGame() {
+    reset();
+    socket.leaveRoom();
+  }
+
   Future<bool> getOnboardedState() async {
     final prefs = await SharedPreferences.getInstance();
     username = prefs.getString('username') ?? 'not_set';

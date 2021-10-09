@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:have_you_heard/ui/lobby.dart';
 import 'package:have_you_heard/ui/room.dart';
 import 'package:socket_io_client/socket_io_client.dart' as sio;
 
@@ -65,5 +66,11 @@ class Socket {
 
   void joinRoom(int roomID) {
     socket.emit('join', roomID);
+  }
+
+  void leaveRoom() {
+    socket.emit('leave');
+    Get.offAllNamed(LobbyScreen.route);
+
   }
 }
