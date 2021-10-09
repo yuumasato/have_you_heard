@@ -57,13 +57,11 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   title: const Text('Sair do jogo?'),
                   actions: [
                     ElevatedButton(
-                        onPressed: () {
-                          SystemNavigator.pop();
-                        },
-                        child: const Text('Sair do jogo')),
-                    TextButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('Continuar jogando'))
+                        child: const Text('Continuar jogando')),
+                    TextButton(
+                        onPressed: () =>SystemNavigator.pop(),
+                        child: const Text('Fechar'))
                   ],
                 ));
         return false;
