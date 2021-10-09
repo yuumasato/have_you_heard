@@ -45,7 +45,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                         onPressed: () {
                           // Reinstate a new Game State
                           gc.reset();
-                          int roomID = gc.roomID;
+                          String roomID = gc.roomID;
                           Get.offAllNamed("${RoomScreen.route}/$roomID");
                         },
                         child: const Text('Jogar Novamente')),
