@@ -66,7 +66,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
               children: [
                 const Text('Ranking'),
                 const Text('Nickname 4\nVencedor!'),
-                for (var player in gc.game.allPlayers) buildPlayerButton(player),
+                for (var player in gc.game.playerList) buildPlayerButton(player),
               ],
             )
         )

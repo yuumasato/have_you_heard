@@ -21,28 +21,23 @@ class RoomScreen extends StatefulWidget {
   _RoomScreenState createState() => _RoomScreenState();
 }
 
-List<String> allPlayers = [
-  'Nickname 1',
-  'Nickname 2',
-  'Nickname 3',
-  'Nickname 4',
-  'Nickname 5',
-  'Nickname 6',
-];
-List<double?> loadingValues = [0, 0.3, 0.5, 0.7, 1, null];
-List<Color> playerColors = [
-  kPlayer_1,
-  kPlayer_2,
-  kPlayer_3,
-  kPlayer_4,
-  kPlayer_5,
-  kPlayer_6
-];
 
 class _RoomScreenState extends State<RoomScreen> {
+
+  final GameController gc = Get.find();
+
+  List<double?> loadingValues = [0.015, 0.3, 0.5, 0.7, 1, null];
+  List<Color> playerColors = [
+    kPlayer_1,
+    kPlayer_2,
+    kPlayer_3,
+    kPlayer_4,
+    kPlayer_5,
+    kPlayer_6
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final GameController gc = Get.find();
     final roomID = Get.parameters['roomID'];
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
@@ -99,7 +94,7 @@ class _RoomScreenState extends State<RoomScreen> {
     );
   }
 
-  Widget buildPlayerButton(int i) {
+  Widget buildPlayerButton(int index) {
     final appBarHeight = AppBar().preferredSize.height;
     return Container(
       padding: EdgeInsets.symmetric(vertical: appBarHeight * 0.08),
@@ -107,8 +102,8 @@ class _RoomScreenState extends State<RoomScreen> {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         child: Stack(alignment: AlignmentDirectional.center, children: [
           LinearProgressIndicator(
-            value: loadingValues[i],
-            color: playerColors[i],
+            value: loadingValues[0],
+            color: playerColors[index],
             minHeight: appBarHeight * 0.66,
           ),
           Row(
@@ -116,14 +111,14 @@ class _RoomScreenState extends State<RoomScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
-                child: Text(allPlayers[i]),
+                child: Obx(() => Text(gc.game.playerList[index]))
               ),
               Visibility(
                 child: const Icon(Icons.check),
                 maintainSize: true,
                 maintainAnimation: true,
                 maintainState: true,
-                visible: loadingValues[i] == 1 ? true : false,
+                visible: loadingValues[0] == 1 ? true : false,
               )
             ],
           ),

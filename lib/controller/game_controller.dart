@@ -65,4 +65,5 @@ class GameController extends GetxController {
   void joinRoom(int roomID) {
     socket.joinRoom(roomID);
   }
+
 }
