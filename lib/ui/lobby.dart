@@ -35,9 +35,6 @@ class _LobbyScreenState extends State<LobbyScreen> {
   @override
   void initState() {
     super.initState();
-
-    final GameController gc = Get.find();
-    gc.initUser();
   }
 
   @override
