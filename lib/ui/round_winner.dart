@@ -56,78 +56,82 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
 
-    return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Stack(
-              alignment: AlignmentDirectional.center,
-              children: [
-                LinearProgressIndicator(
-                  minHeight: AppBar().preferredSize.height * 0.66,
-                  value: barValue,
-                  color: kPlayer_3,
-                ),
-                Text('roundWinner'.tr),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                left: screenWidth * 0.1,
-                right: screenWidth * 0.1,
-                bottom: appBarHeight * 0.5,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+    return WillPopScope(
+      // This is short lived screen, let's block the back button
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(automaticallyImplyLeading: false),
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Stack(
+                alignment: AlignmentDirectional.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.only(bottom: appBarHeight * 0.26),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      "Nome do jogador",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: kYellowButton,
-                      ),
-                    ),
+                  LinearProgressIndicator(
+                    minHeight: AppBar().preferredSize.height * 0.66,
+                    value: barValue,
+                    color: kPlayer_3,
                   ),
-                  ChatBalloon(
-                    balloonHeader: const Text(
-                      'Você ouviu que ...',
-                      style: TextStyle(
-                          height: 1.5,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
-                      )
-                    ),
-                    balloonText: RichText(
-                      text: const TextSpan(
-                          text: 'Lorem ipsum dolor sit amet, consectetur '
-                              '{RESPOSTA X} elit ut aliquam, purus sit amet '
-                              'luctus venenatis, lectus',
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 16
-                          )
-                      )
-                    )
-                  ),
-                  Image(
-                    alignment: Alignment.centerRight,
-                    fit: BoxFit.contain,
-                    image: Svg(
-                      'assets/images/bodyAntivax.svg',
-                      size: Size(screenWidth * 0.30, screenWidth * 0.6),
-                    ),
-                  ),
+                  Text('roundWinner'.tr),
                 ],
               ),
-            )
-          ],
+              Container(
+                padding: EdgeInsets.only(
+                  left: screenWidth * 0.1,
+                  right: screenWidth * 0.1,
+                  bottom: appBarHeight * 0.5,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: appBarHeight * 0.26),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "Nome do jogador",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: kYellowButton,
+                        ),
+                      ),
+                    ),
+                    ChatBalloon(
+                        balloonHeader: const Text(
+                            'Você ouviu que ...',
+                            style: TextStyle(
+                                height: 1.5,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold
+                            )
+                        ),
+                        balloonText: RichText(
+                            text: const TextSpan(
+                                text: 'Lorem ipsum dolor sit amet, consectetur '
+                                    '{RESPOSTA X} elit ut aliquam, purus sit amet '
+                                    'luctus venenatis, lectus',
+                                style: TextStyle(
+                                    height: 1.5,
+                                    fontSize: 16
+                                )
+                            )
+                        )
+                    ),
+                    Image(
+                      alignment: Alignment.centerRight,
+                      fit: BoxFit.contain,
+                      image: Svg(
+                        'assets/images/bodyAntivax.svg',
+                        size: Size(screenWidth * 0.30, screenWidth * 0.6),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

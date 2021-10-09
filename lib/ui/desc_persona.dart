@@ -35,15 +35,19 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: const [
-            Text('Coloque-se no papel de...'),
-            Expanded(
-              child: Text('Descrever personagem'),
-            )
-          ],
+    return WillPopScope(
+      // This is short lived screen, let's block the back button
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: const [
+              Text('Coloque-se no papel de...'),
+              Expanded(
+                child: Text('Descrever personagem'),
+              )
+            ],
+          ),
         ),
       ),
     );

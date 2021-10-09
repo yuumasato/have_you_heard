@@ -7,6 +7,7 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
+import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
 
 import 'vote_persona.dart';
@@ -42,55 +43,59 @@ class _RoomScreenState extends State<RoomScreen> {
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
 
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-      ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            GrayStripe(text: "privateRoom".tr),
-            Center(
-              child: Text(
-                '# $roomID',
-                style: kRoomNumberStyle,
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                  bottom: appBarHeight * 0.5,
-                  left: screenWidth * 0.1,
-                  right: screenWidth * 0.1),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    "waitingPlayers".tr,
-                    style: const TextStyle(color: Colors.white),
+    return GameExitDialog (
+        onElevatedPressed: () => Navigator.of(context).pop(),
+        onPlainPressed: () => gc.exitGame(),
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+          ),
+          body: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                GrayStripe(text: "privateRoom".tr),
+                Center(
+                  child: Text(
+                    '# $roomID',
+                    style: kRoomNumberStyle,
                   ),
-                  for (var index = 0; index < 6; index++)
-                    buildPlayerButton(index),
-                  SizedBox(height: appBarHeight * 0.67),
-                  AppButton(
-                    color: kPinkButton,
-                    width: screenWidth * 0.8,
-                    onPressed: () {
-                      Get.offNamed(VotePersonaScreen.route);
-                    },
-                    child: Text(
-                      'startGame'.tr,
-                      style: kElevatedButtonTextStyle,
-                    ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(
+                      bottom: appBarHeight * 0.5,
+                      left: screenWidth * 0.1,
+                      right: screenWidth * 0.1),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        "waitingPlayers".tr,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      for (var index = 0; index < 6; index++)
+                        buildPlayerButton(index),
+                      SizedBox(height: appBarHeight * 0.67),
+                      AppButton(
+                        color: kPinkButton,
+                        width: screenWidth * 0.8,
+                        onPressed: () {
+                          Get.offNamed(VotePersonaScreen.route);
+                        },
+                        child: Text(
+                          'startGame'.tr,
+                          style: kElevatedButtonTextStyle,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        )
     );
   }
 
@@ -110,8 +115,8 @@ class _RoomScreenState extends State<RoomScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
-                child: Obx(() => Text(gc.game.playerList[index]))
+                  padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
+                  child: Obx(() => Text(gc.game.playerList[index]))
               ),
               Visibility(
                 child: const Icon(Icons.check),
