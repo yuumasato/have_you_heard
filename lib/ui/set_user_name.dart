@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'lobby.dart';
 
 class UserNameScreen extends StatefulWidget {
@@ -97,10 +95,8 @@ class _UserNameScreenState extends State<UserNameScreen> {
                       ElevatedButton(
                           onPressed: () async {
                             String username = myController.text;
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.setString('username', username);
-                            gc.username = username;
-
+                            gc.initUser(username);
+                            gc.saveUser(username);
                             Get.toNamed(LobbyScreen.route);
                           },
                           child:

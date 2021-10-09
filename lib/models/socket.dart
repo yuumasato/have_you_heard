@@ -1,4 +1,11 @@
+import 'dart:convert';
+
+import 'package:get/get.dart';
+import 'package:have_you_heard/ui/lobby.dart';
+import 'package:have_you_heard/ui/room.dart';
 import 'package:socket_io_client/socket_io_client.dart' as sio;
+
+import 'package:have_you_heard/controller/game_controller.dart';
 
 class Socket {
   sio.Socket socket = sio.io('https://my-echo-chat.herokuapp.com',
@@ -16,7 +23,7 @@ class Socket {
     print('Init socket.');
 
     socket.on('chat message', (text) {
-      print('Receiving: ' + text);
+      print('Received: ' + text);
     });
     socket.onConnect((_) {
       print('connected to socket.io');
@@ -24,5 +31,46 @@ class Socket {
     socket.onDisconnect((_) {
       print('disconnected from socket.io');
     });
+    socket.onError((data) {
+      print('socket.io error:');
+      print(data);
+    });
+
+    // We have received our own user id
+    socket.on('user id', (data) {
+      final GameController gc = Get.find();
+      gc.userID = data;
+    });
+
+    // We have just entered a room
+    socket.on('room', (data) {
+      final GameController gc = Get.find();
+      var room = jsonDecode(data);
+      int roomID = int.parse(room['id'].substring(5));
+      gc.roomID = roomID;
+      //TODO Set player data
+      gc.game.setPlayers(room['users'], gc.userID);
+      Get.toNamed("${RoomScreen.route}/$roomID");
+    });
+  }
+
+  void initUser(String username) {
+    socket.emit('user');
+    socket.emit('name', username);
+    //TODO Send the language when the server supports it
+  }
+
+  void createRoom() {
+    socket.emit('new room');
+  }
+
+  void joinRoom(int roomID) {
+    socket.emit('join', roomID);
+  }
+
+  void leaveRoom() {
+    socket.emit('leave');
+    Get.offAllNamed(LobbyScreen.route);
+
   }
 }

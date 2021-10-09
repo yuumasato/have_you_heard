@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
-import 'lobby.dart';
 import 'room.dart';
 
 class GameWinnerScreen extends StatefulWidget {
@@ -33,41 +32,51 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
     final GameController gc = Get.find();
     await showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (_) =>
-            SimpleDialog(
-              title: const Text('Parabéns'),
-              children: <Widget>[
-                Image.asset('assets/images/trophy.png'),
-                ElevatedButton(
-                    onPressed: () {
-                      // Reinstate a new Game State
-                      gc.reset();
-                      int roomID = gc.roomID;
-                      Get.offAllNamed("${RoomScreen.route}/$roomID");
-                    },
-                    child: const Text('Jogar Novamente')),
-                TextButton(
-                    onPressed: () {
-                      gc.reset();
-                      Get.offAllNamed(LobbyScreen.route);
-                    },
-                    child: const Text('Finalizar partida'))
-              ],
-            ));
+            WillPopScope(
+              // A choice must be made in this dialog, let's block the back button
+                onWillPop: () async => false,
+                child: SimpleDialog(
+                  title: const Text('Parabéns'),
+                  children: <Widget>[
+                    Image.asset('assets/images/trophy.png'),
+                    ElevatedButton(
+                        onPressed: () {
+                          // Reinstate a new Game State
+                          gc.reset();
+                          int roomID = gc.roomID;
+                          Get.offAllNamed("${RoomScreen.route}/$roomID");
+                        },
+                        child: const Text('Jogar Novamente')),
+                    TextButton(
+                        onPressed: () {
+                          gc.exitGame();
+                        },
+                        child: const Text('Finalizar partida'))
+                  ],
+                )));
   }
 
   @override
   Widget build(BuildContext context) {
     final GameController gc = Get.find();
-    return Scaffold(
-        body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text('Ranking'),
-                const Text('Nickname 4\nVencedor!'),
-                for (var player in gc.game.allPlayers) buildPlayerButton(player),
-              ],
+    return WillPopScope(
+      // This is short lived screen, let's block the back button
+        onWillPop: () async {
+          startTime();
+          return false;
+        },
+        child: Scaffold(
+            body: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text('Ranking'),
+                    const Text('Nickname 4\nVencedor!'),
+                    for (var player in gc.game.playerList) buildPlayerButton(player),
+                  ],
+                )
             )
         )
     );
