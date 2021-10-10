@@ -60,7 +60,6 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
               ),
               //TODO: Verificar para diferentes telas
               SizedBox(
-                height: screenWidth * 0.45,
                 width: screenWidth * 0.8,
                 child: Container(
                   alignment: Alignment.bottomCenter,
