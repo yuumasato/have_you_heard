@@ -6,7 +6,7 @@ import 'package:have_you_heard/models/socket.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameController extends GetxController {
-  int roomID = 42069;
+  String roomID = '42069';
   Player myPlayer = Player();
 
   Game game = Game();
@@ -76,7 +76,7 @@ class GameController extends GetxController {
     socket.createRoom();
   }
 
-  void joinRoom(int roomID) {
+  void joinRoom(String roomID) {
     socket.joinRoom(roomID);
   }
 

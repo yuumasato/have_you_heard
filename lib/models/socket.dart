@@ -49,7 +49,7 @@ class Socket {
     socket.on('room', (data) {
       final GameController gc = Get.find();
       var room = jsonDecode(data);
-      int roomID = int.parse(room['id'].substring(5));
+      String roomID = room['id'].substring(5);
       gc.roomID = roomID;
 
       gc.game.setPlayers(room['users'], gc.myPlayer);
@@ -65,7 +65,7 @@ class Socket {
     socket.emit('new room');
   }
 
-  void joinRoom(int roomID) {
+  void joinRoom(String roomID) {
     socket.emit('join', roomID);
   }
 

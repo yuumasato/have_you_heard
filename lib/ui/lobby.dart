@@ -118,7 +118,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(primary:kYellowButton),
                             onPressed: () {
-                              gc.roomID = int.parse(myController.text);
+                              gc.roomID = myController.text;
                               gc.joinRoom(gc.roomID);
                             },
                             child:
