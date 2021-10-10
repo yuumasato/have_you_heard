@@ -96,6 +96,10 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             width: 200.0,
                             child: TextField(
                                 controller: myController,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
                                 decoration: const InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey),
