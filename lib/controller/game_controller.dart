@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/models/game.dart';
+import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/models/socket.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameController extends GetxController {
   int roomID = 42069;
-  String userID = 'not_set';
+  Player myPlayer = Player();
 
   Game game = Game();
   Socket socket = Socket();
 
   late bool onBoarded;
-  String username = 'not_set';
   String language = 'not_set';
 
   GameController() {
@@ -38,13 +38,13 @@ class GameController extends GetxController {
 
   Future<bool> getOnboardedState() async {
     final prefs = await SharedPreferences.getInstance();
-    username = prefs.getString('username') ?? 'not_set';
-    language = prefs.getString('locale') ?? 'not_set';
+    var playerName = prefs.getString('username') ?? 'not_set';
+    var language = prefs.getString('locale') ?? 'not_set';
 
-    if (username != 'not_set' && language != 'not_set') {
+    if (playerName != 'not_set' && language != 'not_set') {
       onBoarded = true;
       setLocale(language);
-      socket.initUser(username);
+      setPlayerName(playerName);
       return true;
     } else {
       onBoarded = false;
@@ -62,9 +62,9 @@ class GameController extends GetxController {
     }
   }
 
-  void initUser(String username) {
-    this.username = username;
-    socket.initUser(username);
+  void setPlayerName(String playerName) {
+    myPlayer.name = playerName;
+    socket.initUser(playerName);
   }
 
   void saveUser(String username) async {

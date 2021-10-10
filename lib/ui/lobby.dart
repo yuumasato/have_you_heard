@@ -78,7 +78,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                 color: kBackgroundDarkGray,
                 alignment: Alignment.center,
                 child: Text(
-                  'Escolha seu modo de jogo, ${gc.username}!',
+                  'Escolha seu modo de jogo, ${gc.myPlayer.name}!',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),

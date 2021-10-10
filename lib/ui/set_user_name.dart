@@ -94,9 +94,9 @@ class _UserNameScreenState extends State<UserNameScreen> {
                       ),
                       ElevatedButton(
                           onPressed: () async {
-                            String username = myController.text;
-                            gc.initUser(username);
-                            gc.saveUser(username);
+                            String playerName = myController.text;
+                            gc.setPlayerName(playerName);
+                            gc.saveUser(playerName);
                             Get.toNamed(LobbyScreen.route);
                           },
                           child:

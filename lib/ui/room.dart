@@ -116,7 +116,7 @@ class _RoomScreenState extends State<RoomScreen> {
             children: [
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
-                  child: Obx(() => Text(gc.game.playerList[index]))
+                  child: Obx(() => Text(gc.game.playerList[index].name))
               ),
               Visibility(
                 child: const Icon(Icons.check),
