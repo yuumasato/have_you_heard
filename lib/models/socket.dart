@@ -51,6 +51,7 @@ class Socket {
       var room = jsonDecode(data);
       String roomID = room['id'].substring(5);
       gc.roomID = roomID;
+      gc.game.ownerID.value = room['ownerID'];
 
       gc.game.setPlayers(room['users'], gc.myPlayer);
       Get.toNamed("${RoomScreen.route}/$roomID");
@@ -73,5 +74,9 @@ class Socket {
     socket.emit('leave');
     Get.offAllNamed(LobbyScreen.route);
 
+  }
+
+  void startGame() {
+    socket.emit('start');
   }
 }

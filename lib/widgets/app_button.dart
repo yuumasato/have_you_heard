@@ -12,7 +12,7 @@ class AppButton extends StatelessWidget {
   }) : super(key: key);
 
   final Color color;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Widget child;
   final double width;
 
