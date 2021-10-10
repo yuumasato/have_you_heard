@@ -39,7 +39,10 @@ class Socket {
     // We have received our own user id
     socket.on('user id', (data) {
       final GameController gc = Get.find();
-      gc.userID = data;
+      gc.myPlayer.id = data;
+
+      socket.emit('name', gc.myPlayer.name);
+      //TODO Send the language when the server supports it
     });
 
     // We have just entered a room
@@ -48,16 +51,14 @@ class Socket {
       var room = jsonDecode(data);
       int roomID = int.parse(room['id'].substring(5));
       gc.roomID = roomID;
-      //TODO Set player data
-      gc.game.setPlayers(room['users'], gc.userID);
+
+      gc.game.setPlayers(room['users'], gc.myPlayer);
       Get.toNamed("${RoomScreen.route}/$roomID");
     });
   }
 
   void initUser(String username) {
     socket.emit('user');
-    socket.emit('name', username);
-    //TODO Send the language when the server supports it
   }
 
   void createRoom() {

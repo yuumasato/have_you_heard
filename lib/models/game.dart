@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:get/get.dart';
+import 'package:have_you_heard/models/player.dart';
 
 class Game {
   int roundIndex = 0;
@@ -12,23 +13,23 @@ class Game {
 
   int nPlayers = 0;
   // The list always has a length of 6
-  List<String> playerList = <String>[].obs;
+  List<Player> playerList = <Player>[].obs;
 
   Game();
 
-  void setPlayers(List<dynamic> players, String ownUserID) {
+  void setPlayers(List<dynamic> players, Player myPlayer) {
     nPlayers = players.length;
     playerList.clear();
     for (var index = 0; index < 6; index++) {
-      var userID = 'Jogador ${index + 1}';
+      Player player = Player(name:'Jogador ${index + 1}');
       if (index < nPlayers) {
-        userID = players[index] as String;
+        player = Player.fromJson(players[index]);
       }
-      if (ownUserID == userID) {
+      if (myPlayer.id == player.id) {
         // Always show myself as the first in the list of players
-        playerList.insert(0, userID);
+        playerList.insert(0, player);
       } else {
-        playerList.add(userID);
+        playerList.add(player);
       }
     }
   }
