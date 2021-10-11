@@ -4,7 +4,7 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
-
+import 'package:have_you_heard/widgets/gray_stripe.dart';
 import 'desc_persona.dart';
 
 class VotePersonaScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
     'Salvio': 'assets/images/Salvio.svg',
     'Tia do zap': 'assets/images/TiaDoZap.svg',
     'Tump': 'assets/images/Tump.svg',
-    'Vegan': 'assets/images/Antivax.svg',
+    'Vegan': 'assets/images/Vegan.svg',
     'Aleatório': 'assets/images/Random.svg'
   };
 
@@ -75,7 +75,6 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
         onPlainPressed: () => gc.exitGame(),
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: kBackgroundDarkestGray,
             automaticallyImplyLeading: false,
           ),
           body: SafeArea(
@@ -83,20 +82,10 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  height: 45,
-                  color: kBackgroundDarkGray,
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'Votação de personagens',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ),
+                GrayStripe(text: 'Votação de personagens'),
                 Flexible(
                   child: Container(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    padding: const EdgeInsets.only(left: 30, right: 30, top:30),
                     child: GridView.count(
                       crossAxisCount: 3,
                       childAspectRatio: MediaQuery.of(context).size.width /
