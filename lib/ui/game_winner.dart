@@ -51,7 +51,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
 
   startAnimationTimer() async {
     var duration = const Duration(seconds: 1);
-    return Timer(duration, animationProgressTimer());
+    return Timer(duration, animationProgressTimer);
   }
 
   animationProgressTimer() async {
