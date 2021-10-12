@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(runner LANGUAGES CXX)
 
 set(BINARY_NAME "have_you_heard")
-set(APPLICATION_ID "com.example.have_you_heard")
+set(APPLICATION_ID "com.never_heard.have_you_heard")
 
 cmake_policy(SET CMP0063 NEW)
 
