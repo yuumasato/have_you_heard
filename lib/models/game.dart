@@ -11,18 +11,19 @@ class Game {
     'Pergunta 3',
   ];
 
-  int nPlayers = 0;
+  RxInt nPlayers = 0.obs;
   // The list always has a length of 6
   List<Player> playerList = <Player>[].obs;
+  RxString ownerID = 'not_set'.obs;
 
   Game();
 
   void setPlayers(List<dynamic> players, Player myPlayer) {
-    nPlayers = players.length;
+    nPlayers.value = players.length;
     playerList.clear();
     for (var index = 0; index < 6; index++) {
       Player player = Player(name:'Jogador ${index + 1}');
-      if (index < nPlayers) {
+      if (index < nPlayers.value) {
         player = Player.fromJson(players[index]);
       }
       if (myPlayer.id == player.id) {

@@ -10,8 +10,6 @@ import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
 
-import 'vote_persona.dart';
-
 class RoomScreen extends StatefulWidget {
   const RoomScreen({Key? key}) : super(key: key);
 
@@ -78,17 +76,23 @@ class _RoomScreenState extends State<RoomScreen> {
                       for (var index = 0; index < 6; index++)
                         buildPlayerButton(index),
                       SizedBox(height: appBarHeight * 0.67),
-                      AppButton(
-                        color: kPinkButton,
-                        width: screenWidth * 0.8,
-                        onPressed: () {
-                          Get.offNamed(VotePersonaScreen.route);
-                        },
-                        child: Text(
-                          'startGame'.tr,
-                          style: kElevatedButtonTextStyle,
+                      Obx(() => Visibility(
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        visible: (gc.game.ownerID.value == gc.myPlayer.id) ? true : false,
+                        child: AppButton(
+                          color: kPinkButton,
+                          width: screenWidth * 0.8,
+                          onPressed: (gc.game.nPlayers.value >= 1) ? () {
+                            gc.startGame();
+                          } : null,
+                          child: Text(
+                            'startGame'.tr,
+                            style: kElevatedButtonTextStyle,
+                          ),
                         ),
-                      ),
+                      )),
                     ],
                   ),
                 ),
@@ -118,13 +122,13 @@ class _RoomScreenState extends State<RoomScreen> {
                   padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
                   child: Obx(() => Text(gc.game.playerList[index].name))
               ),
-              Visibility(
-                child: const Icon(Icons.check),
+              Obx(()  => Visibility(
+                child: const Icon(Icons.star_rate_rounded),
                 maintainSize: true,
                 maintainAnimation: true,
                 maintainState: true,
-                visible: loadingValues[0] == 1 ? true : false,
-              )
+                visible: (gc.game.playerList[index].id == gc.game.ownerID.value) ? true : false,
+              )),
             ],
           ),
         ]),
