@@ -21,7 +21,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
   final myController = TextEditingController();
 
   final appBar = AppBar(
-    backgroundColor: kBackgroundDarkestGray,
+    backgroundColor: kGrayScaleDarkest,
     automaticallyImplyLeading: false,
     actions: [
       IconButton(
@@ -75,7 +75,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
               Container(
                 margin: EdgeInsets.only(bottom:20),
                 height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
-                color: kBackgroundDarkGray,
+                color: kGrayScaleMediumDark,
                 alignment: Alignment.center,
                 child: Text(
                   'Escolha seu modo de jogo, ${gc.myPlayer.name}!',
@@ -116,7 +116,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             ),
                         ),
                         ElevatedButton(
-                            style: ElevatedButton.styleFrom(primary:kYellowButton),
+                            style: ElevatedButton.styleFrom(primary:kYellow),
                             onPressed: () {
                               gc.roomID = myController.text;
                               gc.joinRoom(gc.roomID);
@@ -124,7 +124,8 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             child:
                             Text(
                               'entrar'.tr,
-                              style: const TextStyle(fontSize: 16, color: kBackgroundDarkestGray),
+                              style: const TextStyle(
+                                  fontSize: 16, color: kGrayScaleDarkest),
                             )),
                       ],
                     ),
@@ -155,7 +156,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                     ),
 
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary:kYellowButton),
+                      style: ElevatedButton.styleFrom(primary:kYellow),
                         onPressed: () {
                           // Requisitar ao servidor criação de nova sala
                           gc.createRoom();
@@ -163,7 +164,8 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         child:
                         Text(
                           'criarSala'.tr,
-                          style: const TextStyle(fontSize: 16, color: kBackgroundDarkestGray),
+                          style: const TextStyle(
+                              fontSize: 16, color: kGrayScaleDarkest),
                         )),
                   ],
                 ),

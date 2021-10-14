@@ -31,7 +31,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
           title: Text(
             'Rodada ${gc.game.roundIndex + 1}/3',
             style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: kYellowButton),
+                fontSize: 16, fontWeight: FontWeight.bold, color: kYellow),
           ),
           automaticallyImplyLeading: false,
         ),

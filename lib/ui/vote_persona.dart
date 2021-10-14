@@ -59,7 +59,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color: kBackgroundDarkGray,
+            color: kGrayScaleMediumDark,
           ),
         ),
       ]),
@@ -107,7 +107,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
                       Get.offNamed(DescPersonaScreen.route);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: kPinkButton,
+                      primary: kPink,
                     ),
                     child: const Text(
                       'Votar',

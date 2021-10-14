@@ -19,7 +19,7 @@ class UserNameScreen extends StatefulWidget {
 class _UserNameScreenState extends State<UserNameScreen> {
   final myController = TextEditingController();
   final appBar = AppBar(
-    backgroundColor: kBackgroundDarkestGray,
+    backgroundColor: kGrayScaleDarkest,
     automaticallyImplyLeading: false,
   );
 
@@ -49,7 +49,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
             Container(
               margin: EdgeInsets.only(bottom:20),
               height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
-              color: kBackgroundDarkGray,
+              color: kGrayScaleMediumDark,
               alignment: Alignment.center,
               child: const Text(
                 'Escolha seu nome no jogo',
@@ -61,13 +61,12 @@ class _UserNameScreenState extends State<UserNameScreen> {
               height: 38,
             ),
             Expanded(
-              flex:3,
+              flex: 3,
               child: Column(
                 children: [
                   const Text('Como você quer ser chamado?',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18)
-                  ),
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -102,7 +101,8 @@ class _UserNameScreenState extends State<UserNameScreen> {
                           child:
                           Text(
                             'entrar'.tr,
-                            style: const TextStyle(fontSize: 16, color: kBackgroundDarkestGray),
+                            style: const TextStyle(
+                                fontSize: 16, color: kGrayScaleDarkest),
                           )),
                     ],
                   ),

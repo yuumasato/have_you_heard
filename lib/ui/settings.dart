@@ -17,7 +17,7 @@ class SettingsScreen extends StatelessWidget {
     final GameController gc = Get.find();
 
     final appBar = AppBar(
-      backgroundColor: kBackgroundDarkestGray,
+      backgroundColor: kGrayScaleDarkest,
       automaticallyImplyLeading: false,
     );
 
@@ -35,7 +35,7 @@ class SettingsScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(bottom:20),
               height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
-              color: kBackgroundDarkGray,
+              color: kGrayScaleMediumDark,
               alignment: Alignment.center,
               child: Text(
                 'Configurações',

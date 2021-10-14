@@ -91,9 +91,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
             child: SimpleDialog(
               title: const Center(child: Text('Parabéns')),
               titleTextStyle: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: kYellowButton),
+                  fontSize: 24, fontWeight: FontWeight.bold, color: kYellow),
               children: <Widget>[
                 Image.asset('assets/images/trophy.png'),
                 ElevatedButton(
@@ -169,7 +167,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
             value: votesValues[index],
             color: playerColors[index],
             minHeight: appBarHeight * 0.66,
-            backgroundColor: kBackgroundDarkGray,
+            backgroundColor: kGrayScaleMediumDark,
           ),
           Obx(() => Text(gc.game.playerList[index].name)),
         ]),
