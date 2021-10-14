@@ -35,7 +35,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
 
-    return GameExitDialog (
+    return GameExitDialog(
       onElevatedPressed: () => Navigator.of(context).pop(),
       onPlainPressed: () => gc.exitGame(),
       child: Scaffold(
@@ -53,7 +53,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
                   LinearProgressIndicator(
                     minHeight: appBarHeight * 0.73,
                     color: kPlayer_3,
-                    backgroundColor: kBackgroundDarkGray,
+                    backgroundColor: kGrayScaleMediumDark,
                   ),
                   const Text('Escolha a melhor resposta'),
                 ],
@@ -111,7 +111,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
             style: OutlinedButton.styleFrom(
                 side: const BorderSide(
                   width: 2.0,
-                  color: kBackgroundDarkerGray,
+                  color: kGrayScaleDark,
                   style: BorderStyle.solid,
                 ),
                 shape: RoundedRectangleBorder(

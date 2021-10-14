@@ -7,7 +7,7 @@ class ChatBalloon extends StatelessWidget {
     Key? key,
     required this.balloonHeader,
     required this.balloonText,
-    this.color = kBackgroundDarkGray,
+    this.color = kGrayScaleMediumDark,
   }) : super(key: key);
 
   final Text balloonHeader;

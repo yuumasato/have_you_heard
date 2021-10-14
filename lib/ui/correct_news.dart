@@ -75,7 +75,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
           title: Text(
             'Rodada ${gc.game.roundIndex + 1}/3',
             style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: kYellowButton),
+                fontSize: 16, fontWeight: FontWeight.bold, color: kYellow),
           ),
           automaticallyImplyLeading: false,
         ),
@@ -109,7 +109,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: kYellowButton))),
+                                    color: kYellow))),
                         ChatBalloon(
                             color: Colors.white,
                             balloonHeader: const Text('Você ouviu que ...',
@@ -117,7 +117,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                                     height: 1.5,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: kBackgroundDarkestGray)),
+                                    color: kGrayScaleDarkest)),
                             balloonText: RichText(
                                 text: const TextSpan(
                                     text:
@@ -126,7 +126,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                                     style: TextStyle(
                                         height: 1.5,
                                         fontSize: 16,
-                                        color: kBackgroundDarkestGray)))),
+                                        color: kGrayScaleDarkest)))),
                         Image(
                           alignment: Alignment.centerRight,
                           fit: BoxFit.contain,

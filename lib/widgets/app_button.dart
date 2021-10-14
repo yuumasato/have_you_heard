@@ -6,7 +6,7 @@ class AppButton extends StatelessWidget {
   const AppButton({
     Key? key,
     required this.width,
-    this.color = kYellowButton,
+    this.color = kYellow,
     required this.onPressed,
     required this.child,
   }) : super(key: key);

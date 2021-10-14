@@ -16,10 +16,10 @@ class Hyh extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: kBackgroundDarkestGray,
+          scaffoldBackgroundColor: kGrayScaleDarkest,
           colorScheme: const ColorScheme.dark(
-            primary: kYellowButton,
-            surface: kBackgroundDarkestGray,
+            primary: kYellow,
+            surface: kGrayScaleDarkest,
           )),
       translations: LocalString(),
       locale: Locale('pt', 'BR'),

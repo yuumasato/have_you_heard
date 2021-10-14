@@ -94,31 +94,22 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: kYellowButton,
+                          color: kYellow,
                         ),
                       ),
                     ),
                     ChatBalloon(
-                        balloonHeader: const Text(
-                            'Você ouviu que ...',
+                        balloonHeader: const Text('Você ouviu que ...',
                             style: TextStyle(
                                 height: 1.5,
                                 fontSize: 16,
-                                fontWeight: FontWeight.bold
-                            )
-                        ),
+                                fontWeight: FontWeight.bold)),
                         balloonText: RichText(
                             text: const TextSpan(
                                 text: 'Lorem ipsum dolor sit amet, consectetur '
                                     '{RESPOSTA X} elit ut aliquam, purus sit amet '
                                     'luctus venenatis, lectus',
-                                style: TextStyle(
-                                    height: 1.5,
-                                    fontSize: 16
-                                )
-                            )
-                        )
-                    ),
+                                style: TextStyle(height: 1.5, fontSize: 16)))),
                     Image(
                       alignment: Alignment.centerRight,
                       fit: BoxFit.contain,
