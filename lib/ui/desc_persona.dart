@@ -75,7 +75,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                     minHeight: AppBar().preferredSize.height * 0.66,
                     value: barValue,
                     color: kPlayer_3,
-                    backgroundColor: kBackgroundDarkGray,
+                    backgroundColor: kGrayScaleMediumDark,
                   ),
                   Text('Coloque-se no papel de...'),
                 ],
@@ -103,8 +103,9 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                       height: screenWidth * 0.65,
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Color(0xFFF3F6F8),
-                        border: Border.all(width: 4, color: Color(0xFFD6DBE0)),
+                        color: kGrayScaleLight,
+                        border:
+                            Border.all(width: 4, color: kGrayScaleMediumLight),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Column(
@@ -118,7 +119,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                   style: TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
-                                      color: kBackgroundDarkestGray)),
+                                      color: kGrayScaleDarkest)),
                               TextSpan(text: '\n \n'),
                               TextSpan(
                                 text:
@@ -128,6 +129,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                     fontWeight: FontWeight.w400,
                                     height: 1.5,
                                     color: Color(0xFF252C4A)),
+                                //TODO: Only use of this color, need confirmation from Design team
                               ),
                             ])),
                           ),
@@ -144,7 +146,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                                 fontSize: 16,
                                                 height: 1.5,
                                                 fontWeight: FontWeight.bold,
-                                                color: kBackgroundDarkestGray)),
+                                                color: kGrayScaleDarkest)),
                                         TextSpan(
                                             text:
                                                 '• Espontaneidade\n• Alegria\n• Popularidade',
@@ -167,7 +169,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                                 fontSize: 16,
                                                 height: 1.5,
                                                 fontWeight: FontWeight.bold,
-                                                color: kBackgroundDarkestGray)),
+                                                color: kGrayScaleDarkest)),
                                         TextSpan(
                                             text:
                                                 '• Pop & Art\n• Negócios\n• Carreira',
