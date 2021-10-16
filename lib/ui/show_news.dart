@@ -54,8 +54,8 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                   child: ChatBalloon(
                     balloonHeader: const Text('Você ouviu que...'),
                     balloonText: RichText(
-                        text: const TextSpan(
-                            text: 'Lorem ipsum dolor sit amet, consectetur _____ elit ut aliquam, purus sit amet luctus venenatis, lectus',
+                        text: TextSpan(
+                            text: gc.game.getBlankHeadline(),
                             style: TextStyle(
                                 fontSize: 16.0,
                                 height: 1.5

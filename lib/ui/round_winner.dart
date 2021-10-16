@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
+import 'package:have_you_heard/controller/game_controller.dart';
 import 'correct_news.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 
@@ -55,6 +56,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
+    final GameController gc = Get.find();
 
     return WillPopScope(
       // This is short lived screen, let's block the back button
@@ -105,10 +107,8 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold)),
                         balloonText: RichText(
-                            text: const TextSpan(
-                                text: 'Lorem ipsum dolor sit amet, consectetur '
-                                    '{RESPOSTA X} elit ut aliquam, purus sit amet '
-                                    'luctus venenatis, lectus',
+                            text:  TextSpan(
+                                text: gc.game.getWinnerHeadline(),
                                 style: TextStyle(height: 1.5, fontSize: 16)))),
                     Image(
                       alignment: Alignment.centerRight,

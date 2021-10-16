@@ -69,10 +69,8 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
                         'Você ouviu que ...',
                         style: TextStyle(height: 1.5, fontSize: 16, fontWeight: FontWeight.bold)),
                     balloonText: RichText(
-                        text: const TextSpan(
-                            text: 'Lorem ipsum dolor sit amet, consectetur _____ '
-                                'elit ut aliquam, purus sit amet luctus '
-                                'venenatis, lectus',
+                        text: TextSpan(
+                            text: gc.game.getBlankHeadline(),
                             style: TextStyle(
                                 fontSize: 16.0,
                                 height: 1.5

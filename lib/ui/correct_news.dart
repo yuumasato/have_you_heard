@@ -119,10 +119,8 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: kGrayScaleDarkest)),
                             balloonText: RichText(
-                                text: const TextSpan(
-                                    text:
-                                    'Lorem ipsum dolor sit amet, consectetur {RESPOSTA X} '
-                                        'elit ut aliquam, purus sit amet luctus venenatis, lectus',
+                                text:  TextSpan(
+                                    text: gc.game.getCorrectHeadline(),
                                     style: TextStyle(
                                         height: 1.5,
                                         fontSize: 16,
