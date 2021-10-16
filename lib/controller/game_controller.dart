@@ -4,7 +4,6 @@ import 'package:have_you_heard/models/game.dart';
 import 'package:have_you_heard/models/room.dart';
 import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/models/socket.dart';
-import 'package:have_you_heard/ui/vote_persona.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameController extends GetxController {
@@ -73,6 +72,5 @@ class GameController extends GetxController {
 
   void startGame(){
     socket.startGame();
-    Get.offNamed(VotePersonaScreen.route);
   }
 }

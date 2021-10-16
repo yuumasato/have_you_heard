@@ -5,11 +5,12 @@ import 'package:have_you_heard/models/player.dart';
 
 class Game {
   int roundIndex = 0;
-  List<String> allNews = [
+  List<String> allHeadlines = [
     'Pergunta 1',
     'Pergunta 2',
     'Pergunta 3',
   ];
+  int persona = -1;
 
   RxInt nPlayers = 0.obs;
   // The list always has a length of 6
@@ -44,5 +45,10 @@ class Game {
         playerList.add(player);
       }
     }
+  }
+
+  void setHeadlines(List<String> headlines) {
+    allHeadlines.clear();
+    allHeadlines.assignAll(headlines);
   }
 }

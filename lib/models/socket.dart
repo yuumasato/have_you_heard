@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:have_you_heard/ui/lobby.dart';
 import 'package:have_you_heard/ui/room.dart';
+import 'package:have_you_heard/ui/vote_persona.dart';
+
 import 'package:socket_io_client/socket_io_client.dart' as sio;
 
 import 'package:have_you_heard/controller/game_controller.dart';
@@ -55,6 +57,20 @@ class Socket {
 
       gc.room.setUsers(room['users'], gc.myPlayer);
       Get.toNamed("${RoomScreen.route}/$roomID");
+    });
+
+    socket.on('game', (data) {
+      final GameController gc = Get.find();
+      var game = jsonDecode(data);
+      gc.game.setHeadlines(List<String>.from(game['headlines']));
+      gc.game.setPlayers(game['players'], gc.myPlayer);
+
+      // Navigation
+      String currentRoute = Get.currentRoute;
+      if (currentRoute.startsWith('/room')) {
+          Get.offNamed(VotePersonaScreen.route);
+      }
+
     });
   }
 
