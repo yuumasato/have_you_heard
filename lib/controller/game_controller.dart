@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/models/game.dart';
+import 'package:have_you_heard/models/room.dart';
 import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/models/socket.dart';
 import 'package:have_you_heard/ui/vote_persona.dart';
@@ -10,6 +11,7 @@ class GameController extends GetxController {
   String roomID = '42069';
   Player myPlayer = Player();
 
+  Room room = Room();
   Game game = Game();
   Socket socket = Socket();
 

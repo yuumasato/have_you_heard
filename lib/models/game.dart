@@ -14,7 +14,6 @@ class Game {
   RxInt nPlayers = 0.obs;
   // The list always has a length of 6
   List<Player> playerList = <Player>[].obs;
-  RxString ownerID = 'not_set'.obs;
 
   Game();
 

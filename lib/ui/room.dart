@@ -80,11 +80,11 @@ class _RoomScreenState extends State<RoomScreen> {
                         maintainSize: true,
                         maintainAnimation: true,
                         maintainState: true,
-                        visible: (gc.game.ownerID.value == gc.myPlayer.id) ? true : false,
+                        visible: (gc.room.ownerID.value == gc.myPlayer.id) ? true : false,
                         child: AppButton(
                           color: kPink,
                           width: screenWidth * 0.8,
-                          onPressed: (gc.game.nPlayers.value >= 1) ? () {
+                          onPressed: (gc.room.nUsers.value >= 1) ? () {
                             gc.startGame();
                           } : null,
                           child: Text(
@@ -120,14 +120,14 @@ class _RoomScreenState extends State<RoomScreen> {
             children: [
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
-                  child: Obx(() => Text(gc.game.playerList[index].name))
+                  child: Obx(() => Text(gc.room.userList[index].name))
               ),
               Obx(()  => Visibility(
                 child: const Icon(Icons.star_rate_rounded),
                 maintainSize: true,
                 maintainAnimation: true,
                 maintainState: true,
-                visible: (gc.game.playerList[index].id == gc.game.ownerID.value) ? true : false,
+                visible: (gc.room.userList[index].id == gc.room.ownerID.value) ? true : false,
               )),
             ],
           ),
