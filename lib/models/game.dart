@@ -53,16 +53,25 @@ class Game {
   }
 
   String getBlankHeadline() {
+    if (roundIndex >= allHeadlines.length) {
+      return "";
+    }
     return allHeadlines[roundIndex];
   }
 
   String getWinnerHeadline() {
+    if (roundIndex >= allHeadlines.length) {
+      return "";
+    }
     String currentHeadline = allHeadlines[roundIndex];
     String winnerHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Resposta X)');
     return winnerHeadline;
   }
 
   String getCorrectHeadline() {
+    if (roundIndex >= allHeadlines.length) {
+      return "";
+    }
     String currentHeadline = allHeadlines[roundIndex];
     String correctHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Correta)');
     return correctHeadline;
