@@ -18,6 +18,18 @@ class Game {
 
   Game();
 
+  void nextRound() {
+    roundIndex += 1;
+  }
+
+  bool isGameFinished() {
+    return roundIndex >=3;
+  }
+
+  void reset() {
+    roundIndex = 0;
+  }
+
   void setPlayers(List<dynamic> players, Player myPlayer) {
     nPlayers.value = players.length;
     playerList.clear();

@@ -20,20 +20,8 @@ class GameController extends GetxController {
     getOnboardedState();
   }
 
-  void nextRound() {
-    game.roundIndex += 1;
-  }
-
-  bool isGameFinished() {
-    return game.roundIndex >=3;
-  }
-
-  void reset() {
-    game.roundIndex = 0;
-  }
-
   void exitGame() {
-    reset();
+    game.reset();
     socket.leaveRoom();
   }
 

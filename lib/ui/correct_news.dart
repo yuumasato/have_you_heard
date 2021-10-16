@@ -39,8 +39,8 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
   }
 
   route() {
-    gc.nextRound();
-    if (gc.isGameFinished()) {
+    gc.game.nextRound();
+    if (gc.game.isGameFinished()) {
       Get.offNamed(GameWinnerScreen.routeName);
     } else {
       Get.offNamed(ShowNewsScreen.routeName);
