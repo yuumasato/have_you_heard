@@ -39,8 +39,8 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
   }
 
   route() {
-    gc.nextRound();
-    if (gc.isGameFinished()) {
+    gc.game.nextRound();
+    if (gc.game.isGameFinished()) {
       Get.offNamed(GameWinnerScreen.routeName);
     } else {
       Get.offNamed(ShowNewsScreen.routeName);
@@ -119,10 +119,8 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                                     fontWeight: FontWeight.bold,
                                     color: kGrayScaleDarkest)),
                             balloonText: RichText(
-                                text: const TextSpan(
-                                    text:
-                                    'Lorem ipsum dolor sit amet, consectetur {RESPOSTA X} '
-                                        'elit ut aliquam, purus sit amet luctus venenatis, lectus',
+                                text:  TextSpan(
+                                    text: gc.game.getCorrectHeadline(),
                                     style: TextStyle(
                                         height: 1.5,
                                         fontSize: 16,

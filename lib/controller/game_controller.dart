@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/models/game.dart';
+import 'package:have_you_heard/models/room.dart';
 import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/models/socket.dart';
-import 'package:have_you_heard/ui/vote_persona.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameController extends GetxController {
   String roomID = '42069';
   Player myPlayer = Player();
 
+  Room room = Room();
   Game game = Game();
   Socket socket = Socket();
 
@@ -20,20 +21,8 @@ class GameController extends GetxController {
     getOnboardedState();
   }
 
-  void nextRound() {
-    game.roundIndex += 1;
-  }
-
-  bool isGameFinished() {
-    return game.roundIndex >=3;
-  }
-
-  void reset() {
-    game.roundIndex = 0;
-  }
-
   void exitGame() {
-    reset();
+    game.reset();
     socket.leaveRoom();
   }
 
@@ -83,6 +72,5 @@ class GameController extends GetxController {
 
   void startGame(){
     socket.startGame();
-    Get.offNamed(VotePersonaScreen.route);
   }
 }

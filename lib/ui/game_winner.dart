@@ -97,7 +97,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                 ElevatedButton(
                     onPressed: () {
                       // Reinstate a new Game State
-                      gc.reset();
+                      gc.game.reset();
                       String roomID = gc.roomID;
                       Get.offAllNamed("${RoomScreen.route}/$roomID");
                     },

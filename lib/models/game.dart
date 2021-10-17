@@ -5,18 +5,30 @@ import 'package:have_you_heard/models/player.dart';
 
 class Game {
   int roundIndex = 0;
-  List<String> allNews = [
+  List<String> allHeadlines = [
     'Pergunta 1',
     'Pergunta 2',
     'Pergunta 3',
   ];
+  int persona = -1;
 
   RxInt nPlayers = 0.obs;
   // The list always has a length of 6
   List<Player> playerList = <Player>[].obs;
-  RxString ownerID = 'not_set'.obs;
 
   Game();
+
+  void nextRound() {
+    roundIndex += 1;
+  }
+
+  bool isGameFinished() {
+    return roundIndex >=3;
+  }
+
+  void reset() {
+    roundIndex = 0;
+  }
 
   void setPlayers(List<dynamic> players, Player myPlayer) {
     nPlayers.value = players.length;
@@ -33,5 +45,35 @@ class Game {
         playerList.add(player);
       }
     }
+  }
+
+  void setHeadlines(List<String> headlines) {
+    allHeadlines.clear();
+    allHeadlines.assignAll(headlines);
+  }
+
+  String getBlankHeadline() {
+    if (roundIndex >= allHeadlines.length) {
+      return "";
+    }
+    return allHeadlines[roundIndex];
+  }
+
+  String getWinnerHeadline() {
+    if (roundIndex >= allHeadlines.length) {
+      return "";
+    }
+    String currentHeadline = allHeadlines[roundIndex];
+    String winnerHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Resposta X)');
+    return winnerHeadline;
+  }
+
+  String getCorrectHeadline() {
+    if (roundIndex >= allHeadlines.length) {
+      return "";
+    }
+    String currentHeadline = allHeadlines[roundIndex];
+    String correctHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Correta)');
+    return correctHeadline;
   }
 }
