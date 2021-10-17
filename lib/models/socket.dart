@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/ui/desc_persona.dart';
 import 'package:have_you_heard/ui/lobby.dart';
 import 'package:have_you_heard/ui/room.dart';
+import 'package:have_you_heard/ui/vote_answer.dart';
 import 'package:have_you_heard/ui/vote_persona.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as sio;
@@ -79,6 +80,13 @@ class Socket {
       gc.game.persona = data;
       Get.offNamed(DescPersonaScreen.route);
     });
+
+    socket.on('round answers', (data) {
+      final GameController gc = Get.find();
+      var answers = jsonDecode(data);
+      gc.game.setAnswers(Map<String, String>.from(answers), gc.myPlayer);
+      Get.offNamed(VoteAnswerScreen.route);
+    });
   }
 
   void initUser(String username) {
@@ -109,5 +117,9 @@ class Socket {
 
   void sendAnswer(String answer) {
     socket.emit('answer', answer);
+  }
+
+  void voteAnswer(String id) {
+    socket.emit('vote answer', id);
   }
 }

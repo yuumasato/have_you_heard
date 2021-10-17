@@ -16,10 +16,13 @@ class Game {
   // The list always has a length of 6
   List<Player> playerList = <Player>[].obs;
 
+  String roundWinnerID = 'not_set';
+
   Game();
 
   void nextRound() {
     roundIndex += 1;
+    roundWinnerID = 'not_set';
   }
 
   bool isGameFinished() {
@@ -75,5 +78,11 @@ class Game {
     String currentHeadline = allHeadlines[roundIndex];
     String correctHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Correta)');
     return correctHeadline;
+  }
+
+  void setAnswers(Map<String, String> answers, Player myPlayer) {
+    for (var p in playerList) {
+      p.answer = answers[p.id] ?? 'not_set';
+    }
   }
 }
