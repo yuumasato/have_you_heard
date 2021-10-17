@@ -16,13 +16,13 @@ class Game {
   // The list always has a length of 6
   List<Player> playerList = <Player>[].obs;
 
-  String roundWinnerID = 'not_set';
+  Player? roundWinner;
 
   Game();
 
   void nextRound() {
     roundIndex += 1;
-    roundWinnerID = 'not_set';
+    roundWinner = null;
   }
 
   bool isGameFinished() {
@@ -67,7 +67,8 @@ class Game {
       return "";
     }
     String currentHeadline = allHeadlines[roundIndex];
-    String winnerHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Resposta X)');
+    String winnerHeadline = currentHeadline.replaceAll(
+        RegExp(r'_+'), roundWinner?.answer ?? 'No answer');
     return winnerHeadline;
   }
 
@@ -76,7 +77,8 @@ class Game {
       return "";
     }
     String currentHeadline = allHeadlines[roundIndex];
-    String correctHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Correta)');
+    String correctHeadline = currentHeadline.replaceAll(
+        RegExp(r'_+'), '(Correta)');
     return correctHeadline;
   }
 
@@ -84,5 +86,15 @@ class Game {
     for (var p in playerList) {
       p.answer = answers[p.id] ?? 'not_set';
     }
+  }
+
+  Player getPlayerByID(String id) {
+    Player player = Player(name: 'Not found');
+    for (var p in playerList) {
+      if (p.id == id) {
+         player = p;
+      }
+    }
+    return player;
   }
 }

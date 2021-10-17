@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/ui/desc_persona.dart';
 import 'package:have_you_heard/ui/lobby.dart';
 import 'package:have_you_heard/ui/room.dart';
+import 'package:have_you_heard/ui/round_winner.dart';
 import 'package:have_you_heard/ui/vote_answer.dart';
 import 'package:have_you_heard/ui/vote_persona.dart';
 
@@ -86,6 +87,12 @@ class Socket {
       var answers = jsonDecode(data);
       gc.game.setAnswers(Map<String, String>.from(answers), gc.myPlayer);
       Get.offNamed(VoteAnswerScreen.route);
+    });
+
+    socket.on('round winner', (data) {
+      final GameController gc = Get.find();
+      gc.game.roundWinner = gc.game.getPlayerByID(data);
+      Get.offNamed(RoundWinnerScreen.routeName);
     });
   }
 
