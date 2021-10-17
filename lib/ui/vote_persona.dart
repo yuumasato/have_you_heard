@@ -125,7 +125,10 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       gc.votePersona(_persona);
-                      // TODO: Transition to waiting page
+                      // TODO: Remove snack bar and transition to waiting page
+                      final snackBar = SnackBar(
+                          content: const Text('Voto enviado, aguarde os outros votarem.'));
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: kPink,
