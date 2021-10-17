@@ -106,4 +106,8 @@ class Socket {
   void votePersona(String persona) {
     socket.emit('vote persona', persona);
   }
+
+  void sendAnswer(String answer) {
+    socket.emit('answer', answer);
+  }
 }
