@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
+import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/models/persona.dart';
 
 import 'show_news.dart';
 
@@ -29,7 +31,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
   }
 
   startTime() async {
-    var duration = const Duration(seconds: 2);
+    var duration = const Duration(seconds: 5);
     return Timer(duration, route);
   }
 
@@ -39,7 +41,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
 
   progressBarTimer() async {
     timer = Timer.periodic(
-        const Duration(milliseconds: 20), (_) => setProgressBarValue());
+        const Duration(milliseconds: 50), (_) => setProgressBarValue());
   }
 
   setProgressBarValue() {
@@ -63,6 +65,9 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
 
+    final GameController gc = Get.find();
+    Persona _persona = Persona.getPersona(gc.game.persona);
+
     return WillPopScope(
       // This is short lived screen, let's block the back button
       onWillPop: () async => false,
@@ -83,7 +88,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                     color: kPlayer_3,
                     backgroundColor: kGrayScaleMediumDark,
                   ),
-                  Text('Coloque-se no papel de...'),
+                  const Text('Coloque-se no papel de...'),
                 ],
               ),
               Padding(
@@ -99,8 +104,8 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                         alignment: Alignment.centerLeft,
                         fit: BoxFit.contain,
                         image: Svg(
-                          'assets/images/bodySalvio.svg',
-                          size: Size(screenWidth * 0.30, screenWidth * 0.5),
+                          _persona.svgAsset,
+                          size: Size(128, 288),
                         ),
                       ),
                     ),
@@ -111,7 +116,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                       decoration: BoxDecoration(
                         color: kGrayScaleLight,
                         border:
-                            Border.all(width: 4, color: kGrayScaleMediumLight),
+                        Border.all(width: 4, color: kGrayScaleMediumLight),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Column(
@@ -119,34 +124,34 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                         children: [
                           Expanded(
                             child: RichText(
-                                text: const TextSpan(children: [
-                              TextSpan(
-                                  text: 'Salvio',
-                                  style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: kGrayScaleDarkest)),
-                              TextSpan(text: '\n \n'),
-                              TextSpan(
-                                text:
-                                    'Apresentador de televisão e empresário brasileiro, com mais de sessenta anos de carreira.',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    height: 1.5,
-                                    color: Color(0xFF252C4A)),
-                                //TODO: Only use of this color, need confirmation from Design team
-                              ),
-                            ])),
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                      text: _persona.name,
+                                      style: const TextStyle(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: kGrayScaleDarkest)),
+                                  const TextSpan(text: '\n \n'),
+                                  TextSpan(
+                                    text:
+                                    _persona.desc,
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.5,
+                                        color: Color(0xFF252C4A)),
+                                    //TODO: Only use of this color, need confirmation from Design team
+                                  ),
+                                ])),
                           ),
                           Expanded(
                             child: Row(
                               children: [
                                 Expanded(
                                   child: RichText(
-                                    text: const TextSpan(
+                                    text: TextSpan(
                                       children: [
-                                        TextSpan(
+                                        const TextSpan(
                                             text: 'Características\n',
                                             style: TextStyle(
                                                 fontSize: 16,
@@ -155,8 +160,8 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                                 color: kGrayScaleDarkest)),
                                         TextSpan(
                                             text:
-                                                '• Espontaneidade\n• Alegria\n• Popularidade',
-                                            style: TextStyle(
+                                            '• '+_persona.personality.join('\n• '),
+                                            style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,
                                                 height: 1.5,
@@ -166,25 +171,31 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                   ),
                                 ),
                                 Expanded(
-                                  child: RichText(
-                                    text: const TextSpan(
-                                      children: [
-                                        TextSpan(
-                                            text: 'Tópicos\n',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                height: 1.5,
-                                                fontWeight: FontWeight.bold,
-                                                color: kGrayScaleDarkest)),
-                                        TextSpan(
-                                            text:
-                                                '• Pop & Art\n• Negócios\n• Carreira',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                height: 1.5,
-                                                color: Color(0xFF252C4A))),
-                                      ],
+                                  child: Visibility(
+                                    maintainSize: true,
+                                    maintainAnimation: true,
+                                    maintainState: true,
+                                    visible: false, // Topics will be disabled for now
+                                    child: RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          const TextSpan(
+                                              text: 'Tópicos\n',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  height: 1.5,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kGrayScaleDarkest)),
+                                          TextSpan(
+                                              text:
+                                              '• '+_persona.topics.join('\n• '),
+                                              style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  height: 1.5,
+                                                  color: Color(0xFF252C4A))),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 )

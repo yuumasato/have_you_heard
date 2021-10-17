@@ -21,14 +21,14 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
 
   String _persona = "not_set";
   Map<String, String> get allPersona => {
-    'Antivax': 'assets/images/Antivax.svg',
+    'Antivacina': 'assets/images/Antivax.svg',
     'Bonosaro': 'assets/images/Bonosaro.svg',
     'Eron Must': 'assets/images/EronMust.svg',
     'Lulo': 'assets/images/Lulo.svg',
     'Salvio': 'assets/images/Salvio.svg',
     'Tia do zap': 'assets/images/TiaDoZap.svg',
     'Tump': 'assets/images/Tump.svg',
-    'Vegan': 'assets/images/Vegan.svg',
+    'Vegana': 'assets/images/Vegan.svg',
     'Aleatório': 'assets/images/Random.svg'
   };
 
@@ -125,6 +125,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       gc.votePersona(_persona);
+                      // TODO: Transition to waiting page
                     },
                     style: ElevatedButton.styleFrom(
                       primary: kPink,
