@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:have_you_heard/ui/desc_persona.dart';
 import 'package:have_you_heard/ui/lobby.dart';
 import 'package:have_you_heard/ui/room.dart';
 import 'package:have_you_heard/ui/vote_persona.dart';
@@ -72,6 +73,12 @@ class Socket {
       }
 
     });
+
+    socket.on('persona', (data) {
+      final GameController gc = Get.find();
+      gc.game.persona = data;
+      Get.offNamed(DescPersonaScreen.route);
+    });
   }
 
   void initUser(String username) {
@@ -94,5 +101,9 @@ class Socket {
 
   void startGame() {
     socket.emit('start');
+  }
+
+  void votePersona(String persona) {
+    socket.emit('vote persona', persona);
   }
 }

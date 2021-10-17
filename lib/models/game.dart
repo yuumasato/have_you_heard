@@ -10,7 +10,7 @@ class Game {
     'Pergunta 2',
     'Pergunta 3',
   ];
-  int persona = -1;
+  String persona = "not_set";
 
   RxInt nPlayers = 0.obs;
   // The list always has a length of 6

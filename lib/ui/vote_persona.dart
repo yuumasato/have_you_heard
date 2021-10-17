@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
-import 'desc_persona.dart';
 
 class VotePersonaScreen extends StatefulWidget {
   const VotePersonaScreen({Key? key}) : super(key: key);
@@ -20,6 +19,7 @@ class VotePersonaScreen extends StatefulWidget {
 class _VotePersonaScreenState extends State<VotePersonaScreen> {
   final GameController gc = Get.find();
 
+  String _persona = "not_set";
   Map<String, String> get allPersona => {
     'Antivax': 'assets/images/Antivax.svg',
     'Bonosaro': 'assets/images/Bonosaro.svg',
@@ -32,37 +32,57 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
     'Aleatório': 'assets/images/Random.svg'
   };
 
+  double colorPersonaTile(String persona) {
+    if (_persona == 'not_set' || _persona == persona) {
+      return 1.0;
+    } else {
+      return 0.40;
+    }
+  }
+
   Widget buildPersonaTile(String persona) {
-    return Card(
-      color: Colors.transparent,
-      elevation: 0,
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            Icon(Icons.info_outline, size: 20),
-          ],
-        ),
-        Image(
-          image: Svg((allPersona[persona])!, size: Size(63, 79)),
-        ),
-        Container(
-          padding: EdgeInsets.all(4),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                persona,
-                style: const TextStyle(fontSize: 16),
-              ),
+    return Opacity (
+      opacity: colorPersonaTile(persona),
+      child: Card(
+        color: Colors.transparent,
+        elevation: 0,
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              Icon(Icons.info_outline, size: 20, color: kGrayScaleMedium),
             ],
           ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: kGrayScaleMediumDark,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _persona = persona;
+              });
+            },
+            child: Column(children: [
+              Image(
+                image: Svg((allPersona[persona])!, size: Size(63, 79)),
+              ),
+              Container(
+                padding: EdgeInsets.all(4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      persona,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  color: kGrayScaleMediumDark,
+                ),
+              ),
+            ]),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
@@ -104,7 +124,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
                       bottom: appBarHeight * 0.5),
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.offNamed(DescPersonaScreen.route);
+                      gc.votePersona(_persona);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: kPink,
