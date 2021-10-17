@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.have_you_heard">
+    package="com.never_heard.have_you_heard">
    <application
         android:label="have_you_heard"
         android:icon="@mipmap/ic_launcher">
