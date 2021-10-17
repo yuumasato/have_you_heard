@@ -17,6 +17,8 @@ class Game {
   List<Player> playerList = <Player>[].obs;
 
   Player? roundWinner;
+  Player? gameWinner;
+  bool tie = false;
 
   Game();
 
@@ -31,6 +33,7 @@ class Game {
 
   void reset() {
     roundIndex = 0;
+    gameWinner = null;
   }
 
   void setPlayers(List<dynamic> players, Player myPlayer) {
@@ -96,5 +99,11 @@ class Game {
       }
     }
     return player;
+  }
+
+  void setPlayerWins(Map<String, int> wins) {
+    for (var p in playerList) {
+      p.roundWins = wins[p.id] ?? 0;
+    }
   }
 }

@@ -94,6 +94,15 @@ class Socket {
       gc.game.roundWinner = gc.game.getPlayerByID(data);
       Get.offNamed(RoundWinnerScreen.routeName);
     });
+
+    socket.on('game winner', (data) {
+      final GameController gc = Get.find();
+      var winnerData = jsonDecode(data);
+
+      gc.game.gameWinner = gc.game.getPlayerByID(winnerData['winner']);
+      gc.game.setPlayerWins(Map<String, int>.from(winnerData['stats']));
+      gc.game.tie = winnerData['tie'];
+    });
   }
 
   void initUser(String username) {
