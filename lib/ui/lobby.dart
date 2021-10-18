@@ -91,42 +91,49 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: appBarHeight * 0.75,
-                            width: screenWidth * 0.6,
-                            child: TextField(
-                              controller: myController,
-                              keyboardType: TextInputType.number,
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.digitsOnly
-                              ],
-                              decoration: const InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
+                          Expanded(
+                            flex: 15,
+                            child: SizedBox(
+                              height: appBarHeight * 0.75,
+                              width: screenWidth * 0.55,
+                              child: TextField(
+                                controller: myController,
+                                keyboardType: TextInputType.number,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                decoration: const InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  labelText: 'Insira o código da sala',
+                                  labelStyle: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w300),
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  focusColor: Colors.red,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 2.0),
+                                  ),
                                 ),
-                                labelText: 'Insira o código da sala',
-                                labelStyle: TextStyle(
-                                    fontSize: 16,
+                                style: const TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.w300),
-                                hintStyle: TextStyle(color: Colors.white),
-                                focusColor: Colors.red,
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 2.0),
-                                ),
+                                    decoration: TextDecoration.none),
                               ),
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none),
                             ),
                           ),
-                          AppButton(
-                              onPressed: () {
-                                gc.roomID = myController.text;
-                                gc.joinRoom(gc.roomID);
-                              },
-                              text: 'entrar'.tr),
+                          const Spacer(),
+                          Expanded(
+                            flex: 6,
+                            child: AppButton(
+                                onPressed: () {
+                                  gc.roomID = myController.text;
+                                  gc.joinRoom(gc.roomID);
+                                },
+                                text: 'entrar'.tr),
+                          ),
                         ],
                       ),
                       Container(
