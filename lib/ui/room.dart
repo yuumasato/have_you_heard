@@ -83,16 +83,14 @@ class _RoomScreenState extends State<RoomScreen> {
                         visible: (gc.room.ownerID.value == gc.myPlayer.id) ? true : false,
                         child: AppButton(
                           color: kPink,
-                          width: screenWidth * 0.8,
+                          textColor: kGrayScaleLightest,
                           onPressed: (gc.room.nUsers.value >= 1) ? () {
                             gc.startGame();
                           } : null,
-                          child: Text(
-                            'startGame'.tr,
-                            style: kElevatedButtonTextStyle,
+                          text: 'startGame'.tr,
                           ),
                         ),
-                      )),
+                      ),
                     ],
                   ),
                 ),
