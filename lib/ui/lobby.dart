@@ -6,6 +6,9 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
 import 'package:have_you_heard/ui/settings.dart';
+import 'package:have_you_heard/widgets/app_button.dart';
+import 'package:have_you_heard/widgets/gray_stripe.dart';
+import 'package:have_you_heard/widgets/icon_app_button.dart';
 
 class LobbyScreen extends StatefulWidget {
   const LobbyScreen({Key? key}) : super(key: key);
@@ -19,18 +22,6 @@ class LobbyScreen extends StatefulWidget {
 
 class _LobbyScreenState extends State<LobbyScreen> {
   final myController = TextEditingController();
-
-  final appBar = AppBar(
-    backgroundColor: kGrayScaleDarkest,
-    automaticallyImplyLeading: false,
-    actions: [
-      IconButton(
-        icon: Icon(Icons.settings_outlined),
-      onPressed: () {
-          Get.toNamed(SettingsScreen.route);
-      }),
-    ]
-  );
 
   @override
   void initState() {
@@ -46,9 +37,9 @@ class _LobbyScreenState extends State<LobbyScreen> {
   @override
   Widget build(BuildContext context) {
     final GameController gc = Get.find();
-    final screenHeight = MediaQuery.of(context).size.height;
-    final appBarHeight = appBar.preferredSize.height;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final appBarHeight = AppBar().preferredSize.height;
+
     return WillPopScope(
       onWillPop: () async {
         await showDialog(
@@ -67,123 +58,143 @@ class _LobbyScreenState extends State<LobbyScreen> {
         return false;
       },
       child: Scaffold(
-      appBar: appBar,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(automaticallyImplyLeading: false, actions: [
+          IconButton(
+              icon: const Icon(Icons.settings_outlined),
+              onPressed: () {
+                Get.toNamed(SettingsScreen.route);
+              }),
+        ]),
         body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom:20),
-                height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
-                color: kGrayScaleMediumDark,
-                alignment: Alignment.center,
-                child: Text(
-                  'Escolha seu modo de jogo, ${gc.myPlayer.name}!',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
+          child: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: Svg("assets/images/full_landscape.svg",
+                    size: Size(375, 182)),
+                fit: BoxFit.contain,
+                alignment: Alignment.bottomCenter,
               ),
-              Expanded(
-                flex:3,
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                            margin: const EdgeInsets.all(10.0),
-                            height: 38,
-                            width: 200.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                GrayStripe(
+                    text: 'Escolha seu modo de jogo, ${gc.myPlayer.name}!'),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(height: appBarHeight * 0.8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: appBarHeight * 0.75,
+                            width: screenWidth * 0.6,
                             child: TextField(
-                                controller: myController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                decoration: const InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                  ),
-                                  labelText: 'Insira o código da sala',
-                                  labelStyle: TextStyle(fontSize: 16, color: Colors.white,fontWeight: FontWeight.w300),
-                                  hintStyle: TextStyle(color: Colors.white),
-                                  focusColor: Colors.red,
-                                  focusedBorder:OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white, width: 2.0),
-                                  ),
+                              controller: myController,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly
+                              ],
+                              decoration: const InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
                                 ),
-                              style: const TextStyle(color: Colors.white, decoration: TextDecoration.none),
-                            ),
-                        ),
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(primary:kYellow),
-                            onPressed: () {
-                              gc.roomID = myController.text;
-                              gc.joinRoom(gc.roomID);
-                            },
-                            child:
-                            Text(
-                              'entrar'.tr,
+                                labelText: 'Insira o código da sala',
+                                labelStyle: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w300),
+                                hintStyle: TextStyle(color: Colors.white),
+                                focusColor: Colors.red,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.white, width: 2.0),
+                                ),
+                              ),
                               style: const TextStyle(
-                                  fontSize: 16, color: kGrayScaleDarkest),
-                            )),
-                      ],
-                    ),
-                    Container(
-                      width: 200,
-                      child:
-                        Row(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none),
+                            ),
+                          ),
+                          AppButton(
+                              onPressed: () {
+                                gc.roomID = myController.text;
+                                gc.joinRoom(gc.roomID);
+                              },
+                              text: 'entrar'.tr),
+                        ],
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: appBarHeight * 0.2),
+                        width: 200,
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
+                          children: const [
+                            SizedBox(
                               width: 50,
-                              child: const Divider(
-                                color: Colors.white,
+                              child: Divider(
+                                color: kGrayScaleMediumDark,
+                                thickness: 2,
                               ),
                             ),
-                            const Text(
+                            Text(
                               'ou',
                               style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
-                            Container(
+                            SizedBox(
                               width: 50,
-                              child: const Divider(
-                                color: Colors.white,
+                              child: Divider(
+                                color: kGrayScaleMediumDark,
+                                thickness: 2,
                               ),
                             ),
                           ],
                         ),
-                    ),
-
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary:kYellow),
-                        onPressed: () {
-                          // Requisitar ao servidor criação de nova sala
-                          gc.createRoom();
-                        },
-                        child:
-                        Text(
-                          'criarSala'.tr,
-                          style: const TextStyle(
-                              fontSize: 16, color: kGrayScaleDarkest),
-                        )),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: Svg("assets/images/full_landscape.svg",
-                            size: Size(375, 182)),
-                        fit: BoxFit.contain,
-                        alignment: Alignment.bottomCenter,
                       ),
-                    ),
+                      IconAppButton(
+                          onPressed: () {
+                            // Requisitar ao servidor criação de nova sala
+                            gc.createRoom();
+                          },
+                          text: 'criarSala'.tr),
+                    ],
                   ),
-              ),
-            ],
+                ),
+                Visibility(
+                  visible: true,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.05,
+                            vertical: appBarHeight * 0.4),
+                        child: const Divider(
+                          color: kGrayScaleMediumDark,
+                          thickness: 2,
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
+                        child: IconAppButton(
+                          onPressed: () {},
+                          text: 'Voltar para partida',
+                          color: kPink,
+                          textColor: kGrayScaleLightest,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
