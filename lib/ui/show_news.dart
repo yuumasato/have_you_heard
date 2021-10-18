@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 
@@ -94,17 +95,11 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: appBarHeight * 0.26),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              fixedSize: Size(screenWidth * 0.8,
-                                  AppBar().preferredSize.height * 0.08),
-                            ),
+                        child: AppButton(
                             onPressed: () {
                               Get.offNamed(VoteAnswerScreen.route);
                             },
-                            child: const Text('Enviar')),
+                            text: 'Enviar'),
                       ),
                     ],
                   ),

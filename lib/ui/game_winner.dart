@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
 import 'package:have_you_heard/constants/colors.dart';
 
@@ -94,14 +95,16 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                   fontSize: 24, fontWeight: FontWeight.bold, color: kYellow),
               children: <Widget>[
                 Image.asset('assets/images/trophy.png'),
-                ElevatedButton(
+                AppButton(
                     onPressed: () {
                       // Reinstate a new Game State
                       gc.game.reset();
                       String roomID = gc.roomID;
                       Get.offAllNamed("${RoomScreen.route}/$roomID");
                     },
-                    child: const Text('Jogar Novamente')),
+                    color: kPink,
+                    textColor: kGrayScaleLightest,
+                    text:'Jogar Novamente'),
                 TextButton(
                     onPressed: () {
                       gc.exitGame();

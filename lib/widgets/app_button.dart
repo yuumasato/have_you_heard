@@ -5,16 +5,16 @@ import 'package:have_you_heard/constants/colors.dart';
 class AppButton extends StatelessWidget {
   const AppButton({
     Key? key,
-    required this.width,
     this.color = kYellow,
+    this.textColor = kGrayScaleDarkest,
     required this.onPressed,
-    required this.child,
+    required this.text,
   }) : super(key: key);
 
   final Color color;
   final VoidCallback? onPressed;
-  final Widget child;
-  final double width;
+  final String text;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +23,12 @@ class AppButton extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           primary: color,
-          fixedSize: Size(width, AppBar().preferredSize.height * 0.8),
+          fixedSize: Size(double.infinity, AppBar().preferredSize.height * 0.8),
         ),
         onPressed: onPressed,
-        child: child);
+        child: Text(
+          text,
+          style: TextStyle(color: textColor, fontSize: 16, fontWeight: FontWeight.bold),
+        ));
   }
 }
