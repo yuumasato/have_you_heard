@@ -20,14 +20,20 @@ class GameWinnerScreen extends StatefulWidget {
   _GameWinnerScreenState createState() => _GameWinnerScreenState();
 }
 
-class _GameWinnerScreenState extends State<GameWinnerScreen> {
+class _GameWinnerScreenState extends State<GameWinnerScreen>
+    with SingleTickerProviderStateMixin {
   final GameController gc = Get.find();
   Timer? timer;
+  late AnimationController _controller;
+  late Animation<double> _roundsBar;
+  late Animation<double> _tieBar;
+  Player _gameWinner = Player(name: 'No player');
+
+  String winnerBanner = 'No banner';
+  double _tieEnd = 0.0;
 
   int count = 0;
-  //List<int> votes = [1, 2, 7, 7, 3, 0];
   double mostWins = 0.0;
-  List<double> votesValues = [0.015, 0.015, 0.015, 0.015, 0.015, 0.015];
 
   List<Color> playerColors = [
     kPlayer_1,
@@ -41,46 +47,65 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
   @override
   initState() {
     super.initState();
-    getMostVotes();
+    int animeTime = 6000;
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: animeTime),
+    );
+    _controller.addListener(() {
+      setState(() {});
+    });
+
+    _gameWinner = gc.game.gameWinner ?? Player(name: 'No player');
+
+    getMostWins();
+
+    _roundsBar = Tween<double>(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.1, 0.3, curve: Curves.easeOutCirc))
+    );
+
+    if (gc.game.tie) {
+      _tieEnd = 1.0;
+      winnerBanner = 'Rounds\nvencidos';
+      Future.delayed(Duration(milliseconds: animeTime~/2), () {
+        setState(() {
+          winnerBanner = 'Jogadores mais\nrápidos';
+        });
+      });
+      Future.delayed(Duration(milliseconds: animeTime), () {
+        setState(() {
+          winnerBanner = _gameWinner.name + '\nVencedor!';
+        });
+      });
+    } else {
+      winnerBanner = _gameWinner.name + '\nVencedor!';
+    }
+    _tieBar = Tween<double>(begin: 0.0, end: _tieEnd)
+        .animate(CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.5, 0.75, curve: Curves.easeOutCirc))
+    );
+
+    _controller.forward();
     startTime();
-    startAnimationTimer();
   }
 
   startTime() async {
-    var duration = const Duration(seconds: 5);
+    var duration = const Duration(seconds: 8);
     return Timer(duration, route);
   }
 
-  startAnimationTimer() async {
-    var duration = const Duration(seconds: 1);
-    return Timer(duration, animationProgressTimer);
-  }
-
-  animationProgressTimer() async {
-    timer = Timer.periodic(
-        const Duration(milliseconds: 10), (_) => setVotesValues());
-  }
-
-  setVotesValues() {
-    setState(() {
-      List<Player> p = gc.game.playerList;
-      for (int i = 0; i < p.length; i++) {
-        if (p[i].roundWins != 0) {
-          votesValues[i] = (p[i].roundWins * count) / (mostWins * 100);
-        }
-      }
-    });
-    if (count > 100) {
-      timer!.cancel();
-    }
-    count++;
-  }
-
-  getMostVotes() {
+  getMostWins() {
     for (var p in gc.game.playerList) {
       if (p.roundWins > mostWins) {
         mostWins = p.roundWins.toDouble();
       }
+    }
+    if (gc.game.tie) {
+      mostWins += 1;
     }
   }
 
@@ -88,6 +113,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
   void dispose() {
     if (timer != null) timer!.cancel();
     super.dispose();
+    _controller.dispose();
   }
 
   route() async {
@@ -95,7 +121,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
         context: context,
         barrierDismissible: false,
         builder: (_) => WillPopScope(
-            // A choice must be made in this dialog, let's block the back button
+          // A choice must be made in this dialog, let's block the back button
             onWillPop: () async => false,
             child: SimpleDialog(
               title: const Center(child: Text('Parabéns')),
@@ -127,7 +153,6 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
     List<Player> allPlayers = gc.game.playerList;
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
-    Player _gameWinner = gc.game.gameWinner ?? Player(name: 'No player');
 
     return WillPopScope(
       // This is short lived screen, let's block the back button
@@ -155,13 +180,12 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                           Padding(
                             padding: EdgeInsets.only(
                                 bottom: appBarHeight * 0.50),
-                            child: Text(
-                              _gameWinner.name + '\nVencedor!',
+                            child: Text(winnerBanner,
                               style: TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          ...buildPlayerButton(),
+                          ...buildPlayerButton(_gameWinner),
                         ],
                       ),
                     )
@@ -169,17 +193,20 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
                 ))));
   }
 
-  List<Widget> buildPlayerButton() {
+  List<Widget> buildPlayerButton(Player winner) {
     final appBarHeight = AppBar().preferredSize.height;
     List<Widget> playerButtons = <Widget>[];
 
     for (var index = 0; index < 6; index++) {
       Player player = Player(name: 'Jogador ${index + 1}');
       bool visible = false;
+      double barValue = 0.0;
       if (index < gc.game.nPlayers.value) {
         player = gc.game.playerList[index];
+        barValue = (_roundsBar.value * player.roundWins + (player.id == winner.id ? _tieBar.value : 0.0))/mostWins;
         visible = true;
       }
+
       playerButtons.add(Visibility(
         maintainSize: true,
         maintainAnimation: true,
@@ -191,7 +218,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
             borderRadius: const BorderRadius.all(Radius.circular(10)),
             child: Stack(alignment: AlignmentDirectional.center, children: [
               LinearProgressIndicator(
-                value: votesValues[index],
+                value: barValue,
                 color: playerColors[index],
                 minHeight: appBarHeight * 0.66,
                 backgroundColor: kGrayScaleMediumDark,
