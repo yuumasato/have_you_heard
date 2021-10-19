@@ -34,7 +34,7 @@ class Persona {
         ['Espontaneidade', 'Alegria', 'Popularidade'],
         ['Pop & Arte', 'Negócios', 'Carreira'],
         'assets/images/bodySalvio.svg'),
-    'Tia do zap': Persona('Tia do Zap',
+    'Tia do Zap': Persona('Tia do Zap',
         'Aquela pessoa que acredita em tudo que lê e espalha fake news.',
         ['Imprudente', 'Ansiosa', 'Solidäo'],
         ['Pop & Arte', 'Política', 'Educação'],

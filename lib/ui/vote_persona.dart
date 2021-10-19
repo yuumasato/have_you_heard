@@ -27,7 +27,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
     'Eron Must': 'assets/images/EronMust.svg',
     'Lulo': 'assets/images/Lulo.svg',
     'Salvio': 'assets/images/Salvio.svg',
-    'Tia do zap': 'assets/images/TiaDoZap.svg',
+    'Tia do Zap': 'assets/images/TiaDoZap.svg',
     'Tump': 'assets/images/Tump.svg',
     'Vegana': 'assets/images/Vegan.svg',
     'Aleatório': 'assets/images/Random.svg'
