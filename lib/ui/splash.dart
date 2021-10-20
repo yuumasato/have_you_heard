@@ -68,7 +68,17 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Have you heard?'),
+            RichText(
+              textAlign: TextAlign.center,
+              text: const TextSpan(
+                style: TextStyle(
+                    fontSize: 32, fontWeight: FontWeight.bold, height: 1.25),
+                children: [
+                  TextSpan(text: 'HAVE YOU\n'),
+                  TextSpan(text: 'HEARD?'),
+                ],
+              ),
+            ),
             Hero(
               tag: 'logo',
               child: SizedBox(
@@ -81,31 +91,38 @@ class _SplashScreenState extends State<SplashScreen> {
               maintainAnimation: true,
               maintainSize: true,
               maintainState: true,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Column(
                 children: [
-                  ElevatedButton(
-                      onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        prefs.setString('locale', 'es');
-                        gc.language = 'es';
+                  Text('Idioma'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                          iconSize: 64,
+                          icon: SvgPicture.asset('assets/images/flagArgentina.svg'),
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setString('locale', 'es');
+                            gc.language = 'es';
 
-                        var locale = Locale('es', 'AR');
-                        Get.updateLocale(locale);
-                        route();
-                      },
-                      child: const Text('AR')),
-                  ElevatedButton(
-                      onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        prefs.setString('locale', 'pt');
-                        gc.language = 'pt';
+                            var locale = Locale('es', 'AR');
+                            Get.updateLocale(locale);
+                            route();
+                          }),
+                      IconButton(
+                          iconSize: 64,
+                          icon: SvgPicture.asset('assets/images/flagBrazil.svg'),
+                          onPressed: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setString('locale', 'pt');
+                            gc.language = 'pt';
 
-                        var locale = Locale('pt', 'BR');
-                        Get.updateLocale(locale);
-                        route();
-                      },
-                      child: const Text('PT')),
+                            var locale = Locale('pt', 'BR');
+                            Get.updateLocale(locale);
+                            route();
+                          }),
+                    ],
+                  ),
                 ],
               ),
             ),
