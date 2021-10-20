@@ -75,6 +75,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                     minHeight: AppBar().preferredSize.height * 0.66,
                     value: barValue,
                     color: kPlayer_3,
+                    backgroundColor: kGrayScaleMediumDark,
                   ),
                   Text('roundWinner'.tr),
                 ],

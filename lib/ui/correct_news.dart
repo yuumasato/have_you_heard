@@ -90,7 +90,8 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                     LinearProgressIndicator(
                         minHeight: AppBar().preferredSize.height * 0.66,
                         value: barValue,
-                        color: kPlayer_3),
+                        color: kPlayer_3,
+                        backgroundColor: kGrayScaleMediumDark),
                     Text('Link para a notícia real'),
                   ],
                 ),
