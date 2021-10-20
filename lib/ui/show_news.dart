@@ -46,6 +46,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                     LinearProgressIndicator(
                       minHeight: AppBar().preferredSize.height * 0.66,
                       color: kPlayer_3,
+                      backgroundColor: kGrayScaleMediumDark,
                     ),
                     Text("Escreva sua resposta")
                   ],
