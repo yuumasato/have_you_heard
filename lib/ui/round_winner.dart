@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/models/player.dart';
 import 'correct_news.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 
@@ -63,6 +64,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
     final GameController gc = Get.find();
+    Player _winner = gc.game.roundWinner ?? Player();
 
     return WillPopScope(
       // This is short lived screen, let's block the back button
@@ -98,8 +100,8 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                     Container(
                       padding: EdgeInsets.only(bottom: appBarHeight * 0.26),
                       alignment: Alignment.center,
-                      child: const Text(
-                        "Nome do jogador",
+                      child: Text(
+                        _winner.name,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

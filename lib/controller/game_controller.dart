@@ -77,4 +77,12 @@ class GameController extends GetxController {
   void votePersona(String persona) {
     socket.votePersona(persona);
   }
+
+  void sendAnswer(String answer) {
+    socket.sendAnswer(answer);
+  }
+
+  void voteAnswer(String id) {
+    socket.voteAnswer(id);
+  }
 }

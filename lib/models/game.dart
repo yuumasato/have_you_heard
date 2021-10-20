@@ -16,10 +16,15 @@ class Game {
   // The list always has a length of 6
   List<Player> playerList = <Player>[].obs;
 
+  Player? roundWinner;
+  Player? gameWinner;
+  bool tie = false;
+
   Game();
 
   void nextRound() {
     roundIndex += 1;
+    roundWinner = null;
   }
 
   bool isGameFinished() {
@@ -28,6 +33,7 @@ class Game {
 
   void reset() {
     roundIndex = 0;
+    gameWinner = null;
   }
 
   void setPlayers(List<dynamic> players, Player myPlayer) {
@@ -64,7 +70,8 @@ class Game {
       return "";
     }
     String currentHeadline = allHeadlines[roundIndex];
-    String winnerHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Resposta X)');
+    String winnerHeadline = currentHeadline.replaceAll(
+        RegExp(r'_+'), roundWinner?.answer ?? 'No answer');
     return winnerHeadline;
   }
 
@@ -73,7 +80,30 @@ class Game {
       return "";
     }
     String currentHeadline = allHeadlines[roundIndex];
-    String correctHeadline = currentHeadline.replaceAll(RegExp(r'_+'), '(Correta)');
+    String correctHeadline = currentHeadline.replaceAll(
+        RegExp(r'_+'), '(Correta)');
     return correctHeadline;
+  }
+
+  void setAnswers(Map<String, String> answers, Player myPlayer) {
+    for (var p in playerList) {
+      p.answer = answers[p.id] ?? 'not_set';
+    }
+  }
+
+  Player getPlayerByID(String id) {
+    Player player = Player(name: 'Not found');
+    for (var p in playerList) {
+      if (p.id == id) {
+         player = p;
+      }
+    }
+    return player;
+  }
+
+  void setPlayerWins(Map<String, int> wins) {
+    for (var p in playerList) {
+      p.roundWins = wins[p.id] ?? 0;
+    }
   }
 }

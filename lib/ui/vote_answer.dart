@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
-import 'round_winner.dart';
 
 class VoteAnswerScreen extends StatefulWidget {
   const VoteAnswerScreen({Key? key}) : super(key: key);
@@ -21,14 +21,6 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
   final GameController gc = Get.find();
 
   String votedAnswer = 'No voted answer';
-  final List<String> allAnswers = [
-    'Resposta 1',
-    'Resposta 2',
-    'Resposta 3',
-    'Resposta 4',
-    'Resposta 5',
-    'Resposta 6',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +80,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    for (var answer in allAnswers) buildAnswerButton(answer),
+                    ...buildAnswerButtons(),
                   ],
                 ),
               )
@@ -99,42 +91,62 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
     );
   }
 
-  Widget buildAnswerButton(String resposta) {
-    return Padding(
-      padding:
-      EdgeInsets.symmetric(vertical: AppBar().preferredSize.height * 0.08),
-      child: SizedBox(
-        height: AppBar().preferredSize.height * 0.8,
-        child: OutlinedButton(
-            style: OutlinedButton.styleFrom(
-                side: const BorderSide(
-                  width: 2.0,
-                  color: kGrayScaleDark,
-                  style: BorderStyle.solid,
-                ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0))),
-            onPressed: () {
-              votedAnswer = resposta;
-              sendVote();
-            },
-            child: Align(
-              child: Text(
-                resposta,
-                //TODO: Adicionar fonte Nunito
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              alignment: Alignment.centerLeft,
-            )),
-      ),
-    );
+  List<Widget> buildAnswerButtons() {
+    List<Widget> answerButtons = <Widget>[];
+
+    for (var index = 0; index < 6; index++) {
+      Player player = Player(name: 'Jogador ${index + 1}');
+      bool visible = false;
+      if (index < gc.game.nPlayers.value) {
+        player = gc.game.playerList[index];
+        visible = true;
+      }
+
+      answerButtons.add(Opacity(
+        opacity: index == 0 ? 0.40 : 1.0,
+        child: Visibility(
+          maintainSize: true,
+          maintainAnimation: true,
+          maintainState: true,
+          visible: visible,
+          child: Padding(
+            padding:
+            EdgeInsets.symmetric(vertical: AppBar().preferredSize.height * 0.08),
+            child: SizedBox(
+              height: AppBar().preferredSize.height * 0.8,
+              child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      side: const BorderSide(
+                        width: 2.0,
+                        color: kGrayScaleDark,
+                        style: BorderStyle.solid,
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0))),
+                  onPressed: index == 0 ? null : () {
+                    votedAnswer = player.id;
+                    sendVote();
+                  },
+                  child: Align(
+                    child: Text(
+                      player.answer,
+                      //TODO: Adicionar fonte Nunito
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                    alignment: Alignment.centerLeft,
+                  )),
+            ),
+          ),
+        ),
+      ));
+    }
+    return answerButtons;
   }
 
   void sendVote() {
-    // Socket send vote
-    Get.offNamed(RoundWinnerScreen.routeName);
+    gc.voteAnswer(votedAnswer);
   }
 }

@@ -6,8 +6,6 @@ import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 
-import 'vote_answer.dart';
-
 class ShowNewsScreen extends StatefulWidget {
   const ShowNewsScreen({Key? key}) : super(key: key);
 
@@ -19,6 +17,19 @@ class ShowNewsScreen extends StatefulWidget {
 }
 
 class _ShowNewsScreenState extends State<ShowNewsScreen> {
+  final myController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    myController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -73,10 +84,11 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                     children: [
                       SizedBox(
                         height: appBarHeight * 0.8,
-                        child: const TextField(
+                        child: TextField(
+                          controller: myController,
                           autofocus: true,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
+                          decoration: const InputDecoration(
+                            enabledBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
                             labelText: 'Resposta',
@@ -90,7 +102,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                               borderSide: BorderSide(color: Colors.white, width: 2.0),
                             ),
                           ),
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white, decoration: TextDecoration.none),
                         ),
                       ),
@@ -98,7 +110,11 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                         padding: EdgeInsets.symmetric(vertical: appBarHeight * 0.26),
                         child: AppButton(
                             onPressed: () {
-                              Get.offNamed(VoteAnswerScreen.route);
+                              gc.sendAnswer(myController.text);
+                              // TODO: Remove snack bar and transition to waiting page
+                              final snackBar = SnackBar(
+                                  content: const Text('Voto enviado, aguarde os outros votarem.'));
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             },
                             text: 'Enviar'),
                       ),
