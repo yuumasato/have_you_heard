@@ -47,9 +47,15 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
       if (barValue < 1) {
         barValue = barValue + 0.01;
       } else {
-        timer?.cancel();
+        timer!.cancel();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) timer!.cancel();
+    super.dispose();
   }
 
   @override

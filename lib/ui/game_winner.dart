@@ -69,7 +69,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
       }
     });
     if (count > 100) {
-      timer?.cancel();
+      timer!.cancel();
     }
     count++;
   }
@@ -80,6 +80,12 @@ class _GameWinnerScreenState extends State<GameWinnerScreen> {
         mostVotes = value;
       }
     }
+  }
+
+  @override
+  void dispose() {
+    if (timer != null) timer!.cancel();
+    super.dispose();
   }
 
   route() async {
