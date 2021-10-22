@@ -76,19 +76,16 @@ class _RoomScreenState extends State<RoomScreen> {
                       for (var index = 0; index < 6; index++)
                         buildPlayerButton(index),
                       SizedBox(height: appBarHeight * 0.67),
-                      Obx(() => Visibility(
-                        maintainSize: true,
-                        maintainAnimation: true,
-                        maintainState: true,
-                        visible: (gc.room.ownerID.value == gc.myPlayer.id) ? true : false,
-                        child: AppButton(
-                          color: kPink,
-                          textColor: kGrayScaleLightest,
-                          onPressed: (gc.room.nUsers.value >= 1) ? () {
-                            gc.startGame();
-                          } : null,
-                          text: 'startGame'.tr,
-                          ),
+                      Obx(() => Opacity(
+                          opacity: (gc.room.ownerID.value == gc.myPlayer.id) ? 1.0 : 0.4,
+                          child: AppButton(
+                            color: kPink,
+                            textColor: kGrayScaleLightest,
+                            onPressed: (gc.room.ownerID.value == gc.myPlayer.id && gc.room.nUsers.value >= 3) ? () {
+                              gc.startGame();
+                            } : null,
+                            text: 'startGame'.tr,
+                            ),
                         ),
                       ),
                     ],
