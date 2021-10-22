@@ -81,7 +81,7 @@ class _RoomScreenState extends State<RoomScreen> {
                           child: AppButton(
                             color: kPink,
                             textColor: kGrayScaleLightest,
-                            onPressed: (gc.room.nUsers.value >= 1) ? () {
+                            onPressed: (gc.room.ownerID.value == gc.myPlayer.id && gc.room.nUsers.value >= 3) ? () {
                               gc.startGame();
                             } : null,
                             text: 'startGame'.tr,
