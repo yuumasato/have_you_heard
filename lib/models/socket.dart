@@ -59,7 +59,12 @@ class Socket {
       gc.room.ownerID.value = room['ownerID'];
 
       gc.room.setUsers(room['users'], gc.myPlayer);
-      Get.toNamed("${RoomScreen.route}/$roomID");
+
+      String currentRoute = Get.currentRoute;
+      if (currentRoute.startsWith('/lobby')) {
+        // Only go to Room screen if current one is the Lobby
+        Get.toNamed("${RoomScreen.route}/$roomID");
+      }
     });
 
     socket.on('game', (data) {
