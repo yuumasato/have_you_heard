@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/router/parser.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,10 @@ import 'package:get/get.dart';
 import 'constants/locale_string.dart';
 
 void main() {
-  runApp(const Hyh());
+  WidgetsFlutterBinding.ensureInitialized(); //it's needed to set preferredOrientation
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_){
+    runApp(const Hyh());
+  });
 }
 
 class Hyh extends StatelessWidget {
