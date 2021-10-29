@@ -80,7 +80,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 GrayStripe(
-                    text: 'Escolha seu modo de jogo, ${gc.myPlayer.name}!'),
+                    text: 'chooseGameMode'.trParams({'name': gc.myPlayer.name}),),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                   child: Column(
@@ -102,11 +102,11 @@ class _LobbyScreenState extends State<LobbyScreen> {
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey),
                                   ),
-                                  labelText: 'Insira o código da sala',
+                                  labelText: 'insertRoomCode'.tr,
                                   labelStyle: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,
@@ -132,7 +132,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                                   gc.roomID = myController.text;
                                   gc.joinRoom(gc.roomID);
                                 },
-                                text: 'entrar'.tr),
+                                text: 'enter'.tr),
                           ),
                         ],
                       ),
@@ -142,7 +142,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         width: 200,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const [
+                          children: [
                             SizedBox(
                               width: 50,
                               child: Divider(
@@ -151,7 +151,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                               ),
                             ),
                             Text(
-                              'ou',
+                              'or'.tr,
                               style: TextStyle(fontSize: 16, color: Colors.white),
                             ),
                             SizedBox(
@@ -169,7 +169,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             // Requisitar ao servidor criação de nova sala
                             gc.createRoom();
                           },
-                          text: 'criarSala'.tr),
+                          text: 'createRoom'.tr),
                     ],
                   ),
                 ),
@@ -192,7 +192,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                         child: IconAppButton(
                           onPressed: () {},
-                          text: 'Voltar para partida',
+                          text: 'returnToGame'.tr,
                           color: kPink,
                           textColor: kGrayScaleLightest,
                         ),

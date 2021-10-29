@@ -41,7 +41,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Rodada ${gc.game.roundIndex + 1}/3',
+            'showRound'.trParams({'round': '${gc.game.roundIndex + 1}'}), //'Rodada ${gc.game.roundIndex + 1}/3',
             style: const TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold, color: kYellow),
           ),
@@ -59,13 +59,13 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                       color: kPlayer_3,
                       backgroundColor: kGrayScaleMediumDark,
                     ),
-                    Text("Escreva sua resposta")
+                    Text('writeYourAnswer'.tr)
                   ],
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                   child: ChatBalloon(
-                    balloonHeader: const Text('Você ouviu que...'),
+                    balloonHeader: Text('haveYouHeard...'.tr),
                     balloonText: RichText(
                         text: TextSpan(
                             text: gc.game.getBlankHeadline(),
@@ -87,11 +87,11 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                         child: TextField(
                           controller: myController,
                           autofocus: true,
-                          decoration: const InputDecoration(
-                            enabledBorder: const OutlineInputBorder(
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
-                            labelText: 'Resposta',
+                            labelText: 'answer'.tr,
                             labelStyle: TextStyle(
                                 fontSize: 16,
                                 color: Colors.white,
@@ -116,7 +116,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                                   content: const Text('Voto enviado, aguarde os outros votarem.'));
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             },
-                            text: 'Enviar'),
+                            text: 'send'.tr),
                       ),
                     ],
                   ),

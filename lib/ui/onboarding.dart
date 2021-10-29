@@ -42,12 +42,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             },
             children: [
               pageBuilder(
-                const Text('Você ouviu que...',
+                Text('haveYouHeard...'.tr,
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
                 RichText(
-                    text: const TextSpan(
-                        text: '"Have you Heard?" É um jogo multiplayer para conscientizar sobre fake news.',
+                    text: TextSpan(
+                        text: 'gameExplanation'.tr,
                         style: TextStyle(fontSize: 16.0, height: 1.5))),
                 Hero(
                     tag: 'logo',
@@ -60,33 +60,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             width: mediaWidth / 3))),
               ),
               pageBuilder(
-                  const Text('Personagem',
+                  Text('character'.tr,
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
                   RichText(
-                      text: const TextSpan(
-                          text: 'Coloque-se no papel de um personagem e faça sua melhor imitação.',
+                      text: TextSpan(
+                          text: 'characterExplanation'.tr,
                           style: TextStyle(fontSize: 16.0, height: 1.5))),
                   SizedBox(
                       height: 300,
                       width: mediaWidth,
                       child: personaStack(personaWidth))),
               pageBuilder(
-                  const Text('Rodadas',
+                  Text('rounds'.tr,
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
                   RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                           style: TextStyle(fontSize: 16.0, height: 1.5),
                           children: <TextSpan>[
                             TextSpan(
-                                text: 'Seja rápido e convincente para aumentar suas chances de '),
+                                text: 'roundExplanationStart'.tr),
                             TextSpan(
-                                text: 'ganhar uma viagem espacial',
+                                text: 'roundLinedExplanation'.tr,
                                 style: TextStyle(
                                     decoration: TextDecoration.lineThrough)),
                             TextSpan(
-                                text: ' vencer!')
+                                text: 'roundExplanationEnd'.tr)
                           ])),
                   Stack(clipBehavior: Clip.none, children: [
                     SizedBox(
@@ -103,8 +103,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 onPressed: () {
                                   Get.toNamed(UserNameScreen.route);
                                 },
-                                child: const Text(
-                                  'Continuar',
+                                child: Text(
+                                  'continue'.tr,
                                 ))))
                   ])),
             ],

@@ -88,7 +88,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                     color: kPlayer_3,
                     backgroundColor: kGrayScaleMediumDark,
                   ),
-                  const Text('Coloque-se no papel de...'),
+                  Text('roleExplanation'.tr),
                 ],
               ),
               Padding(
@@ -151,8 +151,8 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                   child: RichText(
                                     text: TextSpan(
                                       children: [
-                                        const TextSpan(
-                                            text: 'Características\n',
+                                        TextSpan(
+                                            text: 'characteristcs'.tr,
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 height: 1.5,
@@ -179,8 +179,8 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                                     child: RichText(
                                       text: TextSpan(
                                         children: [
-                                          const TextSpan(
-                                              text: 'Tópicos\n',
+                                          TextSpan(
+                                              text: 'topics'.tr,
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   height: 1.5,

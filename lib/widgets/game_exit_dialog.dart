@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class GameExitDialog extends StatelessWidget {
 
@@ -23,14 +24,14 @@ class GameExitDialog extends StatelessWidget {
               context: context,
               builder: (_) =>
                   AlertDialog(
-                    title: const Text('Sair da sala?'),
+                    title: Text('exitQuestion'.tr),
                     actions: [
                       ElevatedButton(
                           onPressed: onElevatedPressed,
-                          child: const Text('Continuar na sala')),
+                          child: Text('stayInTheRoom'.tr)),
                       TextButton(
                           onPressed: onPlainPressed,
-                          child: const Text('Voltar para tela inicial')),
+                          child: Text('returnToStart'.tr)),
                     ],
                   ));
           return false;
