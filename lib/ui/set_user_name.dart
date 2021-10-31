@@ -51,8 +51,8 @@ class _UserNameScreenState extends State<UserNameScreen> {
               height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
               color: kGrayScaleMediumDark,
               alignment: Alignment.center,
-              child: const Text(
-                'Escolha seu nome no jogo',
+              child: Text(
+                'chooseYourName'.tr,
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 18),
               ),
@@ -64,7 +64,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
               flex: 3,
               child: Column(
                 children: [
-                  const Text('Como você quer ser chamado?',
+                  Text('nameQuestion'.tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontSize: 18)),
                   Row(
@@ -76,11 +76,11 @@ class _UserNameScreenState extends State<UserNameScreen> {
                         width: 200.0,
                         child: TextField(
                           controller: myController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey),
                             ),
-                            labelText: 'Insira seu nome',
+                            labelText: 'insertYourName'.tr,
                             labelStyle: TextStyle(fontSize: 16, color: Colors.white,fontWeight: FontWeight.w300),
                             hintStyle: TextStyle(color: Colors.white),
                             focusColor: Colors.red,
@@ -100,7 +100,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
                           },
                           child:
                           Text(
-                            'entrar'.tr,
+                            'enter'.tr,
                             style: const TextStyle(
                                 fontSize: 16, color: kGrayScaleDarkest),
                           )),

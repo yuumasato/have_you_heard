@@ -79,7 +79,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Rodada ${gc.game.roundIndex + 1}/3',
+            'showRound'.trParams({'round': '${gc.game.roundIndex + 1}'}),
             style: const TextStyle(
                 fontSize: 16, fontWeight: FontWeight.bold, color: kYellow),
           ),
@@ -98,7 +98,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                         value: barValue,
                         color: kPlayer_3,
                         backgroundColor: kGrayScaleMediumDark),
-                    Text('Link para a notícia real'),
+                    Text('newsLink'.tr),
                   ],
                 ),
                 Container(
@@ -112,14 +112,14 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                         Container(
                             padding: EdgeInsets.only(bottom: appBarHeight * 0.26),
                             alignment: Alignment.center,
-                            child: const Text('Noticia correta',
+                            child: Text('correctNews'.tr,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: kYellow))),
                         ChatBalloon(
                             color: Colors.white,
-                            balloonHeader: const Text('Você ouviu que ...',
+                            balloonHeader: Text('actuallySaid'.tr,
                                 style: TextStyle(
                                     height: 1.5,
                                     fontSize: 16,

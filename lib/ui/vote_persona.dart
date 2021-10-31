@@ -103,7 +103,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                GrayStripe(text: 'Votação de personagens'),
+                GrayStripe(text: 'characterVote'.tr),
                 Flexible(
                   child: Container(
                     padding: const EdgeInsets.only(left: 30, right: 30, top:30),
@@ -133,7 +133,7 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
                     },
                     color: kPink,
                     textColor: kGrayScaleLightest,
-                   text: 'Votar',
+                   text: 'vote'.tr,
                   ),
                 ),
               ],

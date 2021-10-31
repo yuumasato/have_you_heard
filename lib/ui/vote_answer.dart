@@ -47,7 +47,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
                     color: kPlayer_3,
                     backgroundColor: kGrayScaleMediumDark,
                   ),
-                  const Text('Escolha a melhor resposta'),
+                  Text('chooseAnswer'.tr),
                 ],
               ),
               //TODO: Verificar para diferentes telas
@@ -57,8 +57,8 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
                   alignment: Alignment.bottomCenter,
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                   child: ChatBalloon(
-                    balloonHeader: const Text(
-                        'Você ouviu que ...',
+                    balloonHeader: Text(
+                        'haveYouHeard...'.tr,
                         style: TextStyle(height: 1.5, fontSize: 16, fontWeight: FontWeight.bold)),
                     balloonText: RichText(
                         text: TextSpan(

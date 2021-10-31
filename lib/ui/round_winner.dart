@@ -110,7 +110,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                       ),
                     ),
                     ChatBalloon(
-                        balloonHeader: const Text('Você ouviu que ...',
+                        balloonHeader: Text('haveYouHeard...'.tr,
                             style: TextStyle(
                                 height: 1.5,
                                 fontSize: 16,

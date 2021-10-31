@@ -69,19 +69,19 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
 
     if (gc.game.tie) {
       _tieEnd = 1.0;
-      winnerBanner = 'Rounds\nvencidos';
+      winnerBanner = 'wonRounds'.tr;
       Future.delayed(Duration(milliseconds: animeTime~/2), () {
         setState(() {
-          winnerBanner = 'Jogadores mais\nrápidos';
+          winnerBanner = 'fastestPlayers'.tr;
         });
       });
       Future.delayed(Duration(milliseconds: animeTime), () {
         setState(() {
-          winnerBanner = _gameWinner.name + '\nVencedor!';
+          winnerBanner = _gameWinner.name + 'winner'.tr;
         });
       });
     } else {
-      winnerBanner = _gameWinner.name + '\nVencedor!';
+      winnerBanner = _gameWinner.name + 'winner'.tr;
     }
     _tieBar = Tween<double>(begin: 0.0, end: _tieEnd)
         .animate(CurvedAnimation(
@@ -124,7 +124,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
           // A choice must be made in this dialog, let's block the back button
             onWillPop: () async => false,
             child: SimpleDialog(
-              title: const Center(child: Text('Parabéns')),
+              title: Center(child: Text('congratulations'.tr)),
               titleTextStyle: const TextStyle(
                   fontSize: 24, fontWeight: FontWeight.bold, color: kYellow),
               children: <Widget>[
@@ -138,12 +138,12 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
                     },
                     color: kPink,
                     textColor: kGrayScaleLightest,
-                    text:'Jogar Novamente'),
+                    text:'playAgain'.tr),
                 TextButton(
                     onPressed: () {
                       gc.exitGame();
                     },
-                    child: const Text('Finalizar partida'))
+                    child: Text('endGame'.tr))
               ],
             )));
   }
@@ -198,7 +198,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
     List<Widget> playerButtons = <Widget>[];
 
     for (var index = 0; index < 6; index++) {
-      Player player = Player(name: 'Jogador ${index + 1}');
+      Player player = Player(name: 'player'.trParams({'number': '${index + 1}'}));
       bool visible = false;
       double barValue = 0.0;
       if (index < gc.game.nPlayers.value) {
