@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/models/player.dart';
+import 'package:have_you_heard/ui/waiting_screen.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 
@@ -148,5 +149,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
 
   void sendVote() {
     gc.voteAnswer(votedAnswer);
+    var parameters = <String, String>{"titleFlag": "true", "bannerText": "Esperando votos"};
+    Get.offNamed(WaitingScreen.route, parameters: parameters);
   }
 }
