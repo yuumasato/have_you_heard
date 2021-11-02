@@ -3,6 +3,9 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/widgets/app_button.dart';
+import 'package:have_you_heard/widgets/app_text_field.dart';
+import 'package:have_you_heard/widgets/gray_stripe.dart';
 
 import 'lobby.dart';
 
@@ -18,10 +21,6 @@ class UserNameScreen extends StatefulWidget {
 
 class _UserNameScreenState extends State<UserNameScreen> {
   final myController = TextEditingController();
-  final appBar = AppBar(
-    backgroundColor: kGrayScaleDarkest,
-    automaticallyImplyLeading: false,
-  );
 
   @override
   void initState() {
@@ -37,90 +36,72 @@ class _UserNameScreenState extends State<UserNameScreen> {
   @override
   Widget build(BuildContext context) {
     final GameController gc = Get.find();
-    final screenHeight = MediaQuery.of(context).size.height;
-    final appBarHeight = appBar.preferredSize.height;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final appBarHeight = AppBar().preferredSize.height;
+
     return Scaffold(
-      appBar: appBar,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom:20),
-              height: (screenHeight - appBarHeight - statusBarHeight) * 0.07,
-              color: kGrayScaleMediumDark,
-              alignment: Alignment.center,
-              child: Text(
-                'chooseYourName'.tr,
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: Svg("assets/images/full_landscape.svg",
+                  size: Size(screenWidth, screenWidth * 0.486)),
+              fit: BoxFit.fitWidth,
+              alignment: Alignment.bottomCenter,
             ),
-            SizedBox(
-              height: 38,
-            ),
-            Expanded(
-              flex: 3,
-              child: Column(
-                children: [
-                  Text('nameQuestion'.tr,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, fontSize: 18)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(10.0),
-                        height: 38,
-                        width: 200.0,
-                        child: TextField(
-                          controller: myController,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              GrayStripe(text: 'chooseYourName'.tr),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: screenWidth * 0.1,
+                    right: screenWidth * 0.1,
+                    top: appBarHeight * 0.8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: appBarHeight * 0.2),
+                      child: Text('nameQuestion'.tr,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: kGrayScaleLight, fontSize: 18)),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: appBarHeight * 0.8,
+                          width: screenWidth * 0.56,
+                          child: AppTextField(
+                            textEditingController: myController,
                             labelText: 'insertYourName'.tr,
-                            labelStyle: TextStyle(fontSize: 16, color: Colors.white,fontWeight: FontWeight.w300),
-                            hintStyle: TextStyle(color: Colors.white),
-                            focusColor: Colors.red,
-                            focusedBorder:OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white, width: 2.0),
-                            ),
                           ),
-                          style: const TextStyle(color: Colors.white, decoration: TextDecoration.none),
                         ),
-                      ),
-                      ElevatedButton(
-                          onPressed: () async {
-                            String playerName = myController.text;
-                            gc.setPlayerName(playerName);
-                            gc.saveUser(playerName);
-                            Get.toNamed(LobbyScreen.route);
-                          },
-                          child:
-                          Text(
-                            'enter'.tr,
-                            style: const TextStyle(
-                                fontSize: 16, color: kGrayScaleDarkest),
-                          )),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-                height: 182,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: Svg("assets/images/full_landscape.svg",
-                        size: Size(375, 182)),
-                    fit: BoxFit.contain,
-                    alignment: Alignment.bottomCenter,
-                  ),
+                        SizedBox(
+                          height: appBarHeight * 0.8,
+                          width: screenWidth * 0.22,
+                          child: AppButton(
+                              onPressed: () async {
+                                String playerName = myController.text;
+                                gc.setPlayerName(playerName);
+                                gc.saveUser(playerName);
+                                Get.toNamed(LobbyScreen.route);
+                              },
+                              text: 'enter'.tr),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );
