@@ -105,7 +105,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                         fit: BoxFit.contain,
                         image: Svg(
                           _persona.svgAsset,
-                          size: Size(128, 288),
+                          size: Size(screenWidth*0.25, screenWidth*0.5625),
                         ),
                       ),
                     ),
