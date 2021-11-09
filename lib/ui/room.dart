@@ -100,34 +100,41 @@ class _RoomScreenState extends State<RoomScreen> {
 
   Widget buildPlayerButton(int index) {
     final appBarHeight = AppBar().preferredSize.height;
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: appBarHeight * 0.08),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: Stack(alignment: AlignmentDirectional.center, children: [
-          LinearProgressIndicator(
-            value: loadingValues[0],
-            color: playerColors[index],
-            minHeight: appBarHeight * 0.66,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
-                  child: Obx(() => Text(gc.room.userList[index].name))
-              ),
-              Obx(()  => Visibility(
-                child: const Icon(Icons.star_rate_rounded),
-                maintainSize: true,
-                maintainAnimation: true,
-                maintainState: true,
-                visible: (gc.room.userList[index].id == gc.room.ownerID.value) ? true : false,
-              )),
-            ],
-          ),
-        ]),
-      ),
-    );
+    return Obx(() => TweenAnimationBuilder<double>(
+        tween: Tween<double>(begin: 0.015, end: gc.room.userList[index].barValue),
+        curve: Curves.easeOutQuint,
+        duration: const Duration(seconds: 1),
+        builder: (BuildContext context, double barValue, Widget? child) {
+          return Container(
+            padding: EdgeInsets.symmetric(vertical: appBarHeight * 0.08),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              child: Stack(alignment: AlignmentDirectional.center, children: [
+                LinearProgressIndicator(
+                  value:barValue,
+                  color: playerColors[index],
+                  minHeight: appBarHeight * 0.66,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: appBarHeight * 0.2),
+                        child: Obx (() => Text(gc.room.userList[index].name))
+                    ),
+                    Visibility(
+                      child: const Icon(Icons.star_rate_rounded),
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible: (gc.room.userList[index].id == gc.room.ownerID.value) ? true : false,
+                    ),
+                  ],
+                ),
+              ]),
+            ),
+          );
+        }
+    ));
   }
 }
