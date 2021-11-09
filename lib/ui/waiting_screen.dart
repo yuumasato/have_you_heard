@@ -40,8 +40,8 @@ class _WaitingScreenState extends State<WaitingScreen>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
