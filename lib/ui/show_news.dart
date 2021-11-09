@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/ui/waiting_screen.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
@@ -111,10 +112,8 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                         child: AppButton(
                             onPressed: () {
                               gc.sendAnswer(myController.text);
-                              // TODO: Remove snack bar and transition to waiting page
-                              final snackBar = SnackBar(
-                                  content: const Text('Voto enviado, aguarde os outros votarem.'));
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                              var parameters = <String, String>{"titleFlag": "true", "bannerText": "Esperando respostas"};
+                              Get.offNamed(WaitingScreen.route, parameters: parameters);
                             },
                             text: 'send'.tr),
                       ),

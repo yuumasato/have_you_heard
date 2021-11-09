@@ -3,6 +3,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/ui/waiting_screen.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
@@ -126,10 +127,8 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
                   child: AppButton(
                     onPressed: () {
                       gc.votePersona(_persona);
-                      // TODO: Remove snack bar and transition to waiting page
-                      final snackBar = SnackBar(
-                          content: const Text('Voto enviado, aguarde os outros votarem.'));
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      var parameters = <String, String>{"titleFlag": "false", "bannerText": "Esperando votos"};
+                      Get.offNamed(WaitingScreen.route, parameters: parameters);
                     },
                     color: kPink,
                     textColor: kGrayScaleLightest,

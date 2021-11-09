@@ -14,6 +14,7 @@ import '../ui/show_news.dart';
 import '../ui/splash.dart';
 import '../ui/vote_answer.dart';
 import '../ui/vote_persona.dart';
+import '../ui/waiting_screen.dart';
 
 List<GetPage> getHyhRoutes() {
   return [
@@ -30,6 +31,7 @@ List<GetPage> getHyhRoutes() {
     GetPage(name: CorrectNewsScreen.routeName, page: () => const CorrectNewsScreen(), ),
     GetPage(name: GameWinnerScreen.routeName,  page: () => const GameWinnerScreen(),  ),
     GetPage(name: SettingsScreen.routeName,    page: () => const SettingsScreen(),    ),
+    GetPage(name: WaitingScreen.routeName,     page: () => const WaitingScreen(),     ),
   ];
 }
 
