@@ -7,7 +7,7 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/models/persona.dart';
 
-import 'show_news.dart';
+import 'show_rounds.dart';
 
 class DescPersonaScreen extends StatefulWidget {
   const DescPersonaScreen({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
   }
 
   route() {
-    Get.offNamed(ShowNewsScreen.route);
+    Get.offNamed(ShowRoundsScreen.route);
   }
 
   progressBarTimer() async {

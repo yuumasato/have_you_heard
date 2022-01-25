@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/ui/show_rounds.dart';
 
 import '../ui/correct_news.dart';
 import '../ui/desc_persona.dart';
@@ -25,6 +26,7 @@ List<GetPage> getHyhRoutes() {
     GetPage(name: RoomScreen.routeName,        page: () => const RoomScreen(),        ),
     GetPage(name: VotePersonaScreen.routeName, page: () => const VotePersonaScreen(), ),
     GetPage(name: DescPersonaScreen.routeName, page: () => const DescPersonaScreen(), ),
+    GetPage(name: ShowRoundsScreen.routeName,  page: () => const ShowRoundsScreen(),  ),
     GetPage(name: ShowNewsScreen.routeName,    page: () => const ShowNewsScreen(),    ),
     GetPage(name: VoteAnswerScreen.routeName,  page: () => const VoteAnswerScreen(),  ),
     GetPage(name: RoundWinnerScreen.routeName, page: () => const RoundWinnerScreen(), ),
