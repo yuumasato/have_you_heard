@@ -75,6 +75,14 @@ class LocalString extends Translations {
           'stayInTheRoom': 'Continuar na sala',
           'returnToStart' : 'Voltar para tela inicial',
 
+          //settings
+          'settings' : 'Configurações',
+          'name' : 'Nome',
+          'sound' : 'Som',
+          'country' : 'País',
+          'rules' : 'Ver regras',
+          'exitGame' : 'Fechar jogo',
+
         },
         'es_AR': {
           'enter': 'Entrar',
@@ -146,6 +154,14 @@ class LocalString extends Translations {
           'exitQuestion' : '¿Dejar la sala?', //TODO: Verificar tradução
           'stayInTheRoom': '¿Continuar en la sala?', //TODO: Verificar tradução
           'returnToStart' : 'Volver a la pantalla de inicio', //TODO: Verificar tradução
+
+          //settings
+          'settings' : 'Configuraciones',
+          'name' : 'Nombre',
+          'sound' : 'Sonar', //TODO: Verificar tradução
+          'country' : 'País',
+          'rules' : 'Ver reglas', //TODO: Verificar tradução
+          'exitGame' : 'Cerrar Juego', //TODO: Verificar tradução
 
         },
       };
