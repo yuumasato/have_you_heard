@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen> {
               textAlign: TextAlign.center,
               text: const TextSpan(
                 style: TextStyle(
-                    fontSize: 32, fontWeight: FontWeight.bold, height: 1.25),
+                    fontSize: 32, fontWeight: FontWeight.bold, height: 1.25, fontFamily: 'Nunito'),
                 children: [
                   TextSpan(text: 'HAVE YOU\n'),
                   TextSpan(text: 'HEARD?'),
