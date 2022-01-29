@@ -20,6 +20,7 @@ class Hyh extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData.dark().copyWith(
+          textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Nunito',),
           scaffoldBackgroundColor: kGrayScaleDarkest,
           colorScheme: const ColorScheme.dark(
             primary: kYellow,
