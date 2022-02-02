@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
 
 class IconAppButton extends StatelessWidget {
@@ -26,10 +27,10 @@ class IconAppButton extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(
-            Icons.people_outlined,
+          Image(
             color: textColor,
-            size: 24.0,
+            image: const Svg("assets/images/users.svg",
+              size: Size(24,24)),
           ),
           Expanded(
             child: Center(
