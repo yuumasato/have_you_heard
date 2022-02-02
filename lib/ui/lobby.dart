@@ -7,6 +7,8 @@ import 'package:have_you_heard/controller/game_controller.dart';
 
 import 'package:have_you_heard/ui/settings.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
+import 'package:have_you_heard/widgets/app_text_divider.dart';
+import 'package:have_you_heard/widgets/app_text_field.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
 import 'package:have_you_heard/widgets/icon_app_button.dart';
 
@@ -94,33 +96,12 @@ class _LobbyScreenState extends State<LobbyScreen> {
                           Expanded(
                             flex: 15,
                             child: SizedBox(
-                              height: appBarHeight * 0.75,
+                              height: appBarHeight * 0.8,
                               width: screenWidth * 0.55,
-                              child: TextField(
-                                controller: myController,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                  ),
-                                  labelText: 'insertRoomCode'.tr,
-                                  labelStyle: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w300),
-                                  hintStyle: TextStyle(color: Colors.white),
-                                  focusColor: Colors.red,
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 2.0),
-                                  ),
-                                ),
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    decoration: TextDecoration.none),
+                              child: AppTextField(
+                                textEditingController: myController,
+                                labelText: 'insertRoomCode'.tr,
+                                autofocus: false,
                               ),
                             ),
                           ),
@@ -136,33 +117,11 @@ class _LobbyScreenState extends State<LobbyScreen> {
                           ),
                         ],
                       ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: appBarHeight * 0.2),
-                        width: 200,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SizedBox(
-                              width: 50,
-                              child: Divider(
-                                color: kGrayScaleMediumDark,
-                                thickness: 2,
-                              ),
-                            ),
-                            Text(
-                              'or'.tr,
-                              style: TextStyle(fontSize: 16, color: Colors.white),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              child: Divider(
-                                color: kGrayScaleMediumDark,
-                                thickness: 2,
-                              ),
-                            ),
-                          ],
-                        ),
+                      AppTextDivider(
+                          text: 'or'.tr,
+                          padding:EdgeInsets.symmetric(vertical: appBarHeight * 0.2),
+                          lineWidth: screenWidth * 0.1 ,
+                          spacing: 8,
                       ),
                       IconAppButton(
                           onPressed: () {
@@ -178,7 +137,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
+                      Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: screenWidth * 0.05,
                             vertical: appBarHeight * 0.4),
