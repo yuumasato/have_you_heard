@@ -9,6 +9,7 @@ import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
+import 'package:have_you_heard/widgets/in_game_app_bar.dart';
 
 class RoomScreen extends StatefulWidget {
   const RoomScreen({Key? key}) : super(key: key);
@@ -45,9 +46,7 @@ class _RoomScreenState extends State<RoomScreen> {
         onElevatedPressed: () => Navigator.of(context).pop(),
         onPlainPressed: () => gc.exitGame(),
         child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-          ),
+          appBar: const InGameAppBar(),
           body: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -6,6 +6,7 @@ import 'package:have_you_heard/ui/waiting_screen.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
+import 'package:have_you_heard/widgets/in_game_app_bar.dart';
 
 class ShowNewsScreen extends StatefulWidget {
   const ShowNewsScreen({Key? key}) : super(key: key);
@@ -40,13 +41,10 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
       onElevatedPressed: () => Navigator.of(context).pop(),
       onPlainPressed: () => gc.exitGame(),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'showRound'.trParams({'round': '${gc.game.roundIndex + 1}'}), //'Rodada ${gc.game.roundIndex + 1}/3',
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: kYellow),
-          ),
-          automaticallyImplyLeading: false,
+        appBar: InGameAppBar(
+          title: 'showRound'.trParams({'round': '${gc.game.roundIndex + 1}'}), //'Rodada ${gc.game.roundIndex + 1}/3',
+          fontWeight: FontWeight.w700,
+          textColor: kYellow,
         ),
         body: SafeArea(
             child: Column(

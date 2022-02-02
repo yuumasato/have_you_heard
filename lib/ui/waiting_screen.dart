@@ -5,6 +5,7 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
+import 'package:have_you_heard/widgets/in_game_app_bar.dart';
 
 
 class WaitingScreen extends StatefulWidget {
@@ -57,13 +58,11 @@ class _WaitingScreenState extends State<WaitingScreen>
       onElevatedPressed: () => Navigator.of(context).pop(),
       onPlainPressed: () => gc.exitGame(),
       child: Scaffold(
-        appBar: AppBar(
-          title:  titleFlag == 'true' ? Text(
-            'Rodada ${gc.game.roundIndex + 1}/3',
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: kYellow),
-          ) : null,
-          automaticallyImplyLeading: false,
+        appBar: InGameAppBar(
+          title:  titleFlag == 'true' ? (
+            'Rodada ${gc.game.roundIndex + 1}/3') : "",
+          textColor: kYellow,
+          fontWeight: FontWeight.w700,
         ),
         body: SafeArea(
           child: Column(

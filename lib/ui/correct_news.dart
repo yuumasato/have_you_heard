@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/widgets/in_game_app_bar.dart';
 
 import 'game_winner.dart';
 import 'show_news.dart';
@@ -77,13 +78,9 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
       // This is short lived screen, let's block the back button
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(
+        appBar: InGameAppBar(
+          title:
             'showRound'.trParams({'round': '${gc.game.roundIndex + 1}'}),
-            style: const TextStyle(
-                fontSize: 16, fontWeight: FontWeight.bold, color: kYellow),
-          ),
-          automaticallyImplyLeading: false,
         ),
         body: SafeArea(
           child: Column(
