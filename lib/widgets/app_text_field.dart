@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:have_you_heard/constants/colors.dart';
 
 class AppTextField extends StatelessWidget {
@@ -7,17 +8,23 @@ class AppTextField extends StatelessWidget {
     required this.textEditingController,
     required this.labelText,
     this.autofocus = true,
+    this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   }) : super(key: key);
 
   final TextEditingController textEditingController;
   final String labelText;
   final bool autofocus;
+  final TextInputType keyboardType ;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       autofocus: autofocus,
       controller: textEditingController,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         filled: true,
         fillColor: kGrayScaleDarkest,
