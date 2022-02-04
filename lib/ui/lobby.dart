@@ -102,6 +102,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                                 textEditingController: myController,
                                 labelText: 'insertRoomCode'.tr,
                                 autofocus: false,
+                                keyboardType: TextInputType.number,
                               ),
                             ),
                           ),
