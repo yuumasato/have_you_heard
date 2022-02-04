@@ -19,44 +19,38 @@ class DescPersonaScreen extends StatefulWidget {
   _DescPersonaScreenState createState() => _DescPersonaScreenState();
 }
 
-class _DescPersonaScreenState extends State<DescPersonaScreen> {
-  var barValue = 0.0;
-  Timer? timer;
+class _DescPersonaScreenState extends State<DescPersonaScreen>
+    with SingleTickerProviderStateMixin {
+  final Duration _screenDuration = const Duration(seconds: 5);
+
+  late final AnimationController _controller = AnimationController(
+    duration: _screenDuration,
+    vsync: this,
+  )..forward();
+
+  late final Animation<double> _progressBar = Tween<double>(begin: 0.0, end: 1.0)
+      .animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear)
+  );
 
   @override
   initState() {
     super.initState();
-    startTime();
-    progressBarTimer();
-  }
+    _controller.addListener(() {
+      setState(() {});
+    });
 
-  startTime() async {
-    var duration = const Duration(seconds: 5);
-    return Timer(duration, route);
-  }
-
-  route() {
-    Get.offNamed(ShowRoundsScreen.route);
-  }
-
-  progressBarTimer() async {
-    timer = Timer.periodic(
-        const Duration(milliseconds: 50), (_) => setProgressBarValue());
-  }
-
-  setProgressBarValue() {
-    setState(() {
-      if (barValue < 1) {
-        barValue = barValue + 0.01;
-      } else {
-        timer!.cancel();
-      }
+    Future.delayed(_screenDuration, () {
+      setState(() {
+        Get.offNamed(ShowRoundsScreen.route);
+      });
     });
   }
 
   @override
   void dispose() {
-    if (timer != null) timer!.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -84,7 +78,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
                 children: [
                   LinearProgressIndicator(
                     minHeight: AppBar().preferredSize.height * 0.66,
-                    value: barValue,
+                    value: _progressBar.value,
                     color: kPlayer_3,
                     backgroundColor: kGrayScaleMediumDark,
                   ),
