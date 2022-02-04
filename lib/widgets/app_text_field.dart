@@ -9,12 +9,14 @@ class AppTextField extends StatelessWidget {
     required this.labelText,
     this.autofocus = true,
     this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   }) : super(key: key);
 
   final TextEditingController textEditingController;
   final String labelText;
   final bool autofocus;
   final TextInputType keyboardType ;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class AppTextField extends StatelessWidget {
       autofocus: autofocus,
       controller: textEditingController,
       keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         filled: true,
         fillColor: kGrayScaleDarkest,
