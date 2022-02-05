@@ -5,11 +5,12 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
 import 'game_winner.dart';
-import 'show_news.dart';
+import 'show_rounds.dart';
 
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
+
 
 class CorrectNewsScreen extends StatefulWidget {
   const CorrectNewsScreen({Key? key}) : super(key: key);
@@ -43,7 +44,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
     if (gc.game.isGameFinished()) {
       Get.offNamed(GameWinnerScreen.routeName);
     } else {
-      Get.offNamed(ShowNewsScreen.routeName);
+      Get.offNamed(ShowRoundsScreen.route);
     }
   }
 
