@@ -17,25 +17,54 @@ class ShowNewsScreen extends StatefulWidget {
   _ShowNewsScreenState createState() => _ShowNewsScreenState();
 }
 
-class _ShowNewsScreenState extends State<ShowNewsScreen> {
-  final myController = TextEditingController();
+class _ShowNewsScreenState extends State<ShowNewsScreen>
+    with SingleTickerProviderStateMixin {
+  // The player has 12 seconds to answer the news
+  final Duration _screenDuration = const Duration(seconds: 12);
+
+  late final AnimationController _controller = AnimationController(
+    duration: _screenDuration,
+    vsync: this,
+  )..forward();
+
+  late final Animation<double> _progressBar = Tween<double>(begin: 0.0, end: 1.0)
+      .animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear)
+  );
+
+  final textController = TextEditingController();
+  final GameController gc = Get.find();
 
   @override
   void initState() {
     super.initState();
+    _controller.addListener(() {
+      setState(() {});
+    });
+
+    Future.delayed(_screenDuration, () {
+      sendAnswer();
+    });
   }
 
   @override
   void dispose() {
+    _controller.dispose();
+    textController.dispose();
     super.dispose();
-    myController.dispose();
+  }
+
+  sendAnswer() {
+    gc.sendAnswer(textController.text);
+    var parameters = <String, String>{"titleFlag": "true", "bannerText": "Esperando respostas"};
+    Get.offNamed(WaitingScreen.route, parameters: parameters);
   }
 
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
-    final GameController gc = Get.find();
     return GameExitDialog (
       onElevatedPressed: () => Navigator.of(context).pop(),
       onPlainPressed: () => gc.exitGame(),
@@ -57,6 +86,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                   children: [
                     LinearProgressIndicator(
                       minHeight: AppBar().preferredSize.height * 0.66,
+                      value: _progressBar.value,
                       color: kPlayer_3,
                       backgroundColor: kGrayScaleMediumDark,
                     ),
@@ -86,7 +116,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                       SizedBox(
                         height: appBarHeight * 0.8,
                         child: TextField(
-                          controller: myController,
+                          controller: textController,
                           autofocus: true,
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
@@ -110,11 +140,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: appBarHeight * 0.26),
                         child: AppButton(
-                            onPressed: () {
-                              gc.sendAnswer(myController.text);
-                              var parameters = <String, String>{"titleFlag": "true", "bannerText": "Esperando respostas"};
-                              Get.offNamed(WaitingScreen.route, parameters: parameters);
-                            },
+                            onPressed: sendAnswer,
                             text: 'send'.tr),
                       ),
                     ],
