@@ -47,7 +47,6 @@ class Socket {
       gc.myPlayer.id = data;
 
       socket.emit('name', gc.myPlayer.name);
-      //TODO Send the language when the server supports it
     });
 
     // We have just entered a room
@@ -112,6 +111,10 @@ class Socket {
 
   void initUser(String username) {
     socket.emit('user');
+  }
+  void sendLang(String lang) {
+    socket.emit('language', lang);
+
   }
 
   void createRoom() {

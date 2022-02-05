@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:have_you_heard/controller/setting_controller.dart';
 
 import 'lobby.dart';
 import 'onboarding.dart';
@@ -99,24 +99,14 @@ class _SplashScreenState extends State<SplashScreen> {
                           iconSize: 64,
                           icon: SvgPicture.asset('assets/images/flagArgentina.svg'),
                           onPressed: () async {
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.setString('locale', 'es');
-                            gc.language = 'es';
-
-                            var locale = Locale('es', 'AR');
-                            Get.updateLocale(locale);
+                            await setGameLanguage(gc, 'es');
                             route();
                           }),
                       IconButton(
                           iconSize: 64,
                           icon: SvgPicture.asset('assets/images/flagBrazil.svg'),
                           onPressed: () async {
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.setString('locale', 'pt');
-                            gc.language = 'pt';
-
-                            var locale = Locale('pt', 'BR');
-                            Get.updateLocale(locale);
+                            await setGameLanguage(gc, 'pt');
                             route();
                           }),
                     ],
