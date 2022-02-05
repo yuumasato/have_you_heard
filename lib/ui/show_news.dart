@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
@@ -22,6 +24,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen>
     with SingleTickerProviderStateMixin {
   // The player has 12 seconds to answer the news
   final Duration _screenDuration = const Duration(seconds: 12);
+  late final Timer _timer;
 
   late final AnimationController _controller = AnimationController(
     duration: _screenDuration,
@@ -44,9 +47,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen>
       setState(() {});
     });
 
-    Future.delayed(_screenDuration, () {
-      sendAnswer();
-    });
+    _timer = Timer(_screenDuration, sendAnswer);
   }
 
   @override
@@ -57,6 +58,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen>
   }
 
   sendAnswer() {
+    _timer.cancel();
     gc.sendAnswer(textController.text);
     var parameters = <String, String>{"titleFlag": "true", "bannerText": "Esperando respostas"};
     Get.offNamed(WaitingScreen.route, parameters: parameters);

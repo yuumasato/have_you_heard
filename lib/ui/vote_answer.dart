@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,6 +24,7 @@ class VoteAnswerScreen extends StatefulWidget {
 class _VoteAnswerScreenState extends State<VoteAnswerScreen>
     with SingleTickerProviderStateMixin {
   final Duration _screenDuration = const Duration(seconds: 7);
+  late final Timer _timer;
 
   late final AnimationController _controller = AnimationController(
     duration: _screenDuration,
@@ -45,9 +48,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen>
       setState(() {});
     });
 
-    Future.delayed(_screenDuration, () {
-      sendVote();
-    });
+    _timer = Timer(_screenDuration, sendVote);
   }
 
   @override
@@ -182,6 +183,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen>
   }
 
   void sendVote() {
+    _timer.cancel();
     gc.voteAnswer(votedAnswer);
     var parameters = <String, String>{"titleFlag": "true", "bannerText": "Esperando votos"};
     Get.offNamed(WaitingScreen.route, parameters: parameters);
