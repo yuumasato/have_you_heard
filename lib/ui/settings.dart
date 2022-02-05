@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
+import 'package:have_you_heard/controller/setting_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -132,13 +133,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: (){}, //TODO: implement onTap
+                          onTap: () async {
+                            await setGameLanguage(gc, 'es');
+                          },
                           child: SvgPicture.asset(
                             'assets/images/flagArgentina.svg',
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){}, //TODO: implement onTap
+                          onTap: () async {
+                            await setGameLanguage(gc, 'pt');
+                          },
                           child: SvgPicture.asset(
                             'assets/images/flagBrazil.svg',
                           ),
