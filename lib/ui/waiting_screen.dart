@@ -39,6 +39,9 @@ class _WaitingScreenState extends State<WaitingScreen>
     curve: Curves.linear,
   ));
 
+  double landscapeHeight = 2928;
+  double landscapeWidth = 1041;
+
   @override
   void dispose() {
     _controller.dispose();
@@ -49,7 +52,7 @@ class _WaitingScreenState extends State<WaitingScreen>
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     // Multiplication factor to match the landscape's width to screen width
-    final double svgFactor = screenWidth/375;
+    final double svgFactor = screenWidth/landscapeHeight;
     final GameController gc = Get.find();
     final String titleFlag = Get.parameters['titleFlag'] ?? 'false';
     final bannerText = Get.parameters['bannerText'] ?? 'No banner';
@@ -79,16 +82,16 @@ class _WaitingScreenState extends State<WaitingScreen>
                 Stack(
                     children: [
                       SizedBox(
-                        height: 182*svgFactor*2,
+                        height: landscapeWidth*svgFactor*2,
                         child: SlideTransition(
                             position: _offsetAnimation,
                             child: OverflowBox(
-                              maxWidth: 375*svgFactor*2*3,
+                              maxWidth: landscapeHeight*svgFactor*2*3,
                               child: Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                         image: svg_provider.Svg("assets/images/full_landscape.svg",
-                                            size: Size(375*svgFactor*2, 182*svgFactor*2)),
+                                            size: Size(landscapeHeight*svgFactor*2, landscapeWidth*svgFactor*2)),
                                         fit: BoxFit.none,
                                         repeat: ImageRepeat.repeatX),
                                   )
