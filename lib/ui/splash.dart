@@ -25,12 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
     super.initState();
-    startTime();
-  }
 
-  startTime() async {
-    var duration = const Duration(seconds: 4);
-    return Timer(duration, showLang);
+    Future.delayed(const Duration(seconds: 4), () {
+      showLang();
+    });
   }
 
   showLang() {
