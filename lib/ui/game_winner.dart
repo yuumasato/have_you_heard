@@ -116,7 +116,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
   }
 
   onPlayAgain(){
-    gc.game.reset();
+    gc.rematch();
     String roomID = gc.roomID;
     Get.offAllNamed("${RoomScreen.route}/$roomID");
   }

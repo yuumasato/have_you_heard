@@ -139,7 +139,10 @@ class Socket {
   void leaveRoom() {
     socket.emit('leave');
     Get.offAllNamed(LobbyScreen.route);
+  }
 
+  void rematch() {
+    socket.emit('rematch');
   }
 
   void startGame() {
