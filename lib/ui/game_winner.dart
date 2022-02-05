@@ -25,10 +25,10 @@ class GameWinnerScreen extends StatefulWidget {
 class _GameWinnerScreenState extends State<GameWinnerScreen>
     with SingleTickerProviderStateMixin {
   final GameController gc = Get.find();
-  Timer? timer;
   late AnimationController _controller;
   late Animation<double> _roundsBar;
   late Animation<double> _tieBar;
+  final Duration _screenDuration = const Duration(seconds: 8);
   Player _gameWinner = Player(name: 'No player');
 
   String winnerBanner = 'No banner';
@@ -92,12 +92,9 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
     );
 
     _controller.forward();
-    startTime();
-  }
-
-  startTime() async {
-    var duration = const Duration(seconds: 8);
-    return Timer(duration, route);
+    Future.delayed(_screenDuration, () {
+      route();
+    });
   }
 
   getMostWins() {
@@ -130,7 +127,6 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
 
   @override
   void dispose() {
-    if (timer != null) timer!.cancel();
     super.dispose();
     _controller.dispose();
   }
@@ -156,7 +152,6 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
     return WillPopScope(
       // This is short lived screen, let's block the back button
         onWillPop: () async {
-          startTime();
           return false;
         },
         child: Scaffold(
