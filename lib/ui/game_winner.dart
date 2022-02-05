@@ -28,7 +28,8 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
   late AnimationController _controller;
   late Animation<double> _roundsBar;
   late Animation<double> _tieBar;
-  final Duration _screenDuration = const Duration(seconds: 8);
+  final int animeTime = 8000;
+
   Player _gameWinner = Player(name: 'No player');
 
   String winnerBanner = 'No banner';
@@ -49,11 +50,11 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
   @override
   initState() {
     super.initState();
-    int animeTime = 6000;
+    final Duration _screenDuration = Duration(milliseconds: animeTime);
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: animeTime),
+      duration: _screenDuration,
     );
     _controller.addListener(() {
       setState(() {});
@@ -77,7 +78,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
           winnerBanner = 'fastestPlayers'.tr;
         });
       });
-      Future.delayed(Duration(milliseconds: animeTime), () {
+      Future.delayed(Duration(milliseconds: 3*(animeTime~/4)), () {
         setState(() {
           winnerBanner = _gameWinner.name + 'winner'.tr;
         });
@@ -92,7 +93,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
     );
 
     _controller.forward();
-    Future.delayed(_screenDuration, () {
+    Future.delayed( Duration(milliseconds: animeTime), () {
       route();
     });
   }
@@ -145,7 +146,6 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
 
   @override
   Widget build(BuildContext context) {
-    List<Player> allPlayers = gc.game.playerList;
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
 
@@ -173,7 +173,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
                             padding: EdgeInsets.only(
                                 bottom: appBarHeight * 0.50),
                             child: Text(winnerBanner,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold),
                             ),
                           ),
