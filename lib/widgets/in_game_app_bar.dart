@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
-import 'package:have_you_heard/ui/lobby.dart';
-import 'package:have_you_heard/ui/settings.dart';
 
 class InGameAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize;
   final String title;
+  final VoidCallback? onSettingsPressed;
+  final VoidCallback? onLeavePressed;
   final Color textColor;
   final FontWeight fontWeight;
 
   const InGameAppBar({
     this.title = '',
+    this.onSettingsPressed,
+    this.onLeavePressed,
     this.textColor = kGrayScaleLight,
     this.fontWeight = FontWeight.w400,
     Key? key,
@@ -32,11 +33,11 @@ class InGameAppBar extends StatelessWidget implements PreferredSizeWidget {
         icon: const Image(
           image: Svg("assets/images/icon_leave.svg", size: Size(24, 24)),
         ),
-        onPressed: (){Get.toNamed(LobbyScreen.route);}
+        onPressed: onLeavePressed,
       ),
       actions: [
         IconButton(
-          onPressed: () {Get.toNamed(SettingsScreen.route);},
+          onPressed: onSettingsPressed,
           icon: const Icon(Icons.settings_outlined),
         )
       ],
