@@ -90,6 +90,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
                               onPressed: () async {
                                 String playerName = myController.text;
                                 gc.setPlayerName(playerName);
+                                gc.setLocale(gc.language);
                                 gc.saveUser(playerName);
                                 Get.toNamed(LobbyScreen.route);
                               },
