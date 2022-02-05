@@ -73,7 +73,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
       // This is short lived screen, let's block the back button
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: InGameAppBar(),
+        appBar: const InGameAppBar(),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

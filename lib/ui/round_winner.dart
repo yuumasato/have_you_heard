@@ -71,7 +71,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
       // This is short lived screen, let's block the back button
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: InGameAppBar(),
+        appBar: const InGameAppBar(),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

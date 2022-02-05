@@ -162,7 +162,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
           return false;
         },
         child: Scaffold(
-            appBar: InGameAppBar(),
+            appBar: const InGameAppBar(),
             body: SafeArea(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
