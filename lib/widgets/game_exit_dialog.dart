@@ -19,23 +19,25 @@ class GameExitDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          await showDialog(
-              context: context,
-              builder: (_) =>
-                  AlertDialog(
-                    title: Text('exitQuestion'.tr),
-                    actions: [
-                      ElevatedButton(
-                          onPressed: onElevatedPressed,
-                          child: Text('stayInTheRoom'.tr)),
-                      TextButton(
-                          onPressed: onPlainPressed,
-                          child: Text('returnToStart'.tr)),
-                    ],
-                  ));
-          return false;
-        },
+        onWillPop: () => ExitGameAlert(context, onElevatedPressed, onPlainPressed),
         child: child);
   }
+}
+
+Future<bool> ExitGameAlert (context, stayPressed, leavePressed) async {
+  await showDialog(
+      context: context,
+      builder: (_) =>
+          AlertDialog(
+            title: Text('exitQuestion'.tr),
+            actions: [
+              TextButton(
+                  onPressed: leavePressed,
+                  child: Text('returnToStart'.tr)),
+              ElevatedButton(
+                  onPressed: stayPressed,
+                  child: Text('stayInTheRoom'.tr)),
+            ],
+          ));
+  return false;
 }
