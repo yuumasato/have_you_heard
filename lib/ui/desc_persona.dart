@@ -6,6 +6,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/models/persona.dart';
+import 'package:have_you_heard/widgets/in_game_app_bar.dart';
 
 import 'show_rounds.dart';
 
@@ -72,9 +73,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen> {
       // This is short lived screen, let's block the back button
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-        ),
+        appBar: const InGameAppBar(),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

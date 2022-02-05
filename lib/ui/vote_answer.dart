@@ -7,6 +7,7 @@ import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/ui/waiting_screen.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
+import 'package:have_you_heard/widgets/in_game_app_bar.dart';
 
 class VoteAnswerScreen extends StatefulWidget {
   const VoteAnswerScreen({Key? key}) : super(key: key);
@@ -32,8 +33,8 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
       onElevatedPressed: () => Navigator.of(context).pop(),
       onPlainPressed: () => gc.exitGame(),
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
+        appBar: InGameAppBar(
+            onLeavePressed: () => ExitGameAlert(context, () => Navigator.of(context).pop(), () => gc.exitGame())
         ),
         body: SafeArea(
           child: Column(

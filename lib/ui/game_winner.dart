@@ -7,6 +7,7 @@ import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
 import 'package:have_you_heard/constants/colors.dart';
+import 'package:have_you_heard/widgets/in_game_app_bar.dart';
 
 import 'room.dart';
 
@@ -161,9 +162,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
           return false;
         },
         child: Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-            ),
+            appBar: const InGameAppBar(),
             body: SafeArea(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
