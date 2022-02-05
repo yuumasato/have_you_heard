@@ -18,44 +18,36 @@ class RoundWinnerScreen extends StatefulWidget {
   _RoundWinnerScreenState createState() => _RoundWinnerScreenState();
 }
 
-class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
-  var barValue = 0.0;
-  Timer? timer;
+class _RoundWinnerScreenState extends State<RoundWinnerScreen>
+    with SingleTickerProviderStateMixin {
+  final Duration _screenDuration = const Duration(seconds: 5);
 
-  @override
+  late final AnimationController _controller = AnimationController(
+    duration: _screenDuration,
+    vsync: this,
+  )..forward();
+
+  late final Animation<double> _progressBar = Tween<double>(begin: 0.0, end: 1.0)
+      .animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear)
+  );
+
   initState() {
     super.initState();
-    startTime();
-    progressBarTimer();
-  }
 
-  startTime() async {
-    var duration = const Duration(seconds: 3);
-    return Timer(duration, route);
-  }
+    _controller.addListener(() {
+      setState(() {});
+    });
 
-  route() {
-    Get.offNamed(CorrectNewsScreen.routeName);
-  }
-
-  progressBarTimer() async {
-    timer = Timer.periodic(
-        const Duration(milliseconds: 30), (_) => setProgressBarValue());
-  }
-
-  setProgressBarValue() {
-    setState(() {
-      if (barValue < 1) {
-        barValue = barValue + 0.01;
-      } else {
-        timer!.cancel();
-      }
+    Future.delayed(_screenDuration, () {
+      Get.offNamed(CorrectNewsScreen.routeName);
     });
   }
 
   @override
   void dispose() {
-    if (timer != null) timer!.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -81,7 +73,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen> {
                 children: [
                   LinearProgressIndicator(
                     minHeight: AppBar().preferredSize.height * 0.66,
-                    value: barValue,
+                    value: _progressBar.value,
                     color: kPlayer_3,
                     backgroundColor: kGrayScaleMediumDark,
                   ),
