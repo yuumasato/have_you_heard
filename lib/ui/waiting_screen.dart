@@ -59,10 +59,11 @@ class _WaitingScreenState extends State<WaitingScreen>
       onPlainPressed: () => gc.exitGame(),
       child: Scaffold(
         appBar: InGameAppBar(
-          title:  titleFlag == 'true' ? (
-            'Rodada ${gc.game.roundIndex + 1}/3') : "",
-          textColor: kYellow,
-          fontWeight: FontWeight.w700,
+            title:  titleFlag == 'true' ? (
+                'Rodada ${gc.game.roundIndex + 1}/3') : "",
+            textColor: kYellow,
+            fontWeight: FontWeight.w700,
+            onLeavePressed: () => ExitGameAlert(context, () => Navigator.of(context).pop(), () => gc.exitGame())
         ),
         body: SafeArea(
           child: Column(

@@ -42,9 +42,10 @@ class _ShowNewsScreenState extends State<ShowNewsScreen> {
       onPlainPressed: () => gc.exitGame(),
       child: Scaffold(
         appBar: InGameAppBar(
-          title: 'showRound'.trParams({'round': '${gc.game.roundIndex + 1}'}), //'Rodada ${gc.game.roundIndex + 1}/3',
-          fontWeight: FontWeight.w700,
-          textColor: kYellow,
+            title: 'showRound'.trParams({'round': '${gc.game.roundIndex + 1}'}), //'Rodada ${gc.game.roundIndex + 1}/3',
+            fontWeight: FontWeight.w700,
+            textColor: kYellow,
+            onLeavePressed: () => ExitGameAlert(context, () => Navigator.of(context).pop(), () => gc.exitGame())
         ),
         body: SafeArea(
             child: Column(

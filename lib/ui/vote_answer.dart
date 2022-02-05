@@ -33,7 +33,9 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
       onElevatedPressed: () => Navigator.of(context).pop(),
       onPlainPressed: () => gc.exitGame(),
       child: Scaffold(
-        appBar: const InGameAppBar(),
+        appBar: InGameAppBar(
+            onLeavePressed: () => ExitGameAlert(context, () => Navigator.of(context).pop(), () => gc.exitGame())
+        ),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
