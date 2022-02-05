@@ -11,7 +11,6 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 
-
 class CorrectNewsScreen extends StatefulWidget {
   const CorrectNewsScreen({Key? key}) : super(key: key);
 
@@ -22,50 +21,43 @@ class CorrectNewsScreen extends StatefulWidget {
   _CorrectNewsScreenState createState() => _CorrectNewsScreenState();
 }
 
-class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
+class _CorrectNewsScreenState extends State<CorrectNewsScreen>
+    with SingleTickerProviderStateMixin {
+  final Duration _screenDuration = const Duration(seconds: 5);
+
+  late final AnimationController _controller = AnimationController(
+    duration: _screenDuration,
+    vsync: this,
+  )..forward();
+
+  late final Animation<double> _progressBar = Tween<double>(begin: 0.0, end: 1.0)
+      .animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear)
+  );
+
   final GameController gc = Get.find();
-  var barValue = 0.0;
-  Timer? timer;
 
   @override
   initState() {
     super.initState();
-    startTime();
-    progressBarTimer();
-  }
+    _controller.addListener(() {
+      setState(() {});
+    });
 
-  startTime() async {
-    var duration = const Duration(seconds: 3);
-    return Timer(duration, route);
-  }
-
-  route() {
-    gc.game.nextRound();
-    if (gc.game.isGameFinished()) {
-      Get.offNamed(GameWinnerScreen.routeName);
-    } else {
-      Get.offNamed(ShowRoundsScreen.route);
-    }
-  }
-
-  progressBarTimer() async {
-    timer = Timer.periodic(
-        const Duration(milliseconds: 30), (_) => setProgressBarValue());
-  }
-
-  setProgressBarValue() {
-    setState(() {
-      if (barValue < 1) {
-        barValue = barValue + 0.01;
+    Future.delayed(_screenDuration, () {
+      gc.game.nextRound();
+      if (gc.game.isGameFinished()) {
+        Get.offNamed(GameWinnerScreen.routeName);
       } else {
-        timer!.cancel();
+        Get.offNamed(ShowRoundsScreen.routeName);
       }
     });
   }
 
   @override
   void dispose() {
-    if (timer != null) timer!.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
@@ -96,7 +88,7 @@ class _CorrectNewsScreenState extends State<CorrectNewsScreen> {
                   children: [
                     LinearProgressIndicator(
                         minHeight: AppBar().preferredSize.height * 0.66,
-                        value: barValue,
+                        value: _progressBar.value,
                         color: kPlayer_3,
                         backgroundColor: kGrayScaleMediumDark),
                     Text('newsLink'.tr),
