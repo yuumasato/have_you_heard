@@ -18,10 +18,42 @@ class VoteAnswerScreen extends StatefulWidget {
   _VoteAnswerScreenState createState() => _VoteAnswerScreenState();
 }
 
-class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
+class _VoteAnswerScreenState extends State<VoteAnswerScreen>
+    with SingleTickerProviderStateMixin {
+  final Duration _screenDuration = const Duration(seconds: 7);
+
+  late final AnimationController _controller = AnimationController(
+    duration: _screenDuration,
+    vsync: this,
+  )..forward();
+
+  late final Animation<double> _progressBar = Tween<double>(begin: 0.0, end: 1.0)
+      .animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear)
+  );
+
   final GameController gc = Get.find();
 
   String votedAnswer = 'No voted answer';
+
+  @override
+  initState() {
+    super.initState();
+    _controller.addListener(() {
+      setState(() {});
+    });
+
+    Future.delayed(_screenDuration, () {
+      sendVote();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +77,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen> {
                 children: [
                   LinearProgressIndicator(
                     minHeight: appBarHeight * 0.73,
+                    value: _progressBar.value,
                     color: kPlayer_3,
                     backgroundColor: kGrayScaleMediumDark,
                   ),
