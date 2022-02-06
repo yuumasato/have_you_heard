@@ -20,6 +20,9 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool hasFocus = false;
+  String name = "";
+
   @override
   Widget build(BuildContext context) {
     final GameController gc = Get.find();
@@ -59,6 +62,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final appBarHeight = AppBar().preferredSize.height;
     final statusBarHeight = MediaQuery.of(context).padding.top;
 
+    if(!hasFocus){
+      myController.text=gc.myPlayer.name;
+    }
+
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
@@ -78,17 +85,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'name'.tr,
                       style: kSettingsTextW700
                     ),
-                    SizedBox(
-                      height: 36,
-                      width: 100,
-                      child: TextField(
-                        style: kSettingsTextW400,
-                        textAlign: TextAlign.right,
-                        controller: myController,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: gc.myPlayer.name,
-                          hintStyle: kSettingsTextW400
+                    Expanded(
+                      child: Focus(
+                        onFocusChange: (focus){
+                          hasFocus = focus;
+                          if(hasFocus==true){
+                            myController.clear();
+                          } else {
+                            myController.text=gc.myPlayer.name;
+                          }},
+                        child: TextField(
+                          style: kSettingsTextW400,
+                          textAlign: TextAlign.right,
+                          textDirection: TextDirection.rtl,
+                          controller: myController,
+                          textInputAction: TextInputAction.done,
+                          onTap: (){
+                            myController.clear();
+                          },
+                          onSubmitted: (playerName) async {
+                            gc.setPlayerName(playerName);
+                            gc.saveUser(playerName);
+                          },
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(bottom: 12),
+                            border: InputBorder.none,
+                            //hintText: gc.myPlayer.name,
+                            hintStyle: kSettingsTextW400
+                          ),
                         ),
                       ),
                     )
