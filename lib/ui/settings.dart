@@ -82,6 +82,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         style: kSettingsTextW400,
                         textAlign: TextAlign.right,
                         controller: myController,
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (playerName) async {
+                          gc.setPlayerName(playerName);
+                          gc.saveUser(playerName);
+                        },
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
@@ -131,13 +136,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: (){}, //TODO: implement onTap
+                          onTap: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setString('locale', 'es');
+                            gc.language = 'es';
+
+                            var locale = Locale('es', 'AR');
+                            Get.updateLocale(locale);
+                            },
                           child: SvgPicture.asset(
                             'assets/images/flagArgentina.svg',
                           ),
                         ),
                         GestureDetector(
-                          onTap: (){}, //TODO: implement onTap
+                          onTap: () async {
+                            final prefs = await SharedPreferences.getInstance();
+                            prefs.setString('locale', 'pt');
+                            gc.language = 'pt';
+
+                            var locale = Locale('pt', 'BR');
+                            Get.updateLocale(locale);
+                          },
                           child: SvgPicture.asset(
                             'assets/images/flagBrazil.svg',
                           ),
