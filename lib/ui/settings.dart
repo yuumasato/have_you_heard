@@ -77,14 +77,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'name'.tr,
                       style: kSettingsTextW700
                     ),
-                    SizedBox(
-                      height: 36,
-                      width: 100,
+                    Expanded(
                       child: TextField(
                         style: kSettingsTextW400,
                         textAlign: TextAlign.right,
                         controller: myController,
                         decoration: InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 12),
                           border: InputBorder.none,
                           hintText: gc.myPlayer.name,
                           hintStyle: kSettingsTextW400
