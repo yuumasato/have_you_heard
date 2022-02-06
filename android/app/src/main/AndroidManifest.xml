@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.never_heard.have_you_heard">
    <application
-        android:label="have_you_heard"
+        android:label="Have you Heard?"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
