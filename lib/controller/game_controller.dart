@@ -33,8 +33,8 @@ class GameController extends GetxController {
 
     if (playerName != 'not_set' && language != 'not_set') {
       onBoarded = true;
-      setLocale(language);
       setPlayerName(playerName);
+      setLocale(language);
       return true;
     } else {
       onBoarded = false;
@@ -43,6 +43,7 @@ class GameController extends GetxController {
   }
 
   void setLocale (String language) {
+    this.language = language;
     if (language == 'es') {
       var locale = Locale('es', 'AR');
       Get.updateLocale(locale);
@@ -50,6 +51,7 @@ class GameController extends GetxController {
       var locale = Locale('pt', 'BR');
       Get.updateLocale(locale);
     }
+    socket.sendLang(language);
   }
 
   void setPlayerName(String playerName) {
