@@ -170,13 +170,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 thickness: 2,
                 color: kGrayScaleDark,
               ),
-              Container(
-                height: 36,
-                alignment: Alignment.centerRight,
-                padding: EdgeInsets.symmetric(
-                    vertical: 0.0, horizontal: screenWidth * 0.05),
-                child: GestureDetector(
-                  onTap: (){}, //TODO: implement onTap
+              GestureDetector(
+                onTap: (){}, //TODO: implement onTap
+                child: Container(
+                  height: 36,
+                  alignment: Alignment.centerRight,
+                  padding: EdgeInsets.symmetric(
+                      vertical: 0.0, horizontal: screenWidth * 0.05),
                   child: Text(
                     'rules'.tr,
                     style: kSettingsTextW700,
