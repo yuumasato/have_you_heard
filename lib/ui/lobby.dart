@@ -73,7 +73,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: Svg("assets/images/full_landscape.svg",
-                    size: Size(375, 182)),
+                    size: Size(375, 133)), //image size proportion on figma
                 fit: BoxFit.contain,
                 alignment: Alignment.bottomCenter,
               ),
