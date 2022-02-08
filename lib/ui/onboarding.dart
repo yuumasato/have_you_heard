@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:have_you_heard/constants/colors.dart';
+import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 import 'set_user_name.dart';
-import 'lobby.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -32,102 +33,112 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final personaWidth = mediaWidth / 8;
     final _currentPageNotifier = ValueNotifier<int>(0);
     final PageController controller = PageController(initialPage: 0);
-    return Stack(
-        children: [
-          PageView(
-            scrollDirection: Axis.horizontal,
-            controller: controller,
-            onPageChanged: (int index) {
-              _currentPageNotifier.value = index;
-            },
-            children: [
-              pageBuilder(
-                Text('haveYouHeard...'.tr,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
-                RichText(
-                    text: TextSpan(
-                        text: 'gameExplanation'.tr,
-                        style: TextStyle(fontSize: 16.0, height: 1.5))),
-                Hero(
-                    tag: 'logo',
-                    child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 0, horizontal: 47),
-                        alignment: Alignment.topRight,
-                        height: logoHeight,
-                        width: size.width,
-                        child: SvgPicture.asset('assets/images/logo.svg',
-                            width: mediaWidth / 3))),
-              ),
-              pageBuilder(
-                  Text('character'.tr,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
-                  RichText(
-                      text: TextSpan(
-                          text: 'characterExplanation'.tr,
-                          style: TextStyle(fontSize: 16.0, height: 1.5))),
-                  SizedBox(
-                      height: 300,
-                      width: mediaWidth,
-                      child: personaStack(personaWidth))),
-              pageBuilder(
-                  Text('rounds'.tr,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16.0, height: 1.5)),
-                  RichText(
-                      text: TextSpan(
-                          style: TextStyle(fontSize: 16.0, height: 1.5),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: 'roundExplanationStart'.tr),
-                            TextSpan(
-                                text: 'roundLinedExplanation'.tr,
-                                style: TextStyle(
-                                    decoration: TextDecoration.lineThrough)),
-                            TextSpan(
-                                text: 'roundExplanationEnd'.tr)
-                          ])),
-                  Stack(clipBehavior: Clip.none, children: [
-                    SizedBox(
-                        width: mediaWidth,
-                        child: SvgPicture.asset('assets/images/carWithLulo.svg',
-                            width: size.width)),
-                    Positioned(
-                        bottom: -15.0,
-                        left: mediaWidth / 2 - mediaWidth / 6,
-                        child: SizedBox(
-                            width: mediaWidth / 3,
-                            height: 48,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Get.toNamed(UserNameScreen.route);
-                                },
-                                child: Text(
-                                  'continue'.tr,
-                                ))))
-                  ])),
-            ],
-          ),
-          Positioned(
-              left: 0.0,
-              right: 0.0,
-              bottom:  80.0,
-              child: CirclePageIndicator(
-                size: 10.0,
-                selectedSize: 12.0,
-                itemCount: 3,
-                currentPageNotifier: _currentPageNotifier,
-              )
-          ),
-        ]
-    );
+    return PageView(
+      scrollDirection: Axis.horizontal,
+      controller: controller,
+      onPageChanged: (int index) {
+        _currentPageNotifier.value = index;
+        if(index == 3){
+          Get.toNamed(UserNameScreen.route);
+        }
+      },
+      children: [
+        Stack(
+          children:[
+            pageBuilder(
+              Text('haveYouHeard...'.tr,
+                style: HyhTextStyle.body16Height15),
+              RichText(
+                text: TextSpan(
+                    text: 'gameExplanation'.tr,
+                    style: HyhTextStyle.body16Height15)),
+              Hero(
+                tag: 'logo',
+                child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 47),
+                    alignment: Alignment.topRight,
+                    height: logoHeight,
+                    width: size.width,
+                    child: SvgPicture.asset('assets/images/logo.svg',
+                        width: mediaWidth / 3))),
+            ),
+            Positioned(
+                left: 0.0,
+                right: 0.0,
+                bottom:  80.0,
+                child: CirclePageIndicator(
+                  size: 10.0,
+                  selectedSize: 12.0,
+                  itemCount: 3,
+                  currentPageNotifier: _currentPageNotifier,
+                )),
+        ]),
+        Stack(
+          children: [
+            pageBuilder(
+              Text('character'.tr,
+                  style: HyhTextStyle.body16Height15Bold),
+              RichText(
+                  text: TextSpan(
+                      text: 'characterExplanation'.tr,
+                      style: HyhTextStyle.body16Height15)),
+              SizedBox(
+                  height: 300,
+                  width: mediaWidth,
+                  child: personaStack(personaWidth))),
+            Positioned(
+                left: 0.0,
+                right: 0.0,
+                bottom:  80.0,
+                child: CirclePageIndicator(
+                  size: 10.0,
+                  selectedSize: 12.0,
+                  itemCount: 3,
+                  currentPageNotifier: _currentPageNotifier,
+                )),
+          ],
+        ),
+        pageBuilder(
+            Text('rounds'.tr,
+                style: HyhTextStyle.body16Height15Bold),
+            RichText(
+                text: TextSpan(
+                    style: HyhTextStyle.body16Height15,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'roundExplanationStart'.tr),
+                      TextSpan(
+                          text: 'roundLinedExplanation'.tr,
+                          style: const TextStyle(
+                              decoration: TextDecoration.lineThrough)),
+                      TextSpan(
+                          text: 'roundExplanationEnd'.tr)
+                    ])),
+            Stack(clipBehavior: Clip.none, children: [
+              SizedBox(
+                  width: mediaWidth,
+                  child: SvgPicture.asset('assets/images/carWithLulo.svg',
+                      width: size.width)),
+              Positioned(
+                  bottom: -15.0,
+                  left: mediaWidth / 2 - mediaWidth / 6,
+                  child: SizedBox(
+                      width: mediaWidth / 3,
+                      height: 48,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Get.toNamed(UserNameScreen.route);
+                          },
+                          child: Text(
+                            'continue'.tr,
+                          ))))])),
+        const Scaffold()]);
   }
 
   Widget personaStack(double bodySpacing) {
-    final spacingFactor = 1.25;
+    const spacingFactor = 1.25;
     final personaRenderWidth = bodySpacing * spacingFactor;
-    final leftOffset = 5.0;
+    const leftOffset = 5.0;
     return Stack(children: [
       Positioned(
           left: -leftOffset,
@@ -176,7 +187,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               children: [
                 Container(
-                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 47),
+                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 47),
                     height: (mediaViewHeight) / 2,
                     child: Align(
                       alignment: Alignment.bottomCenter,
