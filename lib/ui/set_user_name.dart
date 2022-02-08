@@ -45,10 +45,10 @@ class _UserNameScreenState extends State<UserNameScreen> {
       ),
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: Svg("assets/images/full_landscape.svg",
-                  size: Size(screenWidth, screenWidth * 0.486)),
+                  size: Size(375, 133)), // same as the lobby
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter,
             ),
