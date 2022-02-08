@@ -25,6 +25,7 @@ class AppTextField extends StatelessWidget {
       controller: textEditingController,
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
+      cursorColor: kGrayScaleLightest,
       decoration: InputDecoration(
         filled: true,
         fillColor: kGrayScaleDarkest,

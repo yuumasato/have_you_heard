@@ -85,6 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         style: kSettingsTextW400,
                         textAlign: TextAlign.right,
                         controller: myController,
+                        cursorColor: kGrayScaleLightest,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: gc.myPlayer.name,

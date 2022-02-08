@@ -25,6 +25,9 @@ class Hyh extends StatelessWidget {
           colorScheme: const ColorScheme.dark(
             primary: kYellow,
             surface: kGrayScaleDarkest,
+            background : kGrayScaleDark,
+            onPrimary : kGrayScaleDarkest,
+            onSurface : kGrayScaleLightest,
           )),
       translations: LocalString(),
       locale: Locale('pt', 'BR'),
