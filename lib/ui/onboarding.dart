@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/constants/styles.dart';
+import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
@@ -125,13 +126,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: SizedBox(
                       width: mediaWidth / 3,
                       height: 48,
-                      child: ElevatedButton(
+                      child: AppButton(
                           onPressed: () {
                             Get.toNamed(UserNameScreen.route);
                           },
-                          child: Text(
-                            'continue'.tr,
-                          ))))])),
+                          text: 'continue'.tr,
+                          )))])),
         const Scaffold()]);
   }
 
