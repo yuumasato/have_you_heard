@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/ui/waiting_screen.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
+import 'package:have_you_heard/widgets/app_text_field.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:have_you_heard/widgets/game_exit_dialog.dart';
 import 'package:have_you_heard/widgets/in_game_app_bar.dart';
@@ -116,26 +118,11 @@ class _ShowNewsScreenState extends State<ShowNewsScreen>
                     children: [
                       SizedBox(
                         height: appBarHeight * 0.8,
-                        child: TextField(
-                          controller: textController,
+                        child: AppTextField(
+                          textEditingController: textController,
                           autofocus: true,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                            ),
-                            labelText: 'answer'.tr,
-                            labelStyle: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300),
-                            hintStyle: TextStyle(color: Colors.white),
-                            focusColor: Colors.red,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white, width: 2.0),
-                            ),
-                          ),
-                          style: const TextStyle(
-                              color: Colors.white, decoration: TextDecoration.none),
+                          labelText: 'answer'.tr,
+                          inputFormatters:[LengthLimitingTextInputFormatter(25)],
                         ),
                       ),
                       Padding(
