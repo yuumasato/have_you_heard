@@ -3,13 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/models/player.dart';
 
+import 'news.dart';
+
 class Game {
   int roundIndex = 0;
-  List<String> allHeadlines = [
-    'Pergunta 1',
-    'Pergunta 2',
-    'Pergunta 3',
-  ];
+  List<News> allNews = [];
   String persona = "not_set";
 
   RxInt nPlayers = 0.obs;
@@ -53,35 +51,38 @@ class Game {
     }
   }
 
-  void setHeadlines(List<String> headlines) {
-    allHeadlines.clear();
-    allHeadlines.assignAll(headlines);
+  void setNews(List<dynamic> news) {
+    allNews.clear();
+    for (var index = 0; index < news.length; index++) {
+      allNews.add(News.fromJson(news[index]));
+    }
   }
 
   String getBlankHeadline() {
-    if (roundIndex >= allHeadlines.length) {
+    if (roundIndex >= allNews.length) {
       return "";
     }
-    return allHeadlines[roundIndex];
+    String currentHeadline = allNews[roundIndex].headline;
+    return currentHeadline.replaceAll(RegExp(r'\[.*]'), '________');
   }
 
   String getWinnerHeadline() {
-    if (roundIndex >= allHeadlines.length) {
+    if (roundIndex >= allNews.length) {
       return "";
     }
-    String currentHeadline = allHeadlines[roundIndex];
+    String currentHeadline = allNews[roundIndex].headline;
     String winnerHeadline = currentHeadline.replaceAll(
-        RegExp(r'_+'), roundWinner?.answer ?? 'No answer');
+        RegExp(r'\[.*]'), roundWinner?.answer ?? 'No answer');
     return winnerHeadline;
   }
 
   String getCorrectHeadline() {
-    if (roundIndex >= allHeadlines.length) {
+    if (roundIndex >= allNews.length) {
       return "";
     }
-    String currentHeadline = allHeadlines[roundIndex];
+    String currentHeadline = allNews[roundIndex].headline;
     String correctHeadline = currentHeadline.replaceAll(
-        RegExp(r'_+'), '(Correta)');
+        RegExp(r'\[|]'), '');
     return correctHeadline;
   }
 

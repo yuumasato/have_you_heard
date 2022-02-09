@@ -69,7 +69,7 @@ class Socket {
     socket.on('game', (data) {
       final GameController gc = Get.find();
       var game = jsonDecode(data);
-      gc.game.setHeadlines(List<String>.from(game['headlines']));
+      gc.game.setNews(game['headlines']);
       gc.game.setPlayers(game['players'], gc.myPlayer);
 
       // Navigation
