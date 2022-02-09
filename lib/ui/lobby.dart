@@ -103,7 +103,9 @@ class _LobbyScreenState extends State<LobbyScreen> {
                                 labelText: 'insertRoomCode'.tr,
                                 autofocus: false,
                                 keyboardType: TextInputType.number,
-                                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(5)],
                               ),
                             ),
                           ),
