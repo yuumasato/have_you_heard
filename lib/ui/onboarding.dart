@@ -20,6 +20,9 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+
+  final _currentPageNotifier = ValueNotifier<int>(0);
+
   @override
   Widget build(BuildContext context) {
     final query = MediaQuery.of(context);
@@ -30,7 +33,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final mediaTopPadding = query.padding.top;
     final mediaViewHeight = mediaHeight - mediaTopPadding;
     final personaWidth = mediaWidth / 8;
-    final _currentPageNotifier = ValueNotifier<int>(0);
     final PageController controller = PageController(initialPage: 0);
     return Stack(
         children: [
