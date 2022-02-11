@@ -106,6 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           onSubmitted: (playerName) async {
                             gc.setPlayerName(playerName);
                             gc.saveUser(playerName);
+                            showSnackBar(context, 'updatedName'.tr);
                           },
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(bottom: 12),
@@ -224,9 +225,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.remove('username');
                     await prefs.remove('locale');
-                    const snackBar =
-                        SnackBar(content: Text('Configurações excluídas'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    showSnackBar(context, 'Configurações excluídas');
+                    /*const snackBar =
+                        SnackBar(content: Text());
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
                   },
                   child: const Text('Limpar configurações')),
               const Spacer(flex: 4)
@@ -236,4 +238,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
+}
+void showSnackBar(BuildContext context,String text) {
+  final scaffold = ScaffoldMessenger.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      backgroundColor: kGrayScaleMediumDark,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10))),
+      content: Text(text,
+        textAlign: TextAlign.center,
+        style: HyhTextStyle.body16Bold,),
+    ),
+  );
 }
