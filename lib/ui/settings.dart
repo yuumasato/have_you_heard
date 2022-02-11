@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/controller/setting_controller.dart';
+import 'package:have_you_heard/widgets/close_game_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -201,7 +203,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: EdgeInsets.symmetric(
                     vertical: 0.0, horizontal: screenWidth * 0.05),
                 child: GestureDetector(
-                  onTap: (){}, //TODO: implement onTap
+                  onTap: (){
+                    showDialog(
+                        context: context,
+                        builder: (_) => CloseGameDialog());
+                  },
                   child: Text(
                     'exitGame'.tr,
                     style: HyhTextStyle.body16BoldOrange,
