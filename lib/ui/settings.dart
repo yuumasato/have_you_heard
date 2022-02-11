@@ -48,7 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       centerTitle: true,
       title: Text(
         'settings'.tr,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+        style: HyhTextStyle.heading18Bold
       ),
       actions: [
         IconButton(
@@ -81,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Text(
                       'name'.tr,
-                      style: kSettingsTextW700
+                      style: HyhTextStyle.body16Bold
                     ),
                     Expanded(
                       child: Focus(
@@ -93,7 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             myController.text=gc.myPlayer.name;
                           }},
                         child: TextField(
-                          style: kSettingsTextW400,
+                          style: HyhTextStyle.body16,
                           textAlign: TextAlign.right,
                           controller: myController,
                           cursorColor: kGrayScaleLightest,
@@ -108,7 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.only(bottom: 12),
                             border: InputBorder.none,
-                            hintStyle: kSettingsTextW400
+                            hintStyle: HyhTextStyle.body16
                           ),
                         ),
                       ),
@@ -126,7 +126,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('sound'.tr, style: kSettingsTextW700),
+                    Text('sound'.tr, style: HyhTextStyle.body16Bold),
                     GestureDetector(
                       onTap: (){}, //TODO: implement onTap
                       child: SvgPicture.asset('assets/images/sound.svg'),
@@ -147,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Text(
                       'country'.tr,
-                      style: kSettingsTextW700,
+                      style: HyhTextStyle.body16Bold,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -187,7 +187,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: (){}, //TODO: implement onTap
                   child: Text(
                     'rules'.tr,
-                    style: kSettingsTextW700,
+                    style: HyhTextStyle.body16,
                   ),
                 ),
               ),
@@ -204,10 +204,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: (){}, //TODO: implement onTap
                   child: Text(
                     'exitGame'.tr,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.red),
+                    style: HyhTextStyle.body16BoldOrange,
                   ),
                 ),
               ),
