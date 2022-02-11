@@ -20,11 +20,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool hasFocus = false;
+
   @override
   Widget build(BuildContext context) {
     final GameController gc = Get.find();
 
     final myController = TextEditingController();
+    if(hasFocus==false){
+      myController.text = gc.myPlayer.name;
+    }
 
     @override
     void initState() {
@@ -78,18 +83,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'name'.tr,
                       style: kSettingsTextW700
                     ),
-                    SizedBox(
-                      height: 36,
-                      width: 100,
-                      child: TextField(
-                        style: kSettingsTextW400,
-                        textAlign: TextAlign.right,
-                        controller: myController,
-                        cursorColor: kGrayScaleLightest,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: gc.myPlayer.name,
-                          hintStyle: kSettingsTextW400
+                    Expanded(
+                      child: Focus(
+                        onFocusChange: (focus){
+                          hasFocus = focus;
+                          if(hasFocus==true){
+                            myController.clear();
+                          } else {
+                            myController.text=gc.myPlayer.name;
+                          }},
+                        child: TextField(
+                          style: kSettingsTextW400,
+                          textAlign: TextAlign.right,
+                          controller: myController,
+                          cursorColor: kGrayScaleLightest,
+                          textInputAction: TextInputAction.done,
+                          onTap: (){
+                            myController.clear();
+                          },
+                          onSubmitted: (playerName) async {
+                            gc.setPlayerName(playerName);
+                            gc.saveUser(playerName);
+                          },
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(bottom: 12),
+                            border: InputBorder.none,
+                            hintStyle: kSettingsTextW400
+                          ),
                         ),
                       ),
                     )
