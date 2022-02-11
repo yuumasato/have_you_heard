@@ -45,8 +45,6 @@ class Socket {
     socket.on('user id', (data) {
       final GameController gc = Get.find();
       gc.myPlayer.id = data;
-
-      socket.emit('name', gc.myPlayer.name);
     });
 
     // We have just entered a room
@@ -114,7 +112,9 @@ class Socket {
   }
   void sendLang(String lang) {
     socket.emit('language', lang);
-
+  }
+  void sendName(String name) {
+    socket.emit('name', name);
   }
 
   void createRoom() {

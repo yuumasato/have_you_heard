@@ -56,7 +56,7 @@ class GameController extends GetxController {
 
   void setPlayerName(String playerName) {
     myPlayer.name = playerName;
-    socket.initUser(playerName);
+    socket.sendName(playerName);
   }
 
   void saveUser(String username) async {

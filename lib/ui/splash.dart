@@ -25,7 +25,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   initState() {
     super.initState();
-
+    final GameController gc = Get.find();
+    gc.socket.initUser("");
     Future.delayed(const Duration(seconds: 4), () {
       showLang();
     });
