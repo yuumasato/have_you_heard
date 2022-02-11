@@ -26,6 +26,7 @@ class HyhTextStyle {
   static const body16Bold = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kGrayScaleLightest);
   static const body16Height15Bold = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kGrayScaleLightest, height: 1.5);
   static const heading18Bold = TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: kGrayScaleLightest);
+  static const heading24Bold = TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: kGrayScaleLightest);
   static const heading32Bold = TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: kGrayScaleLightest);
 
   //Grayscale Light styles
