@@ -114,8 +114,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             flex: 6,
                             child: AppButton(
                                 onPressed: () {
-                                  gc.roomID = myController.text;
-                                  gc.joinRoom(gc.roomID);
+                                  gc.joinRoom(myController.text);
                                 },
                                 text: 'enter'.tr),
                           ),
