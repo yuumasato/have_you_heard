@@ -82,6 +82,12 @@ class LocalString extends Translations {
           'country' : 'País',
           'rules' : 'Ver regras',
           'exitGame' : 'Fechar jogo',
+          'updatedName' : 'Nome atualizado',
+
+          //close_game_dialog
+          'leaveTheGame?' : 'Sair do jogo?',
+          'cancel' : 'Cancelar',
+          'close' : 'Fechar',
 
         },
         'es_AR': {
@@ -162,6 +168,12 @@ class LocalString extends Translations {
           'country' : 'País',
           'rules' : 'Ver reglas', //TODO: Verificar tradução
           'exitGame' : 'Cerrar Juego', //TODO: Verificar tradução
+          'updatedName' : 'Nombre actualizado',
+
+          //close_game_dialog
+          'leaveTheGame?': '¿Abandonar el juego?',
+          'cancel' : 'Cancelar',
+          'close' : 'Cerrar',
 
         },
       };

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/controller/setting_controller.dart';
+import 'package:have_you_heard/widgets/close_game_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -20,11 +22,16 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool hasFocus = false;
+
   @override
   Widget build(BuildContext context) {
     final GameController gc = Get.find();
 
     final myController = TextEditingController();
+    if(hasFocus==false){
+      myController.text = gc.myPlayer.name;
+    }
 
     @override
     void initState() {
@@ -43,7 +50,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       centerTitle: true,
       title: Text(
         'settings'.tr,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+        style: HyhTextStyle.heading18Bold
       ),
       actions: [
         IconButton(
@@ -76,20 +83,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Text(
                       'name'.tr,
-                      style: kSettingsTextW700
+                      style: HyhTextStyle.body16Bold
                     ),
-                    SizedBox(
-                      height: 36,
-                      width: 100,
-                      child: TextField(
-                        style: kSettingsTextW400,
-                        textAlign: TextAlign.right,
-                        controller: myController,
-                        cursorColor: kGrayScaleLightest,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: gc.myPlayer.name,
-                          hintStyle: kSettingsTextW400
+                    Expanded(
+                      child: Focus(
+                        onFocusChange: (focus){
+                          hasFocus = focus;
+                          if(hasFocus==true){
+                            myController.clear();
+                          } else {
+                            myController.text=gc.myPlayer.name;
+                          }},
+                        child: TextField(
+                          style: HyhTextStyle.body16,
+                          textAlign: TextAlign.right,
+                          controller: myController,
+                          cursorColor: kGrayScaleLightest,
+                          textInputAction: TextInputAction.done,
+                          onTap: (){
+                            myController.clear();
+                          },
+                          onSubmitted: (playerName) async {
+                            gc.setPlayerName(playerName);
+                            gc.saveUser(playerName);
+                            showSnackBar(context, 'updatedName'.tr);
+                          },
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.only(bottom: 12),
+                            border: InputBorder.none,
+                            hintStyle: HyhTextStyle.body16
+                          ),
                         ),
                       ),
                     )
@@ -106,7 +129,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('sound'.tr, style: kSettingsTextW700),
+                    Text('sound'.tr, style: HyhTextStyle.body16Bold),
                     GestureDetector(
                       onTap: (){}, //TODO: implement onTap
                       child: SvgPicture.asset('assets/images/sound.svg'),
@@ -127,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     Text(
                       'country'.tr,
-                      style: kSettingsTextW700,
+                      style: HyhTextStyle.body16Bold,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -167,7 +190,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   onTap: (){}, //TODO: implement onTap
                   child: Text(
                     'rules'.tr,
-                    style: kSettingsTextW700,
+                    style: HyhTextStyle.body16,
                   ),
                 ),
               ),
@@ -181,13 +204,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 padding: EdgeInsets.symmetric(
                     vertical: 0.0, horizontal: screenWidth * 0.05),
                 child: GestureDetector(
-                  onTap: (){}, //TODO: implement onTap
+                  onTap: (){
+                    showDialog(
+                        context: context,
+                        builder: (_) => CloseGameDialog());
+                  },
                   child: Text(
                     'exitGame'.tr,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.red),
+                    style: HyhTextStyle.body16BoldOrange,
                   ),
                 ),
               ),
@@ -201,9 +225,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.remove('username');
                     await prefs.remove('locale');
-                    const snackBar =
-                        SnackBar(content: Text('Configurações excluídas'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    showSnackBar(context, 'Configurações excluídas');
+                    /*const snackBar =
+                        SnackBar(content: Text());
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
                   },
                   child: const Text('Limpar configurações')),
               const Spacer(flex: 4)
@@ -213,4 +238,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
     );
   }
+}
+void showSnackBar(BuildContext context,String text) {
+  final scaffold = ScaffoldMessenger.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      backgroundColor: kGrayScaleMediumDark,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10))),
+      content: Text(text,
+        textAlign: TextAlign.center,
+        style: HyhTextStyle.body16Bold,),
+    ),
+  );
 }
