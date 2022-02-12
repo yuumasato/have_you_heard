@@ -114,8 +114,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             flex: 6,
                             child: AppButton(
                                 onPressed: () {
-                                  gc.roomID = myController.text;
-                                  gc.joinRoom(gc.roomID);
+                                  gc.joinRoom(myController.text);
                                 },
                                 text: 'enter'.tr),
                           ),
@@ -137,7 +136,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   ),
                 ),
                 Visibility(
-                  visible: true,
+                  visible: gc.roomID == 'none' ? false : true,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -154,8 +153,10 @@ class _LobbyScreenState extends State<LobbyScreen> {
                         padding:
                             EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                         child: IconAppButton(
-                          onPressed: () {},
-                          text: 'returnToGame'.tr,
+                          onPressed: () {
+                            gc.joinRoom(gc.roomID);
+                          },
+                          text: 'returnToRoom'.trParams({'roomNumber': gc.roomID}),
                           color: kPink,
                           textColor: kGrayScaleLightest,
                         ),

@@ -7,7 +7,7 @@ import 'package:have_you_heard/models/socket.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameController extends GetxController {
-  String roomID = '42069';
+  String roomID = 'none';
   Player myPlayer = Player();
 
   Room room = Room();
