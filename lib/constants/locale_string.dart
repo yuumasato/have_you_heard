@@ -29,7 +29,7 @@ class LocalString extends Translations {
           'insertRoomCode': 'Insira o código da sala',
           'or': 'ou',
           'createRoom': 'Criar sala privada',
-          'returnToGame': 'Voltar para partida',
+          'returnToRoom': 'Voltar para sala #@roomNumber',
 
           //room
           'privateRoom': 'Sala Privada',
@@ -109,7 +109,7 @@ class LocalString extends Translations {
           'insertRoomCode': 'Inserta el código del juego aquí',
           'or': 'o',
           'createRoom': 'Crear sala privada',
-          'returnToGame': 'Volver al juego',
+          'returnToRoom': 'Volver a la sala #@roomNumber',
 
           //room
           'privateRoom': 'Sala Privada',
