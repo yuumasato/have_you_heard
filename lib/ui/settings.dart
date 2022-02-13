@@ -105,7 +105,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           },
                           onSubmitted: (playerName) async {
                             gc.setPlayerName(playerName);
-                            gc.saveUser(playerName);
                             showSnackBar(context, 'updatedName'.tr);
                           },
                           decoration: const InputDecoration(
@@ -157,16 +156,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         GestureDetector(
-                          onTap: () async {
-                            await setGameLanguage(gc, 'es');
+                          onTap: () {
+                            gc.setLanguage('es');
                           },
                           child: SvgPicture.asset(
                             'assets/images/flagArgentina.svg',
                           ),
                         ),
                         GestureDetector(
-                          onTap: () async {
-                            await setGameLanguage(gc, 'pt');
+                          onTap: () {
+                            gc.setLanguage('pt');
                           },
                           child: SvgPicture.asset(
                             'assets/images/flagBrazil.svg',

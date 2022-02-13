@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:have_you_heard/controller/setting_controller.dart';
 import 'package:have_you_heard/models/game.dart';
 import 'package:have_you_heard/models/room.dart';
 import 'package:have_you_heard/models/player.dart';
@@ -35,13 +36,12 @@ class GameController extends GetxController {
     return onBoarded;
   }
 
+  Map<String, String> get langLocale => {
+    'es': 'AR',
+    'pt': 'BR',
+  };
   void setLocale (String language) {
-    Locale locale;
-    if (language == 'es') {
-      locale = Locale('es', 'AR');
-    } else {
-      locale = Locale('pt', 'BR');
-    }
+    Locale locale = Locale(language, langLocale[language]);
     Get.updateLocale(locale);
   }
 
@@ -49,6 +49,7 @@ class GameController extends GetxController {
     this.language = language;
     setLocale(language);
     sendLanguage();
+    setLanguagePref(language);
   }
   void sendLanguage() {
     socket.sendLang(language);
@@ -57,15 +58,12 @@ class GameController extends GetxController {
   void setPlayerName(String playerName) {
     myPlayer.name = playerName;
     sendPlayerName();
+    setNamePref(playerName);
   }
   void sendPlayerName() {
     socket.sendName(myPlayer.name);
   }
 
-  void saveUser(String username) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString('username', username);
-  }
 
   void createRoom() {
     socket.createRoom();
