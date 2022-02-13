@@ -34,11 +34,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   showLang() {
     if (gc.onBoarded) {
-      gc.sendPlayerName();
-      Future.delayed(const Duration(milliseconds: 80), () {
-        // Workaround for Redis
-        gc.sendLanguage();
-      });
       Get.offNamed(LobbyScreen.route);
     } else {
       setState(() {

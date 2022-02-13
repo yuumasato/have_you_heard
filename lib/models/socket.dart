@@ -47,6 +47,11 @@ class Socket {
     socket.on('user id', (data) {
       final GameController gc = Get.find();
       gc.myPlayer.id = data;
+      gc.sendPlayerName();
+      Future.delayed(const Duration(milliseconds: 80), () {
+        // Workaround for Redis
+        gc.sendLanguage();
+      });
     });
 
     // We have just entered a room
