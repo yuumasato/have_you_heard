@@ -65,10 +65,17 @@ class LocalString extends Translations {
           'wonRounds': 'Rodadas\nvencidas',
           'fastestPlayers': 'Jogadores mais\nrápidos',
           'winner': '\nVencedor!',
-          'congratulations': 'Parabéns',
           'playAgain': 'Jogar Novamente',
           'endGame': 'Finalizar partida',
           'player': 'Jogador @number',
+
+          //won_game_dialog,
+          'congratulations': 'Parabéns!',
+          'youWonThisGame':'Você foi o vencedor dessa\npartida!',
+
+          //lost_game_dialog
+          'ohNo': 'Ah não!',
+          'youLostThisGame': 'Não foi dessa vez!\nQue tal tentar mais uma vez?',
 
           //game_exit_dialog
           'exitQuestion' : 'Sair da sala?',
@@ -151,10 +158,17 @@ class LocalString extends Translations {
           'wonRounds': 'Rondas\nganadas', //TODO: Verificar tradução
           'fastestPlayers': 'Jugadores más\nrápidos',
           'winner': '\nGanador!', //TODO: Verificar tradução
-          'congratulations': 'Felicidades',
           'playAgain': 'Juega de nuevo',
-          'endGame': 'Partido final',
+          'endGame': 'Dejar el partido', //TODO: Verificar tradução
           'player': 'Jugador @number',
+
+          //won_game_dialog,
+          'congratulations': 'Felicidades!',//TODO: Verificar tradução
+          'youWonThisGame':'Fuiste el ganador de este\npartido!',//TODO: Verificar tradução
+
+          //lost_game_dialog
+          'ohNo': '¡Ah no!',//TODO: Verificar tradução
+          'youLostThisGame': '¡No fue esta vez!\n¿Qué tal intentarlo una vez más?',//TODO: Verificar tradução
 
           //game_exit_dialog
           'exitQuestion' : '¿Dejar la sala?', //TODO: Verificar tradução
