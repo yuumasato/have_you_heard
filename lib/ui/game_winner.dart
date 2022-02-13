@@ -3,11 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
-import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/models/player.dart';
 import 'package:have_you_heard/widgets/gray_stripe.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/widgets/in_game_app_bar.dart';
+import 'package:have_you_heard/widgets/lost_game_dialog.dart';
+import 'package:have_you_heard/widgets/won_game_dialog.dart';
 
 import 'room.dart';
 
@@ -110,6 +111,23 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
     }
   }
 
+  bool isGameWinner(){
+    if(_gameWinner.name == gc.myPlayer.name){
+      return true;
+    }
+    return false;
+  }
+
+  onPlayAgain(){
+    gc.game.reset();
+    String roomID = gc.roomID;
+    Get.offAllNamed("${RoomScreen.route}/$roomID");
+  }
+
+  onExitGame(){
+    gc.exitGame();
+  }
+
   @override
   void dispose() {
     if (timer != null) timer!.cancel();
@@ -124,29 +142,9 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
         builder: (_) => WillPopScope(
           // A choice must be made in this dialog, let's block the back button
             onWillPop: () async => false,
-            child: SimpleDialog(
-              title: Center(child: Text('congratulations'.tr)),
-              titleTextStyle: const TextStyle(
-                  fontSize: 24, fontWeight: FontWeight.bold, color: kYellow),
-              children: <Widget>[
-                Image.asset('assets/images/trophy.png'),
-                AppButton(
-                    onPressed: () {
-                      // Reinstate a new Game State
-                      gc.game.reset();
-                      String roomID = gc.roomID;
-                      Get.offAllNamed("${RoomScreen.route}/$roomID");
-                    },
-                    color: kPink,
-                    textColor: kGrayScaleLightest,
-                    text:'playAgain'.tr),
-                TextButton(
-                    onPressed: () {
-                      gc.exitGame();
-                    },
-                    child: Text('endGame'.tr))
-              ],
-            )));
+            child: isGameWinner()?
+            WonGameDialog(onPLayAgainPressed: onPlayAgain, onEndGamePressed: onExitGame):
+            LostGameDialog(onPLayAgainPressed: onPlayAgain, onEndGamePressed: onExitGame,)));
   }
 
   @override
