@@ -33,7 +33,7 @@ class Socket {
     socket.onConnect((_) {
       print('connected to socket.io');
       final GameController gc = Get.find();
-      gc.socket.initUser("");
+      gc.socket.initUser(gc.myPlayer.id);
     });
     socket.onDisconnect((_) {
       print('disconnected from socket.io');
@@ -109,8 +109,12 @@ class Socket {
     });
   }
 
-  void initUser(String username) {
-    socket.emit('user');
+  void initUser(String userID) {
+    if (userID == 'not_set') {
+      socket.emit('user');
+    } else {
+      socket.emit('user', userID);
+    }
   }
   void sendLang(String lang) {
     socket.emit('language', lang);
