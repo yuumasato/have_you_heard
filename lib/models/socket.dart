@@ -33,7 +33,7 @@ class Socket {
     socket.onConnect((_) {
       print('connected to socket.io');
       final GameController gc = Get.find();
-      gc.socket.initUser("");
+      gc.socket.initUser(gc.myPlayer.id);
     });
     socket.onDisconnect((_) {
       print('disconnected from socket.io');
@@ -47,6 +47,11 @@ class Socket {
     socket.on('user id', (data) {
       final GameController gc = Get.find();
       gc.myPlayer.id = data;
+      gc.sendPlayerName();
+      Future.delayed(const Duration(milliseconds: 80), () {
+        // Workaround for Redis
+        gc.sendLanguage();
+      });
     });
 
     // We have just entered a room
@@ -109,8 +114,12 @@ class Socket {
     });
   }
 
-  void initUser(String username) {
-    socket.emit('user');
+  void initUser(String userID) {
+    if (userID == 'not_set') {
+      socket.emit('user');
+    } else {
+      socket.emit('user', userID);
+    }
   }
   void sendLang(String lang) {
     socket.emit('language', lang);

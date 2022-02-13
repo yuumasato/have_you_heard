@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
-import 'package:have_you_heard/controller/setting_controller.dart';
 
 import 'lobby.dart';
 import 'onboarding.dart';
@@ -34,11 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   showLang() {
     if (gc.onBoarded) {
-      gc.sendPlayerName();
-      Future.delayed(const Duration(milliseconds: 80), () {
-        // Workaround for Redis
-        gc.sendLanguage();
-      });
       Get.offNamed(LobbyScreen.route);
     } else {
       setState(() {
@@ -102,15 +96,15 @@ class _SplashScreenState extends State<SplashScreen> {
                       IconButton(
                           iconSize: 64,
                           icon: SvgPicture.asset('assets/images/flagArgentina.svg'),
-                          onPressed: () async {
-                            await setGameLanguage(gc, 'es');
+                          onPressed: () {
+                            gc.setLanguage('es');
                             route();
                           }),
                       IconButton(
                           iconSize: 64,
                           icon: SvgPicture.asset('assets/images/flagBrazil.svg'),
-                          onPressed: () async {
-                            await setGameLanguage(gc, 'pt');
+                          onPressed: () {
+                            gc.setLanguage('pt');
                             route();
                           }),
                     ],
