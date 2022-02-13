@@ -21,21 +21,24 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var isVisible = false;
+  final GameController gc = Get.find();
 
   @override
   initState() {
     super.initState();
-    final GameController gc = Get.find();
-    gc.socket.initUser("");
     Future.delayed(const Duration(seconds: 4), () {
       showLang();
     });
+    gc.getOnboardedState();
   }
 
   showLang() {
-    final GameController gc = Get.find();
-
     if (gc.onBoarded) {
+      gc.sendPlayerName();
+      Future.delayed(const Duration(milliseconds: 80), () {
+        // Workaround for Redis
+        gc.sendLanguage();
+      });
       Get.offNamed(LobbyScreen.route);
     } else {
       setState(() {

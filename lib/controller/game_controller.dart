@@ -14,12 +14,10 @@ class GameController extends GetxController {
   Game game = Game();
   Socket socket = Socket();
 
-  late bool onBoarded;
+  bool onBoarded = false;
   String language = 'not_set';
 
-  GameController() {
-    getOnboardedState();
-  }
+  GameController();
 
   void exitGame() {
     game.reset();
@@ -28,35 +26,40 @@ class GameController extends GetxController {
 
   Future<bool> getOnboardedState() async {
     final prefs = await SharedPreferences.getInstance();
-    var playerName = prefs.getString('username') ?? 'not_set';
-    var language = prefs.getString('locale') ?? 'not_set';
+    myPlayer.name = prefs.getString('username') ?? 'not_set';
+    language = prefs.getString('locale') ?? 'not_set';
 
-    if (playerName != 'not_set' && language != 'not_set') {
+    if (myPlayer.name != 'not_set' && language != 'not_set') {
       onBoarded = true;
-      setPlayerName(playerName);
-      setLocale(language);
-      return true;
-    } else {
-      onBoarded = false;
-      return false;
     }
+    return onBoarded;
   }
 
   void setLocale (String language) {
-    this.language = language;
+    Locale locale;
     if (language == 'es') {
-      var locale = Locale('es', 'AR');
-      Get.updateLocale(locale);
+      locale = Locale('es', 'AR');
     } else {
-      var locale = Locale('pt', 'BR');
-      Get.updateLocale(locale);
+      locale = Locale('pt', 'BR');
     }
+    Get.updateLocale(locale);
+  }
+
+  void setLanguage(String language) {
+    this.language = language;
+    setLocale(language);
+    sendLanguage();
+  }
+  void sendLanguage() {
     socket.sendLang(language);
   }
 
   void setPlayerName(String playerName) {
     myPlayer.name = playerName;
-    socket.sendName(playerName);
+    sendPlayerName();
+  }
+  void sendPlayerName() {
+    socket.sendName(myPlayer.name);
   }
 
   void saveUser(String username) async {

@@ -32,6 +32,8 @@ class Socket {
     });
     socket.onConnect((_) {
       print('connected to socket.io');
+      final GameController gc = Get.find();
+      gc.socket.initUser("");
     });
     socket.onDisconnect((_) {
       print('disconnected from socket.io');
