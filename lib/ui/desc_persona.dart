@@ -22,7 +22,7 @@ class DescPersonaScreen extends StatefulWidget {
 
 class _DescPersonaScreenState extends State<DescPersonaScreen>
     with SingleTickerProviderStateMixin {
-  final Duration _screenDuration = const Duration(seconds: 5);
+  final Duration _screenDuration = const Duration(seconds: 6);
 
   late final AnimationController _controller = AnimationController(
     duration: _screenDuration,

@@ -23,7 +23,7 @@ class VoteAnswerScreen extends StatefulWidget {
 
 class _VoteAnswerScreenState extends State<VoteAnswerScreen>
     with SingleTickerProviderStateMixin {
-  final Duration _screenDuration = const Duration(seconds: 7);
+  final Duration _screenDuration = const Duration(seconds: 10);
   late final Timer _timer;
 
   late final AnimationController _controller = AnimationController(
