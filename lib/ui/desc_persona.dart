@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
+import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/models/persona.dart';
 import 'package:have_you_heard/widgets/in_game_app_bar.dart';
@@ -57,7 +58,10 @@ class _DescPersonaScreenState extends State<DescPersonaScreen>
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery.of(context).size.width;
+    final screenSize = MediaQuery.of(context).size;
+    var screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+    final scaleFactor = screenHeight/667;
     final appBarHeight = AppBar().preferredSize.height;
 
     final GameController gc = Get.find();
@@ -81,7 +85,7 @@ class _DescPersonaScreenState extends State<DescPersonaScreen>
                     color: kPlayer_3,
                     backgroundColor: kGrayScaleMediumDark,
                   ),
-                  Text('roleExplanation'.tr),
+                  Text('roleExplanation'.tr, style: HyhTextStyle.heading18Bold,),
                 ],
               ),
               Padding(
@@ -94,11 +98,12 @@ class _DescPersonaScreenState extends State<DescPersonaScreen>
                         left: appBarHeight * 0.5,
                       ),
                       child: Image(
+                        height: 215*scaleFactor,
                         alignment: Alignment.centerLeft,
                         fit: BoxFit.contain,
                         image: Svg(
                           _persona.svgAsset,
-                          size: Size(128, 288),
+                          size: const Size(128, 288),
                         ),
                       ),
                     ),
@@ -117,24 +122,16 @@ class _DescPersonaScreenState extends State<DescPersonaScreen>
                         children: [
                           Expanded(
                             child: RichText(
+                                textScaleFactor: scaleFactor,
                                 text: TextSpan(children: [
                                   TextSpan(
                                       text: _persona.name,
-                                      style: const TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.bold,
-                                          color: kGrayScaleDarkest)),
-                                  const TextSpan(text: '\n \n'),
+                                      style: HyhTextStyle.heading24Height15BoldDarkest),
+                                  const TextSpan(text: '\n'),
                                   TextSpan(
                                     text:
                                     _persona.desc,
-                                    style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.5,
-                                        color: Color(0xFF252C4A)),
-                                    //TODO: Only use of this color, need confirmation from Design team
-                                  ),
+                                    style: HyhTextStyle.body14Height15Darkest),
                                 ])),
                           ),
                           Expanded(
@@ -142,23 +139,16 @@ class _DescPersonaScreenState extends State<DescPersonaScreen>
                               children: [
                                 Expanded(
                                   child: RichText(
+                                    textScaleFactor: scaleFactor,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
                                             text: 'characteristcs'.tr,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                height: 1.5,
-                                                fontWeight: FontWeight.bold,
-                                                color: kGrayScaleDarkest)),
+                                            style: HyhTextStyle.body16Height15BoldDarkest),
                                         TextSpan(
                                             text:
                                             '• '+_persona.personality.join('\n• '),
-                                            style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                height: 1.5,
-                                                color: Color(0xFF252C4A))),
+                                            style: HyhTextStyle.body14Height15Darkest),
                                       ],
                                     ),
                                   ),
