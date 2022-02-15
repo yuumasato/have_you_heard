@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:get/get.dart';
+import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/ui/waiting_screen.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
@@ -44,6 +45,9 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
   }
 
   Widget buildPersonaTile(String persona) {
+    final height = MediaQuery.of(context).size.height;
+    final scaleFactor = height/677;
+
     return Opacity (
       opacity: colorPersonaTile(persona),
       child: Card(
@@ -52,8 +56,8 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const [
-              Icon(Icons.info_outline, size: 20, color: kGrayScaleMedium),
+            children: [
+              Icon(Icons.info_outline, size: 20 * scaleFactor, color: kGrayScaleMedium),
             ],
           ),
           GestureDetector(
@@ -64,16 +68,19 @@ class _VotePersonaScreenState extends State<VotePersonaScreen> {
             },
             child: Column(children: [
               Image(
-                image: Svg((allPersona[persona])!, size: Size(63, 79)),
+                height: 78 * scaleFactor,
+                fit: BoxFit.contain,
+                image: Svg((allPersona[persona])!, size: const Size(63, 79)),
               ),
               Container(
-                padding: EdgeInsets.all(4),
+                padding: const EdgeInsets.all(4),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       persona,
-                      style: const TextStyle(fontSize: 16),
+                      textScaleFactor: scaleFactor,
+                      style: HyhTextStyle.body14Bold,
                     ),
                   ],
                 ),
