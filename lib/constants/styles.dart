@@ -37,9 +37,14 @@ class HyhTextStyle {
 
   //Grayscale Darkest styles
   static const body14Darkest = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: kGrayScaleDarkest, fontFamily: 'Nunito');
+  static const body14Height15Darkest = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: kGrayScaleDarkest, height: 1.5, fontFamily: 'Nunito');
   static const body16Darkest = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: kGrayScaleDarkest, fontFamily: 'Nunito');
   static const body16BoldDarkest = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kGrayScaleDarkest, fontFamily: 'Nunito');
+  static const body16Height15BoldDarkest = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kGrayScaleDarkest, height: 1.5, fontFamily: 'Nunito');
   static const heading18BoldDarkest = TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: kGrayScaleDarkest, fontFamily: 'Nunito');
+  static const heading24BoldDarkest = TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: kGrayScaleDarkest, fontFamily: 'Nunito');
+  static const heading24Height15BoldDarkest = TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: kGrayScaleDarkest, height: 1.5, fontFamily: 'Nunito');
+
 
   //Yellow styles (BrandColor)
   static const body16BoldYellow = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kYellow, fontFamily: 'Nunito');
