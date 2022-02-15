@@ -63,6 +63,11 @@ class _ShowRoundsScreenState extends State<ShowRoundsScreen>
     var screenWidth = MediaQuery.of(context).size.width;
     final GameController gc = Get.find();
 
+    const int carWidth = 602;
+    const int carHeight = 351;
+    double wRatio;
+    wRatio = (screenWidth/carWidth)*1.05;
+
     ChatBalloon roundBanner = ChatBalloon(
       balloonHeader:const Text(
         '',
@@ -136,15 +141,15 @@ class _ShowRoundsScreenState extends State<ShowRoundsScreen>
                     secondChild: roundNews,
                   ),
                 ),
-                const SizedBox(
-                  height: 351*0.75,
+                SizedBox(
+                  height: carHeight*wRatio,
                   child: OverflowBox(
                       child: Image(
                         alignment: Alignment.center,
                         fit: BoxFit.fitHeight,
                         image: Svg(
                           'assets/images/car_frontview.svg',
-                          size: Size(602, 351),
+                          size: Size(carWidth*wRatio, carHeight*wRatio),
                         ),
                       )
                   ),
