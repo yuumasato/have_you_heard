@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 
 import 'lobby.dart';
@@ -51,35 +52,49 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
+  double getLogoSize(Size screenSize){
+    double minSize;
+    if(screenSize.height*0.35>screenSize.width*0.62){
+      minSize = screenSize.width*0.62;
+    } else {
+      minSize = screenSize.height*0.35;
+    }
+    return minSize;
+  }
+
   @override
   Widget build(BuildContext context) {
     final GameController gc = Get.find();
     final query = MediaQuery.of(context);
     final size = query.size;
-    final logoWidth = size.width;
-    final logoHeight = logoWidth * (size.width / size.height);
+    final logoHeight = getLogoSize(size);
     return Scaffold(
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            RichText(
-              textAlign: TextAlign.center,
-              text: const TextSpan(
-                style: TextStyle(
-                    fontSize: 32, fontWeight: FontWeight.bold, height: 1.25, fontFamily: 'Nunito'),
-                children: [
-                  TextSpan(text: 'HAVE YOU\n'),
-                  TextSpan(text: 'HEARD?'),
-                ],
+            SizedBox(
+              height: logoHeight*0.35,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: const TextSpan(
+                    style: HyhTextStyle.heading32Bold,
+                    children: [
+                      TextSpan(text: 'HAVE YOU\n'),
+                      TextSpan(text: 'HEARD?'),
+                    ],
+                  ),
+                ),
               ),
             ),
             Hero(
               tag: 'logo',
               child: SizedBox(
                   height: logoHeight,
-                  width: size.width,
+                  width: logoHeight,
                   child: SvgPicture.asset('assets/images/logo.svg')),
             ),
             Visibility(
@@ -89,24 +104,42 @@ class _SplashScreenState extends State<SplashScreen> {
               maintainState: true,
               child: Column(
                 children: [
-                  Text('Idioma'),
+                  SizedBox(
+                    height: logoHeight*0.105,
+                    child: const FittedBox(
+                      fit: BoxFit.contain,
+                        child: Text('Idioma',style: HyhTextStyle.heading18Bold,)),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconButton(
-                          iconSize: 64,
-                          icon: SvgPicture.asset('assets/images/flagArgentina.svg'),
-                          onPressed: () {
-                            gc.setLanguage('es');
-                            route();
-                          }),
-                      IconButton(
-                          iconSize: 64,
-                          icon: SvgPicture.asset('assets/images/flagBrazil.svg'),
-                          onPressed: () {
-                            gc.setLanguage('pt');
-                            route();
-                          }),
+                      SizedBox(
+                        height:logoHeight*0.27,
+                        child: FittedBox(
+                          alignment: Alignment.topCenter,
+                          fit: BoxFit.contain,
+                          child: IconButton(
+                              iconSize: 64,
+                              icon: SvgPicture.asset('assets/images/flagArgentina.svg'),
+                              onPressed: () {
+                                gc.setLanguage('es');
+                                route();
+                              }),
+                        ),
+                      ),
+                      SizedBox(
+                        height:logoHeight*0.27,
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: IconButton(
+                              iconSize: 64,
+                              icon: SvgPicture.asset('assets/images/flagBrazil.svg'),
+                              onPressed: () {
+                                gc.setLanguage('pt');
+                                route();
+                              }),
+                        ),
+                      ),
                     ],
                   ),
                 ],
