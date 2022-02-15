@@ -23,12 +23,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final _currentPageNotifier = ValueNotifier<int>(0);
 
+  double getLogoSize(Size screenSize){
+    double minSize;
+    if(screenSize.height*0.23>screenSize.width*0.41){
+      minSize = screenSize.width*0.62;
+    } else {
+      minSize = screenSize.height*0.35;
+    }
+    return minSize;
+  }
+
   @override
   Widget build(BuildContext context) {
     final query = MediaQuery.of(context);
     final size = query.size;
     final mediaWidth = size.width;
     final mediaHeight = size.height;
+    final logoSize = getLogoSize(size);
     final logoHeight = mediaWidth * (mediaWidth / mediaHeight);
     final mediaTopPadding = query.padding.top;
     final mediaViewHeight = mediaHeight - mediaTopPadding;
@@ -45,8 +56,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               pageBuilder(
                 Text('haveYouHeard...'.tr,
-                    style: HyhTextStyle.body16Height15),
+                    textScaleFactor: size.height/667,
+                    style: HyhTextStyle.body16Height15Bold),
                 RichText(
+                  textScaleFactor: size.height/667,
                     text: TextSpan(
                         text: 'gameExplanation'.tr,
                         style: HyhTextStyle.body16Height15)),
@@ -55,15 +68,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     child: Container(
                         margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 47),
                         alignment: Alignment.topRight,
-                        height: logoHeight,
+                        height: logoSize,
                         width: size.width,
                         child: SvgPicture.asset('assets/images/logo.svg',
                             width: mediaWidth / 3))),
               ),
               pageBuilder(
                   Text('character'.tr,
+                      textScaleFactor: size.height/667,
                       style: HyhTextStyle.body16Height15Bold),
                   RichText(
+                      textScaleFactor: size.height/667,
                       text: TextSpan(
                           text: 'characterExplanation'.tr,
                           style: HyhTextStyle.body16Height15)),
@@ -73,8 +88,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: personaStack(personaWidth))),
               pageBuilder(
                   Text('rounds'.tr,
+                      textScaleFactor: size.height/667,
                       style: HyhTextStyle.body16Height15Bold),
                   RichText(
+                      textScaleFactor: size.height/667,
                       text: TextSpan(
                           style: HyhTextStyle.body16Height15,
                           children: <TextSpan>[
