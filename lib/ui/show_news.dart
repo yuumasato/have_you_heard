@@ -25,7 +25,7 @@ class ShowNewsScreen extends StatefulWidget {
 class _ShowNewsScreenState extends State<ShowNewsScreen>
     with SingleTickerProviderStateMixin {
   // The player has 12 seconds to answer the news
-  final Duration _screenDuration = const Duration(seconds: 12);
+  final Duration _screenDuration = const Duration(seconds: 15);
   late final Timer _timer;
 
   late final AnimationController _controller = AnimationController(

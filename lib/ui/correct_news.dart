@@ -24,7 +24,7 @@ class CorrectNewsScreen extends StatefulWidget {
 
 class _CorrectNewsScreenState extends State<CorrectNewsScreen>
     with SingleTickerProviderStateMixin {
-  final Duration _screenDuration = const Duration(seconds: 5);
+  final Duration _screenDuration = const Duration(seconds: 6);
 
   late final AnimationController _controller = AnimationController(
     duration: _screenDuration,
