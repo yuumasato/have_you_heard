@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class GameController extends GetxController {
   String roomID = 'none';
+  String previousRoomID = 'none';
   Player myPlayer = Player();
 
   Room room = Room();
