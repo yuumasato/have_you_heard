@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:have_you_heard/constants/colors.dart';
 import 'package:have_you_heard/router/parser.dart';
 import 'package:get/get.dart';
+import 'package:have_you_heard/utilities/app_scroll_behavior.dart';
 
 import 'constants/locale_string.dart';
 
@@ -19,6 +20,7 @@ class Hyh extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      scrollBehavior: AppScrollBehavior(),
       theme: ThemeData.dark().copyWith(
           textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Nunito',),
           scaffoldBackgroundColor: kGrayScaleDarkest,
