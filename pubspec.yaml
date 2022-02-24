@@ -29,10 +29,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_svg: ^0.22.0
-  flutter_svg_provider: ^0.1.10
+  flutter_svg: ^1.0.3
+  flutter_svg_provider: ^1.0.3
   socket_io_client: ^2.0.0-beta
-  shared_preferences: ^2.0.0
+  shared_preferences: ^2.0.13
   page_view_indicators: ^2.0.0
 
   # The following adds the Cupertino Icons font to your application.
