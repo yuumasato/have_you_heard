@@ -13,7 +13,7 @@ class Persona {
         'São pessoas que defendem que os imunizantes não protegem contras as doenças e ainda colocam a saúde em risco.',
         ['Cético', 'Egocêntrico', 'Conspiracionista'],
         ['Ciência', 'Bem estar', 'Saúde'],
-        'assets/images/bodyAntivax.svg'),
+        'assets/images/bodyAntivacina.svg'),
     'Bonosaro': Persona('Bonosaro',
         'Atual presidente do Brasil e militar aposentado. Político da extrema direita.',
         ['Asertividade', 'Radical', 'Agressividade'],
@@ -38,7 +38,7 @@ class Persona {
         'Aquela pessoa que acredita em tudo que lê e espalha fake news.',
         ['Imprudente', 'Ansiosa', 'Solidäo'],
         ['Pop & Arte', 'Política', 'Educação'],
-        'assets/images/bodyTiaDoZap.svg'),
+        'assets/images/bodyTiadoZap.svg'),
     'Tump': Persona('Tump',
         'Ex-presidente dos EUA, do partido republicano.',
         ['Resistência', 'Orgulho', 'Espontaneidade'],
@@ -48,7 +48,7 @@ class Persona {
         'Não consome e não usa produto de origem animal.',
         ['Consciência', 'Liberdade', 'Prudência'],
         ['Meio Ambiente', 'Saúde', 'Bem estar'],
-        'assets/images/bodyVegan.svg')
+        'assets/images/bodyVegana.svg')
   };
 
   static Persona getPersona(String name) {

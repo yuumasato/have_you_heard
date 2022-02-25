@@ -139,11 +139,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               width: personaRenderWidth)),
       Positioned(
           left: bodySpacing * 2 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyAntivax.svg',
+          child: SvgPicture.asset('assets/images/bodyAntivacina.svg',
               width: personaRenderWidth)),
       Positioned(
           left: bodySpacing * 3 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyVegan.svg',
+          child: SvgPicture.asset('assets/images/bodyVegana.svg',
               width: personaRenderWidth)),
       Positioned(
           left: bodySpacing * 4 - leftOffset,
@@ -159,7 +159,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               width: personaRenderWidth)),
       Positioned(
           left: bodySpacing * 7 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyTiaDoZap.svg',
+          child: SvgPicture.asset('assets/images/bodyTiadoZap.svg',
               width: personaRenderWidth)),
     ]);
   }
