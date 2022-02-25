@@ -67,6 +67,7 @@ class _ShowRoundsScreenState extends State<ShowRoundsScreen>
     const int carHeight = 351;
     double wRatio;
     wRatio = (screenWidth/carWidth)*1.05;
+    double windShieldRatio = 0.73;
 
     ChatBalloon roundBanner = ChatBalloon(
       balloonHeader:const Text(
@@ -141,19 +142,32 @@ class _ShowRoundsScreenState extends State<ShowRoundsScreen>
                     secondChild: roundNews,
                   ),
                 ),
-                SizedBox(
-                  height: carHeight*wRatio,
-                  child: OverflowBox(
-                      child: Image(
-                        alignment: Alignment.center,
-                        fit: BoxFit.fitHeight,
-                        image: Svg(
-                          'assets/images/car_frontview.svg',
-                          size: Size(carWidth*wRatio, carHeight*wRatio),
+                Stack(
+                    children: [
+                      Positioned(
+                        left:  screenWidth/2 - (carWidth*wRatio*windShieldRatio)/2,
+                        top: carHeight*wRatio/4.4*-1,
+                        child: Image(
+                          fit: BoxFit.fitHeight,
+                          image: Svg(
+                            'assets/images/frontview_'+ gc.game.persona.replaceAll(' ', '') +'.svg',
+                            size: Size(carWidth*wRatio*windShieldRatio, carHeight*wRatio),
+                          ),
                         ),
-                      )
-                  ),
-                ),
+                      ),
+                      SizedBox(
+                          height: carHeight*wRatio,
+                          child: OverflowBox(
+                            child: Image(
+                              fit: BoxFit.fitHeight,
+                              image: Svg(
+                                'assets/images/car_frontview_empty.svg',
+                                size: Size(carWidth*wRatio, carHeight*wRatio),
+                              ),
+                            ),
+                          )
+                      ),
+                    ]),
                 Spacer(),
               ],
             )),
