@@ -53,6 +53,7 @@ class _VoteAnswerScreenState extends State<VoteAnswerScreen>
 
   @override
   void dispose() {
+    _timer.cancel();
     _controller.dispose();
     super.dispose();
   }
