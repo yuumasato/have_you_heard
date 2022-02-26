@@ -56,6 +56,8 @@ class _WaitingScreenState extends State<WaitingScreen>
     final GameController gc = Get.find();
     final String titleFlag = Get.parameters['titleFlag'] ?? 'false';
     final bannerText = Get.parameters['bannerText'] ?? 'No banner';
+    final String personaName = gc.game.persona.replaceAll(' ', '');
+    final String personaSvg = 'assets/images/body' +  personaName + '.svg';
 
     return GameExitDialog(
       onElevatedPressed: () => Navigator.of(context).pop(),
@@ -103,16 +105,27 @@ class _WaitingScreenState extends State<WaitingScreen>
                         bottom: 0,
                         child: SlideTransition(
                           position: _carEntrance,
-                          child: Container(
-                              height: 82,
-                              width: 120,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: svg_provider.Svg("assets/images/car_sideview.svg",
-                                        size: Size(628, 417)),
-                                    fit: BoxFit.fitWidth),
-                              )
-                          ),
+                          child: Stack(
+                              children: [
+                                if (gc.game.persona != 'not_set') Positioned(
+                                    left: 13,
+                                    top: -20,
+                                    child: Image(
+                                      height: 288/3,
+                                      width: 128/3,
+                                      image: svg_provider.Svg(
+                                        personaSvg,
+                                      ),
+                                    )),
+                                Image(
+                                  height: 82,
+                                  width: 120,
+                                  fit: BoxFit.fitWidth,
+                                  image: svg_provider.Svg(
+                                    'assets/images/car_sideview_empty.svg',
+                                  ),
+                                ),
+                              ]),
                         ),
                       ),
                     ]),

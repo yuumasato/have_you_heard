@@ -102,6 +102,16 @@ class Game {
     return player;
   }
 
+  int getRoundWinnerIndex() {
+    int i;
+    for (i = 0; i < playerList.length; i++) {
+      if (playerList[i].id == roundWinner?.id) {
+        return i+1;
+      }
+    }
+    return 1;
+  }
+
   void setPlayerWins(Map<String, int> wins) {
     for (var p in playerList) {
       p.roundWins = wins[p.id] ?? 0;
