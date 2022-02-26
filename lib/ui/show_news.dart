@@ -54,6 +54,7 @@ class _ShowNewsScreenState extends State<ShowNewsScreen>
 
   @override
   void dispose() {
+    _timer.cancel();
     _controller.dispose();
     textController.dispose();
     super.dispose();
