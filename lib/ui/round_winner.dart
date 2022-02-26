@@ -58,6 +58,9 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen>
     final appBarHeight = AppBar().preferredSize.height;
     final GameController gc = Get.find();
     Player _winner = gc.game.roundWinner ?? Player();
+    final String personaName = gc.game.persona.replaceAll(' ', '');
+    final String playerIndex = gc.game.getRoundWinnerIndex().toString();
+    final String personaSvg = 'assets/images/players/' + personaName + '_player' + playerIndex + '.svg';
 
     return WillPopScope(
       // This is short lived screen, let's block the back button
@@ -116,7 +119,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen>
                       alignment: Alignment.centerRight,
                       fit: BoxFit.contain,
                       image: Svg(
-                        'assets/images/players/'+gc.game.persona.replaceAll(' ', '')+'_player'+ gc.game.getRoundWinnerIndex().toString()+'.svg',
+                        personaSvg,
                         size: Size(screenWidth * 0.30, screenWidth * 0.6),
                       ),
                     )

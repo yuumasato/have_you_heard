@@ -56,7 +56,8 @@ class _WaitingScreenState extends State<WaitingScreen>
     final GameController gc = Get.find();
     final String titleFlag = Get.parameters['titleFlag'] ?? 'false';
     final bannerText = Get.parameters['bannerText'] ?? 'No banner';
-    final String personaSvg = 'assets/images/body' +  gc.game.persona.replaceAll(' ', '') + '.svg';
+    final String personaName = gc.game.persona.replaceAll(' ', '');
+    final String personaSvg = 'assets/images/body' +  personaName + '.svg';
 
     return GameExitDialog(
       onElevatedPressed: () => Navigator.of(context).pop(),

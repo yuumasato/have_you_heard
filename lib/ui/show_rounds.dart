@@ -62,6 +62,8 @@ class _ShowRoundsScreenState extends State<ShowRoundsScreen>
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     final GameController gc = Get.find();
+    final String personaName = gc.game.persona.replaceAll(' ', '');
+    final String personaSvg = 'assets/images/frontview_'+ personaName +'.svg';
 
     const int carWidth = 602;
     const int carHeight = 351;
@@ -150,7 +152,7 @@ class _ShowRoundsScreenState extends State<ShowRoundsScreen>
                         child: Image(
                           fit: BoxFit.fitHeight,
                           image: Svg(
-                            'assets/images/frontview_'+ gc.game.persona.replaceAll(' ', '') +'.svg',
+                            personaSvg,
                             size: Size(carWidth*wRatio*windShieldRatio, carHeight*wRatio),
                           ),
                         ),
