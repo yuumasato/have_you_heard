@@ -116,7 +116,7 @@ class _RoundWinnerScreenState extends State<RoundWinnerScreen>
                       alignment: Alignment.centerRight,
                       fit: BoxFit.contain,
                       image: Svg(
-                        'assets/images/bodyAntivax.svg',
+                        'assets/images/players/'+gc.game.persona.replaceAll(' ', '')+'_player'+ gc.game.getRoundWinnerIndex().toString()+'.svg',
                         size: Size(screenWidth * 0.30, screenWidth * 0.6),
                       ),
                     )
