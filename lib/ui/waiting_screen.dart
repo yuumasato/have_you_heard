@@ -31,13 +31,6 @@ class _WaitingScreenState extends State<WaitingScreen>
     parent: _controller,
     curve: Curves.linear,
   ));
-  late final Animation<Offset> _carEntrance = Tween<Offset>(
-    begin: const Offset(-1, 0.0),
-    end: const Offset(4.2, 0.0),
-  ).animate(CurvedAnimation(
-    parent: _controller,
-    curve: Curves.linear,
-  ));
 
   double landscapeHeight = 2928;
   double landscapeWidth = 1041;
@@ -58,6 +51,14 @@ class _WaitingScreenState extends State<WaitingScreen>
     final bannerText = Get.parameters['bannerText'] ?? 'No banner';
     final String personaName = gc.game.persona.replaceAll(' ', '');
     final String personaSvg = 'assets/images/body' +  personaName + '.svg';
+
+    late final Animation<Offset> _carEntrance = Tween<Offset>(
+      begin: const Offset(-1, 0.0),
+      end: Offset(screenWidth/120+0.3, 0.0),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear,
+    ));
 
     return GameExitDialog(
       onElevatedPressed: () => Navigator.of(context).pop(),
