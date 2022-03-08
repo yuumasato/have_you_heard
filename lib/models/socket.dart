@@ -13,7 +13,7 @@ import 'package:socket_io_client/socket_io_client.dart' as sio;
 import 'package:have_you_heard/controller/game_controller.dart';
 
 class Socket {
-  sio.Socket socket = sio.io('https://my-echo-chat.herokuapp.com',
+  sio.Socket socket = sio.io('https://haveyouheard.fun',
       sio.OptionBuilder()
           .setTransports(['websocket'])
           .enableAutoConnect()
