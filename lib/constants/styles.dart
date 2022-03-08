@@ -22,9 +22,11 @@ class HyhTextStyle {
   static const body14 = TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: kGrayScaleLightest, fontFamily: 'Nunito');
   static const body14Bold = TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: kGrayScaleLightest,fontFamily: 'Nunito');
   static const body16 = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: kGrayScaleLightest, fontFamily: 'Nunito');
+  static const body32 = TextStyle(fontSize: 32, fontWeight: FontWeight.w400, color: kGrayScaleLightest, fontFamily: 'Nunito');
   static const body16Height15 = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: kGrayScaleLightest, height: 1.5, fontFamily: 'Nunito');
   static const body16Bold = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kGrayScaleLightest, fontFamily: 'Nunito');
   static const body16Height15Bold = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kGrayScaleLightest, height: 1.5, fontFamily: 'Nunito');
+  static const body40Bold = TextStyle(fontSize: 40, fontWeight: FontWeight.w700, color: kGrayScaleLightest, fontFamily: 'Nunito');
   static const heading18Bold = TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: kGrayScaleLightest, fontFamily: 'Nunito');
   static const heading24Bold = TextStyle(fontSize: 24, fontWeight: FontWeight.w700, color: kGrayScaleLightest, fontFamily: 'Nunito');
   static const heading32Bold = TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: kGrayScaleLightest, fontFamily: 'Nunito');
