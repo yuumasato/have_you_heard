@@ -25,10 +25,11 @@ class GameWinnerScreen extends StatefulWidget {
 class _GameWinnerScreenState extends State<GameWinnerScreen>
     with SingleTickerProviderStateMixin {
   final GameController gc = Get.find();
-  Timer? timer;
   late AnimationController _controller;
   late Animation<double> _roundsBar;
   late Animation<double> _tieBar;
+  final int animeTime = 8000;
+
   Player _gameWinner = Player(name: 'No player');
 
   String winnerBanner = 'No banner';
@@ -49,11 +50,11 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
   @override
   initState() {
     super.initState();
-    int animeTime = 6000;
+    final Duration _screenDuration = Duration(milliseconds: animeTime);
 
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: animeTime),
+      duration: _screenDuration,
     );
     _controller.addListener(() {
       setState(() {});
@@ -77,7 +78,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
           winnerBanner = 'fastestPlayers'.tr;
         });
       });
-      Future.delayed(Duration(milliseconds: animeTime), () {
+      Future.delayed(Duration(milliseconds: 3*(animeTime~/4)), () {
         setState(() {
           winnerBanner = _gameWinner.name + 'winner'.tr;
         });
@@ -92,12 +93,9 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
     );
 
     _controller.forward();
-    startTime();
-  }
-
-  startTime() async {
-    var duration = const Duration(seconds: 8);
-    return Timer(duration, route);
+    Future.delayed( Duration(milliseconds: animeTime), () {
+      route();
+    });
   }
 
   getMostWins() {
@@ -119,7 +117,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
   }
 
   onPlayAgain(){
-    gc.game.reset();
+    gc.rematch();
     String roomID = gc.roomID;
     Get.offAllNamed("${RoomScreen.route}/$roomID");
   }
@@ -130,7 +128,6 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
 
   @override
   void dispose() {
-    if (timer != null) timer!.cancel();
     super.dispose();
     _controller.dispose();
   }
@@ -149,14 +146,12 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
 
   @override
   Widget build(BuildContext context) {
-    List<Player> allPlayers = gc.game.playerList;
     var screenWidth = MediaQuery.of(context).size.width;
     final appBarHeight = AppBar().preferredSize.height;
 
     return WillPopScope(
       // This is short lived screen, let's block the back button
         onWillPop: () async {
-          startTime();
           return false;
         },
         child: Scaffold(
@@ -178,7 +173,7 @@ class _GameWinnerScreenState extends State<GameWinnerScreen>
                             padding: EdgeInsets.only(
                                 bottom: appBarHeight * 0.50),
                             child: Text(winnerBanner,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 32, fontWeight: FontWeight.bold),
                             ),
                           ),

@@ -20,6 +20,11 @@ class GameController extends GetxController {
 
   GameController();
 
+  void rematch() {
+    game.reset();
+    socket.rematch();
+  }
+
   void exitGame() {
     game.reset();
     socket.leaveRoom();
