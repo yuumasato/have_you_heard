@@ -31,11 +31,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final mediaWidth = size.width;
     final mediaHeight = size.height;
     final layoutUtility = LayoutUtility(query);
-    var logoHeight =
-        (layoutUtility.isTablet() && mediaHeight > 770) ? 240.0 : 154.0;
-    //770 was the smallest height in tablets that didn't overflowed
-    final mediaTopPadding = query.padding.top;
     final PageController controller = PageController(initialPage: 0);
+
+    //770 was the smallest height in tablets that didn't overflowed
+    var balloonHeaderStyle = (layoutUtility.isTablet() && mediaHeight > 770)
+        ? HyhTextStyle.body40Bold
+        : HyhTextStyle.body16Height15Bold;
+    var balloonTextStyle = (layoutUtility.isTablet() && mediaHeight > 770)
+        ? HyhTextStyle.body32
+        : HyhTextStyle.body16Height15;
+    var illustrationHeight =
+        (layoutUtility.isTablet() && mediaHeight > 770) ? 240.0 : 154.0;
 
     return Stack(children: [
       PageView(
@@ -45,145 +51,55 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             _currentPageNotifier.value = index;
           },
           children: [
-            Scaffold(
-              body: Center(
-                child: Container(
-                  height: mediaHeight,
-                  width: (mediaWidth >= 620) ? 620 : mediaWidth,
-                  // 620 is 540(balloon width + 2*padding)
-                  padding: const EdgeInsets.all(40.0),
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ChatBalloon(
-                        balloonHeader: Text('haveYouHeard...'.tr,
-                            style:
-                                (layoutUtility.isTablet() && mediaHeight > 770)
-                                    ? HyhTextStyle.body40Bold
-                                    : HyhTextStyle.body16Height15Bold),
-                        balloonText: RichText(
-                            text: TextSpan(
-                                text: 'gameExplanation'.tr,
-                                style: (layoutUtility.isTablet() &&
-                                        mediaHeight > 770)
-                                    ? HyhTextStyle.body32
-                                    : HyhTextStyle.body16Height15)),
-                      ),
-                      Hero(
-                          tag: 'logo',
-                          child: Container(
-                              alignment: Alignment.topRight,
-                              height: logoHeight,
-                              child: SvgPicture.asset('assets/images/logo.svg',
-                                  width: logoHeight, height: logoHeight))),
-                      SizedBox(
-                          height:
-                              (layoutUtility.isTablet() && mediaHeight > 770)
-                                  ? 200
-                                  : 128)
-                    ],
-                  ),
-                ),
-              ),
+            pageBuilder(
+              balloonHeader:
+                  Text('haveYouHeard...'.tr, style: balloonHeaderStyle),
+              balloonText: RichText(
+                  text: TextSpan(
+                      text: 'gameExplanation'.tr, style: balloonTextStyle)),
+              illustration: Hero(
+                  tag: 'logo',
+                  child: Container(
+                      alignment: Alignment.topRight,
+                      height: illustrationHeight,
+                      child: SvgPicture.asset('assets/images/logo.svg',
+                          width: illustrationHeight,
+                          height: illustrationHeight))),
             ),
-            Scaffold(
-              body: Center(
-                child: Container(
-                  height: mediaHeight,
-                  width: (mediaWidth >= 620) ? 620 : mediaWidth,
-                  // 620 is 540(balloon width + 2*padding)
-                  padding: const EdgeInsets.all(40.0),
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ChatBalloon(
-                        balloonHeader: Text('character'.tr,
-                            style:
-                                (layoutUtility.isTablet() && mediaHeight > 770)
-                                    ? HyhTextStyle.body40Bold
-                                    : HyhTextStyle.body16Height15Bold),
-                        balloonText: RichText(
-                            text: TextSpan(
-                                text: 'characterExplanation'.tr,
-                                style: (layoutUtility.isTablet() &&
-                                        mediaHeight > 770)
-                                    ? HyhTextStyle.body32
-                                    : HyhTextStyle.body16Height15)),
-                      ),
-                      SizedBox(
-                          height: logoHeight,
-                          width: mediaWidth,
-                          child: personaStack(Size(
-                              ((mediaWidth >= 620) ? 620 : mediaWidth) - 80,
-                              logoHeight))),
-                      SizedBox(
-                        height: (layoutUtility.isTablet() && mediaHeight > 770)
-                            ? 200
-                            : 128,
-                      )
-                    ],
-                  ),
-                ),
-              ),
+            pageBuilder(
+              balloonHeader: Text('character'.tr, style: balloonHeaderStyle),
+              balloonText: RichText(
+                  text: TextSpan(
+                      text: 'characterExplanation'.tr,
+                      style: balloonTextStyle)),
+              illustration: SizedBox(
+                  height: illustrationHeight,
+                  width: mediaWidth,
+                  child: personaStack(Size(
+                      ((mediaWidth >= 620) ? 620 : mediaWidth) - 80,
+                      illustrationHeight))),
             ),
-            Scaffold(
-              body: Center(
-                child: Container(
-                  height: mediaHeight,
+            pageBuilder(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              balloonIllustrationGap:
+                  (layoutUtility.isTablet() && mediaHeight > 770) ? 27.31 : 21,
+              balloonHeader: Text('rounds'.tr, style: balloonHeaderStyle),
+              balloonText: RichText(
+                  text: TextSpan(style: balloonTextStyle, children: <TextSpan>[
+                TextSpan(text: 'roundExplanationStart'.tr),
+                TextSpan(
+                    text: 'roundLinedExplanation'.tr,
+                    style: const TextStyle(
+                        decoration: TextDecoration.lineThrough)),
+                TextSpan(text: 'roundExplanationEnd'.tr)
+              ])),
+              illustration: SizedBox(
                   width: (mediaWidth >= 620) ? 620 : mediaWidth,
-                  // 620 is 540(balloon width + 2*padding)
-                  padding: const EdgeInsets.all(40.0),
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ChatBalloon(
-                        balloonHeader: Text('rounds'.tr,
-                            style:
-                                (layoutUtility.isTablet() && mediaHeight > 770)
-                                    ? HyhTextStyle.body40Bold
-                                    : HyhTextStyle.body16Height15Bold),
-                        balloonText: RichText(
-                            text: TextSpan(
-                                style: (layoutUtility.isTablet() &&
-                                        mediaHeight > 770)
-                                    ? HyhTextStyle.body32
-                                    : HyhTextStyle.body16Height15,
-                                children: <TextSpan>[
-                              TextSpan(text: 'roundExplanationStart'.tr),
-                              TextSpan(
-                                  text: 'roundLinedExplanation'.tr,
-                                  style: const TextStyle(
-                                      decoration: TextDecoration.lineThrough)),
-                              TextSpan(text: 'roundExplanationEnd'.tr)
-                            ])),
-                      ),
-                      SizedBox(
-                        height: (layoutUtility.isTablet() && mediaHeight > 770)
-                            ? 27.31
-                            : 21,
-                      ),
-                      SizedBox(
-                          width: (mediaWidth >= 620) ? 620 : mediaWidth,
-                          child: SvgPicture.asset(
-                              'assets/images/carWithLulo.svg',
-                              alignment: Alignment.topRight,
-                              width: (layoutUtility.isTablet() &&
-                                      mediaHeight > 770)
-                                  ? 375.53
-                                  : 240.34)),
-                      SizedBox(
-                        height: (layoutUtility.isTablet() && mediaHeight > 770)
-                            ? 200
-                            : 128,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                  child: SvgPicture.asset('assets/images/carWithLulo.svg',
+                      alignment: Alignment.topRight,
+                      width: (layoutUtility.isTablet() && mediaHeight > 770)
+                          ? 375.53
+                          : 240.34)),
             ),
             const UserNameScreen()
           ]),
@@ -201,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget personaStack(Size size) {
-    final availableWidth = size.width / 9; // 9 half persons
+    final availableWidth = size.width / 9; // 7 halves overlapped and one person
     final availableHeight = size.height;
     return Stack(children: [
       Positioned(
@@ -274,30 +190,49 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     ]);
   }
 
-  Widget pageBuilder(
-      Text balloonHeader, RichText balloonText, Widget illustration) {
+  Widget pageBuilder({
+    required Text balloonHeader,
+    required RichText balloonText,
+    required Widget illustration,
+    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
+    double balloonIllustrationGap = 8,
+  }) {
     final query = MediaQuery.of(context);
+    final layoutUtility = LayoutUtility(query);
     final size = query.size;
     final mediaHeight = size.height;
-    final mediaTopPadding = query.padding.top;
-    final mediaViewHeight = mediaHeight - mediaTopPadding;
+    final mediaWidth = size.width;
 
     return Scaffold(
-        body: SafeArea(
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            height: mediaHeight,
+            width: (mediaWidth >= 620) ? 620 : mediaWidth,
+            // 620 is 540(balloon width + 2*padding)
+            padding: const EdgeInsets.all(40.0),
+            alignment: Alignment.center,
             child: Column(
-      children: [
-        Container(
-            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 47),
-            height: (mediaViewHeight) / 2,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: ChatBalloon(
-                balloonHeader: balloonHeader,
-                balloonText: balloonText,
-              ),
-            )),
-        illustration
-      ],
-    )));
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: crossAxisAlignment,
+                children: [
+                  ChatBalloon(
+                    balloonHeader: balloonHeader,
+                    balloonText: balloonText,
+                  ),
+                  SizedBox(
+                    height: balloonIllustrationGap,
+                  ),
+                  illustration,
+                  SizedBox(
+                    height: (layoutUtility.isTablet() && mediaHeight > 770)
+                        ? 200
+                        : 128,
+                  ),
+                ]),
+          ),
+        ),
+      ),
+    );
   }
 }
