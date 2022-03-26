@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 import 'package:get/get.dart';
 import 'package:have_you_heard/models/player.dart';
 
