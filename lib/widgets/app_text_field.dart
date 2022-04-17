@@ -33,14 +33,14 @@ class AppTextField extends StatelessWidget {
         fillColor: kGrayScaleDarkest,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Color(0xFF727E86), width: 2.0),
+          borderSide: const BorderSide(color: kTextFieldBorderColor, width: 2.0),
         ),
         labelText: labelText,
         labelStyle: HyhTextStyle.body16MediumLight,
         hintStyle: HyhTextStyle.body16MediumLight,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Color(0xFF727E86), width: 2.0),
+          borderSide: const BorderSide(color: kTextFieldBorderColor, width: 2.0),
         ),
       ),
       style: HyhTextStyle.body16MediumLight
