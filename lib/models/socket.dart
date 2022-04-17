@@ -52,6 +52,10 @@ class Socket {
         // Workaround for Redis
         gc.sendLanguage();
       });
+      if (gc.roomID != 'none') {
+        // Auto join room
+        gc.joinRoom(gc.roomID);
+      }
     });
 
     // We have just entered a room
@@ -137,6 +141,9 @@ class Socket {
   }
 
   void leaveRoom() {
+    final GameController gc = Get.find();
+    gc.previousRoomID = gc.roomID;
+    gc.roomID = 'none';
     socket.emit('leave');
     Get.offAllNamed(LobbyScreen.route);
   }

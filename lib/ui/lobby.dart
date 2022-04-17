@@ -136,7 +136,7 @@ class _LobbyScreenState extends State<LobbyScreen> {
                   ),
                 ),
                 Visibility(
-                  visible: gc.roomID == 'none' ? false : true,
+                  visible: gc.previousRoomID == 'none' ? false : true,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -154,9 +154,9 @@ class _LobbyScreenState extends State<LobbyScreen> {
                             EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
                         child: IconAppButton(
                           onPressed: () {
-                            gc.joinRoom(gc.roomID);
+                            gc.joinRoom(gc.previousRoomID);
                           },
-                          text: 'returnToRoom'.trParams({'roomNumber': gc.roomID}),
+                          text: 'returnToRoom'.trParams({'roomNumber': gc.previousRoomID}),
                           color: kPink,
                           textColor: kGrayScaleLightest,
                         ),
