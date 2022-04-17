@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:have_you_heard/constants/styles.dart';
+import 'package:have_you_heard/utilities/LayoutUtility.dart';
 import 'package:have_you_heard/widgets/chat_balloon.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
@@ -20,18 +22,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-
   final _currentPageNotifier = ValueNotifier<int>(0);
-
-  double getLogoSize(Size screenSize){
-    double minSize;
-    if(screenSize.height*0.23>screenSize.width*0.41){
-      minSize = screenSize.width*0.62;
-    } else {
-      minSize = screenSize.height*0.35;
-    }
-    return minSize;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,154 +30,209 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     final size = query.size;
     final mediaWidth = size.width;
     final mediaHeight = size.height;
-    final logoSize = getLogoSize(size);
-    final logoHeight = mediaWidth * (mediaWidth / mediaHeight);
-    final mediaTopPadding = query.padding.top;
-    final mediaViewHeight = mediaHeight - mediaTopPadding;
-    final personaWidth = mediaWidth / 8;
+    final layoutUtility = LayoutUtility(query);
     final PageController controller = PageController(initialPage: 0);
-    return Stack(
-        children: [
-          PageView(
-            scrollDirection: Axis.horizontal,
-            controller: controller,
-            onPageChanged: (int index) {
-              _currentPageNotifier.value = index;
-            },
-            children: [
-              pageBuilder(
-                Text('haveYouHeard...'.tr,
-                    textScaleFactor: size.height/667,
-                    style: HyhTextStyle.body16Height15Bold),
-                RichText(
-                  textScaleFactor: size.height/667,
-                    text: TextSpan(
-                        text: 'gameExplanation'.tr,
-                        style: HyhTextStyle.body16Height15)),
-                Hero(
-                    tag: 'logo',
-                    child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 0, horizontal: 47),
-                        alignment: Alignment.topRight,
-                        height: logoSize,
-                        width: size.width,
-                        child: SvgPicture.asset('assets/images/logo.svg',
-                            width: mediaWidth / 3))),
-              ),
-              pageBuilder(
-                  Text('character'.tr,
-                      textScaleFactor: size.height/667,
-                      style: HyhTextStyle.body16Height15Bold),
-                  RichText(
-                      textScaleFactor: size.height/667,
-                      text: TextSpan(
-                          text: 'characterExplanation'.tr,
-                          style: HyhTextStyle.body16Height15)),
-                  SizedBox(
-                      height: 300,
-                      width: mediaWidth,
-                      child: personaStack(personaWidth))),
-              pageBuilder(
-                  Text('rounds'.tr,
-                      textScaleFactor: size.height/667,
-                      style: HyhTextStyle.body16Height15Bold),
-                  RichText(
-                      textScaleFactor: size.height/667,
-                      text: TextSpan(
-                          style: HyhTextStyle.body16Height15,
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: 'roundExplanationStart'.tr),
-                            TextSpan(
-                                text: 'roundLinedExplanation'.tr,
-                                style: const TextStyle(
-                                    decoration: TextDecoration.lineThrough)),
-                            TextSpan(
-                                text: 'roundExplanationEnd'.tr)
-                          ])),
-                    SizedBox(
-                        width: mediaWidth,
-                        child: SvgPicture.asset('assets/images/carWithLulo.svg',
-                            width: size.width))),
-              const UserNameScreen()]),
-          Positioned(
-              left: 0.0,
-              right: 0.0,
-              bottom:  80.0,
-              child: CirclePageIndicator(
-                size: 10.0,
-                selectedSize: 12.0,
-                itemCount: 4,
-                currentPageNotifier: _currentPageNotifier,
-              )
-          ),
-        ]
-    );
-  }
 
-  Widget personaStack(double bodySpacing) {
-    const spacingFactor = 1.25;
-    final personaRenderWidth = bodySpacing * spacingFactor;
-    const leftOffset = 5.0;
+    //770 was the smallest height in tablets that didn't overflowed
+    var balloonHeaderStyle = (layoutUtility.isTablet() && mediaHeight > 770)
+        ? HyhTextStyle.body40Bold
+        : HyhTextStyle.body16Height15Bold;
+    var balloonTextStyle = (layoutUtility.isTablet() && mediaHeight > 770)
+        ? HyhTextStyle.body32
+        : HyhTextStyle.body16Height15;
+    var illustrationHeight =
+        (layoutUtility.isTablet() && mediaHeight > 770) ? 240.0 : 154.0;
+
     return Stack(children: [
+      PageView(
+          scrollDirection: Axis.horizontal,
+          controller: controller,
+          onPageChanged: (int index) {
+            _currentPageNotifier.value = index;
+          },
+          children: [
+            pageBuilder(
+              balloonHeader:
+                  Text('haveYouHeard...'.tr, style: balloonHeaderStyle),
+              balloonText: RichText(
+                  text: TextSpan(
+                      text: 'gameExplanation'.tr, style: balloonTextStyle)),
+              illustration: Hero(
+                  tag: 'logo',
+                  child: Container(
+                      alignment: Alignment.topRight,
+                      height: illustrationHeight,
+                      child: SvgPicture.asset('assets/images/logo.svg',
+                          width: illustrationHeight,
+                          height: illustrationHeight))),
+            ),
+            pageBuilder(
+              balloonHeader: Text('character'.tr, style: balloonHeaderStyle),
+              balloonText: RichText(
+                  text: TextSpan(
+                      text: 'characterExplanation'.tr,
+                      style: balloonTextStyle)),
+              illustration: SizedBox(
+                  height: illustrationHeight,
+                  width: mediaWidth,
+                  child: personaStack(Size(
+                      ((mediaWidth >= 620) ? 620 : mediaWidth) - 80,
+                      illustrationHeight))),
+            ),
+            pageBuilder(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              balloonIllustrationGap:
+                  (layoutUtility.isTablet() && mediaHeight > 770) ? 27.31 : 21,
+              balloonHeader: Text('rounds'.tr, style: balloonHeaderStyle),
+              balloonText: RichText(
+                  text: TextSpan(style: balloonTextStyle, children: <TextSpan>[
+                TextSpan(text: 'roundExplanationStart'.tr),
+                TextSpan(
+                    text: 'roundLinedExplanation'.tr,
+                    style: const TextStyle(
+                        decoration: TextDecoration.lineThrough)),
+                TextSpan(text: 'roundExplanationEnd'.tr)
+              ])),
+              illustration: SizedBox(
+                  width: (mediaWidth >= 620) ? 620 : mediaWidth,
+                  child: SvgPicture.asset('assets/images/carWithLulo.svg',
+                      alignment: Alignment.topRight,
+                      width: (layoutUtility.isTablet() && mediaHeight > 770)
+                          ? 375.53
+                          : 240.34)),
+            ),
+            const UserNameScreen()
+          ]),
       Positioned(
-          left: -leftOffset,
-          child: SvgPicture.asset('assets/images/bodySalvio.svg',
-              width: personaRenderWidth)),
-      Positioned(
-          left: bodySpacing - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyLulo.svg',
-              width: personaRenderWidth)),
-      Positioned(
-          left: bodySpacing * 2 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyAntivacina.svg',
-              width: personaRenderWidth)),
-      Positioned(
-          left: bodySpacing * 3 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyVegana.svg',
-              width: personaRenderWidth)),
-      Positioned(
-          left: bodySpacing * 4 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyTump.svg',
-              width: personaRenderWidth)),
-      Positioned(
-          left: bodySpacing * 5 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyBonosaro.svg',
-              width: personaRenderWidth)),
-      Positioned(
-          left: bodySpacing * 6 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyEronMust.svg',
-              width: personaRenderWidth)),
-      Positioned(
-          left: bodySpacing * 7 - leftOffset,
-          child: SvgPicture.asset('assets/images/bodyTiadoZap.svg',
-              width: personaRenderWidth)),
+          left: 0.0,
+          right: 0.0,
+          bottom: 80.0,
+          child: CirclePageIndicator(
+            size: 10.0,
+            selectedSize: 12.0,
+            itemCount: 4,
+            currentPageNotifier: _currentPageNotifier,
+          )),
     ]);
   }
 
-  Widget pageBuilder(Text balloonHeader, RichText balloonText, Widget illustration) {
+  Widget personaStack(Size size) {
+    final availableWidth = size.width / 9; // 7 halves overlapped and one person
+    final availableHeight = size.height;
+    return Stack(children: [
+      Positioned(
+          left: 0,
+          child: SizedBox(
+            width: 2 * availableWidth,
+            height: availableHeight,
+            child: SvgPicture.asset('assets/images/bodySalvio.svg'),
+          )),
+      Positioned(
+          left: availableWidth,
+          child: SizedBox(
+              width: 2 * availableWidth,
+              height: availableHeight,
+              child: SvgPicture.asset('assets/images/bodyLulo.svg'))),
+      Positioned(
+          left: 2 * availableWidth,
+          child: SizedBox(
+            width: 2 * availableWidth,
+            height: availableHeight,
+            child: SvgPicture.asset(
+              'assets/images/bodyAntivacina.svg',
+            ),
+          )),
+      Positioned(
+          left: 3 * availableWidth,
+          child: SizedBox(
+            width: 2 * availableWidth,
+            height: availableHeight,
+            child: SvgPicture.asset(
+              'assets/images/bodyVegana.svg',
+            ),
+          )),
+      Positioned(
+          left: 4 * availableWidth,
+          child: SizedBox(
+            width: 2 * availableWidth,
+            height: availableHeight,
+            child: SvgPicture.asset(
+              'assets/images/bodyTump.svg',
+            ),
+          )),
+      Positioned(
+          left: 5 * availableWidth,
+          child: SizedBox(
+            width: 2 * availableWidth,
+            height: availableHeight,
+            child: SvgPicture.asset(
+              'assets/images/bodyBonosaro.svg',
+            ),
+          )),
+      Positioned(
+          left: 6 * availableWidth,
+          child: SizedBox(
+            width: 2 * availableWidth,
+            height: availableHeight,
+            child: SvgPicture.asset(
+              'assets/images/bodyEronMust.svg',
+            ),
+          )),
+      Positioned(
+          right: 0,
+          child: SizedBox(
+            width: 2 * availableWidth,
+            height: availableHeight,
+            child: SvgPicture.asset(
+              'assets/images/bodyTiadoZap.svg',
+            ),
+          )),
+    ]);
+  }
+
+  Widget pageBuilder({
+    required Text balloonHeader,
+    required RichText balloonText,
+    required Widget illustration,
+    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
+    double balloonIllustrationGap = 8,
+  }) {
     final query = MediaQuery.of(context);
+    final layoutUtility = LayoutUtility(query);
     final size = query.size;
     final mediaHeight = size.height;
-    final mediaTopPadding = query.padding.top;
-    final mediaViewHeight = mediaHeight - mediaTopPadding;
+    final mediaWidth = size.width;
 
     return Scaffold(
-        body: SafeArea(
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            height: mediaHeight,
+            width: (mediaWidth >= 620) ? 620 : mediaWidth,
+            // 620 is 540(balloon width + 2*padding)
+            padding: const EdgeInsets.all(40.0),
+            alignment: Alignment.center,
             child: Column(
-              children: [
-                Container(
-                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 47),
-                    height: (mediaViewHeight) / 2,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ChatBalloon(
-                        balloonHeader: balloonHeader,
-                        balloonText: balloonText,
-                      ),
-                    )),
-                illustration
-              ],
-            )));
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: crossAxisAlignment,
+                children: [
+                  ChatBalloon(
+                    balloonHeader: balloonHeader,
+                    balloonText: balloonText,
+                  ),
+                  SizedBox(
+                    height: balloonIllustrationGap,
+                  ),
+                  illustration,
+                  SizedBox(
+                    height: (layoutUtility.isTablet() && mediaHeight > 770)
+                        ? 200
+                        : 128,
+                  ),
+                ]),
+          ),
+        ),
+      ),
+    );
   }
 }
