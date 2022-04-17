@@ -34,6 +34,9 @@ class HyhTextStyle {
   //Grayscale Light styles
   static const heading32BoldLightGray = TextStyle(fontSize: 32, fontWeight: FontWeight.w700, color: kGrayScaleLight, fontFamily: 'Nunito');
 
+  //Grayscale Medium Light styles
+  static const body16MediumLight = TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: kGrayScaleMediumLight, fontFamily: 'Nunito');
+
   //Grayscale MediumDark styles
   static const body16BoldMediumDark = TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: kGrayScaleMediumDark, fontFamily: 'Nunito');
 
