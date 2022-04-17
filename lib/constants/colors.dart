@@ -24,3 +24,6 @@ const Color kGrayScaleMedium = Color(0xFFAAB3BC);
 const Color kGrayScaleMediumDark = Color(0xFF464C50);
 const Color kGrayScaleDark = Color(0xFF3F4548);
 const Color kGrayScaleDarkest = Color(0xFF30333A);
+
+//Others
+const Color kTextFieldBorderColor = Color(0xFF727E86);
