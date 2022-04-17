@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:have_you_heard/constants/colors.dart';
+import 'package:have_you_heard/constants/styles.dart';
 import 'package:have_you_heard/controller/game_controller.dart';
 import 'package:have_you_heard/widgets/app_button.dart';
 import 'package:have_you_heard/widgets/app_text_field.dart';
@@ -69,8 +69,7 @@ class _UserNameScreenState extends State<UserNameScreen> {
                       padding: EdgeInsets.only(bottom: appBarHeight * 0.2),
                       child: Text('nameQuestion'.tr,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              color: kGrayScaleLight, fontSize: 18)),
+                          style: HyhTextStyle.body16),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
