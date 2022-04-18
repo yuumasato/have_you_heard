@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:have_you_heard/constants/colors.dart';
 
+import '../constants/styles.dart';
+
 class AppTextField extends StatelessWidget {
   const AppTextField({
     Key? key,
@@ -31,22 +33,17 @@ class AppTextField extends StatelessWidget {
         fillColor: kGrayScaleDarkest,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Color(0xFF727E86), width: 2.0),
+          borderSide: const BorderSide(color: kTextFieldBorderColor, width: 2.0),
         ),
         labelText: labelText,
-        labelStyle: const TextStyle(
-            fontSize: 16,
-            color: kGrayScaleMediumLight,
-            fontWeight: FontWeight.w400),
-        hintStyle: const TextStyle(color: Color(0xFF727E86)),
-        //TODO: Unique color use #727E86 - Ask Design Team
+        labelStyle: HyhTextStyle.body16MediumLight,
+        hintStyle: HyhTextStyle.body16MediumLight,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
-          borderSide: const BorderSide(color: Color(0xFF727E86), width: 2.0),
+          borderSide: const BorderSide(color: kTextFieldBorderColor, width: 2.0),
         ),
       ),
-      style: const TextStyle(
-          color: kGrayScaleLightest, fontSize: 16, fontWeight: FontWeight.w700),
+      style: HyhTextStyle.body16MediumLight
     );
   }
 }
